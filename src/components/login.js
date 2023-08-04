@@ -1,4 +1,4 @@
-import { logInWithEmail, resetPassword } from '../lib/index.js';
+import { logInWithEmail } from '../lib/index.js';
 
 function login(navigateTo) {
   const main = document.createElement('main');
@@ -40,19 +40,27 @@ function login(navigateTo) {
     navigateTo('/');
   });
 
-  const forgotPassword = document.createElement('a');
+  const forgotPassword = document.createElement('button');
   forgotPassword.className = 'forgot-password';
-  forgotPassword.setAttribute('href', '/');
+  forgotPassword.setAttribute('type', 'click');
   forgotPassword.textContent = 'Olvidé mi contraseña';
 
   const resetDiv = document.createElement('div');
-  resetDiv.className = 'reset-div';
+  resetDiv.className = 'modal';
+
+  const resetDivContent = document.createElement('div');
+  resetDivContent.className = 'modal-content';
+
+  const close = document.createElement('span');
+  close.textContent = '&times;';
+  close.className = 'close';
 
   const resetMessage = document.createElement('p');
   resetMessage.textContent = 'Te enviaremos un link para recuperar la contraseña.';
   resetMessage.classList = 'reset-message';
 
   const formReset = document.createElement('form');
+  formReset.setAttribute('id', 'formReset');
 
   const resetInput = document.createElement('input');
   resetInput.setAttribute('type', 'email');
@@ -64,10 +72,11 @@ function login(navigateTo) {
   resetBtn.textContent = 'OK';
   resetBtn.className = 'reset-btn';
 
+  resetDiv.append(resetDivContent);
   formReset.append(resetInput, resetBtn);
-  resetDiv.append(resetMessage, formReset);
+  resetDivContent.append(close, resetMessage, formReset);
   buttonEnd.append(btnReturn, btnEnter);
-  loginForm.append(emailInput, passwordInput, forgotPassword, resetDiv, buttonEnd);
+  loginForm.append(emailInput, passwordInput, forgotPassword, buttonEnd);
   main.append(title, logologin, loginForm);
 
   // Evento que envia el formulario y llama la función para hacer login
@@ -82,11 +91,6 @@ function login(navigateTo) {
       .catch(() => {
         navigateTo('/');
       });
-  });
-
-  // Evento que activa el div de resetear la contraseña, y luego utiliza la función resetPassword
-  forgotPassword.addEventListener('click', () => {
-    resetPassword();
   });
 
   return main;
