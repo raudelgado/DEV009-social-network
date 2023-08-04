@@ -55,6 +55,7 @@ function join(navigateTo) {
     const email = emailInput.value;
     const password = passwordInput.value;
     createAccount(email, password);
+    // agregar modal
     navigateTo('/verification');
   });
 
