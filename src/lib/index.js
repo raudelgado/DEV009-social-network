@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable no-console */
 /* eslint-disable arrow-body-style */
 import {

@@ -5,8 +5,26 @@ function timeline(navigateTo) {
 
   const title = document.createElement('h2');
   title.textContent = 'SpookyVerse';
+  title.className = 'timeline-title';
 
   const menu = document.createElement('nav');
+  menu.className = 'sidenav';
+
+  const open = document.createElement('span');
+  open.className = 'open';
+  open.innerHTML = '<div></div><div></div><div></div>';
+  open.addEventListener('click', () => {
+    menu.style.display = 'block';
+  });
+
+  const close = document.createElement('span');
+  close.className = 'gg-close-o';
+  close.addEventListener('click', () => {
+    menu.style.display = 'none';
+  });
+
+  const links = document.createElement('div');
+  links.className = 'nav-links';
 
   const profile = document.createElement('a');
   profile.setAttribute('href', '');
@@ -52,8 +70,9 @@ function timeline(navigateTo) {
   btnPost.textContent = 'Post';
 
   section.append(postTitle, postBody, btnReturn, btnPost);
-  main.append(title, menu, section);
-  menu.append(profile, userPosts, signOutBtn);
+  links.append(profile, userPosts);
+  menu.append(close, links, signOutBtn);
+  main.append(open, menu, title, section);
 
   return main;
 }

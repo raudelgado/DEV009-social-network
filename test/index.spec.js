@@ -3,13 +3,16 @@ import {
   logInWithEmail,
   signOutSession,
   resetPassword,
+  logInWithGoogle,
 } from '../src/lib/index';
 import {
   auth,
+  provider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  signInWithPopup,
 } from '../src/firebase/initializeFirebase';
 
 jest.mock('../src/firebase/initializeFirebase');
@@ -39,5 +42,12 @@ describe('resetPassword', () => {
   it('deberia enviar un correo al email ingresado', () => resetPassword('test@example.com').then(() => {
     expect(sendPasswordResetEmail).toHaveBeenCalledTimes(1);
     expect(sendPasswordResetEmail).toHaveBeenCalledWith(auth, 'test@example.com');
+  }));
+});
+
+describe('logInWithGoogle', () => {
+  it('deberia enviar un correo al email ingresado', () => logInWithGoogle().then(() => {
+    expect(signInWithPopup).toHaveBeenCalledTimes(1);
+    expect(signInWithPopup).toHaveBeenCalledWith(auth, provider);
   }));
 });
