@@ -10,6 +10,7 @@ function login(navigateTo) {
   logologin.src = 'components/images/logo.png';
   logologin.setAttribute('id', 'logo-login-join');
 
+  // ****** COMENTARIO *****
   const loginForm = document.createElement('form');
 
   const emailInput = document.createElement('input');
