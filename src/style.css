@@ -1,4 +1,5 @@
 @import url('https://unpkg.com/css.gg@2.0.0/icons/css/close-o.css');
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/log-out.css');
 
 body {
     margin: 0;
@@ -221,6 +222,78 @@ form {
 
   /*TIMELINE*/
 
+  .timeline-title {
+    font-size: 1rem;
+    font-weight: lighter;
+    font-family: 'Satisfy', cursive;
+    color: #B4A5A5;
+    align-self: flex-end;
+    position: absolute;
+    top: 0;
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .open {
+    position: absolute;
+    top: 0.5rem;
+    left: 1.2rem;
+ }
+  .open div {
+    width: 35px;
+    height: 5px;
+    background-color: #B4A5A5;
+    margin: 6px 0;
+    border-radius: 3px;
+  }
+
+  /*NAVBAR*/
+  .sidenav {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #1B1021;
+    overflow-x: hidden;
+    padding-top: 5rem;
+    transition: 0.10s;
+    display: none;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #B4A5A5;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav .gg-close-o {
+    position: absolute;
+    top: 1rem;
+    left: 7.5rem;
+    color: #B4A5A5;
+  }
+
+  .sidenav a {
+    position: relative;
+    padding: 0;
+    margin-left: 0;
+  }
+
   .btn-sign-out {
-    width: 250px;
+    position: relative;
+    margin-top: 25rem;
+    color: #B4A5A5;
+    background-color:#1B1021;
+    border:none;
+    width: 100%;
+    font-family: 'Glegoo', serif;
+    font-size: 1rem;
   }
