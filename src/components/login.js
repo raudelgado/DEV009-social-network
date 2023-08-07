@@ -10,7 +10,6 @@ function login(navigateTo) {
   logologin.src = 'components/images/logo.png';
   logologin.setAttribute('id', 'logo-login-join');
 
-  // ****** COMENTARIO *****
   const loginForm = document.createElement('form');
 
   const emailInput = document.createElement('input');
@@ -46,7 +45,6 @@ function login(navigateTo) {
   forgotPassword.className = 'forgot-password';
   forgotPassword.textContent = 'Olvidé mi contraseña';
 
-  // Tarjeta modal
   const modal = document.createElement('div');
   modal.className = 'modal';
 
@@ -75,7 +73,6 @@ function login(navigateTo) {
   modalBtn.textContent = 'Enviar';
   modalBtn.className = 'modal-btn';
 
-  // Modal
   modal.append(modalContent);
   modalContent.append(modalTitle, close, modalMessage, modalForm);
   modalForm.append(modalInput, modalBtn);
@@ -84,7 +81,6 @@ function login(navigateTo) {
   loginForm.append(emailInput, passwordInput, buttonEnd);
   main.append(title, logologin, loginForm, forgotPassword, modal);
 
-  // Evento que envia el formulario y llama la función para hacer login
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = emailInput.value;
@@ -103,7 +99,6 @@ function login(navigateTo) {
       });
   });
 
-  // Evento al enviar formulario
   modalForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = modalInput.value;
@@ -119,7 +114,6 @@ function login(navigateTo) {
       });
   });
 
-  // Evento modal
   forgotPassword.addEventListener('click', () => {
     modal.style.display = 'block';
   });

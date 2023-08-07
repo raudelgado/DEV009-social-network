@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { logInWithGoogle } from '../lib/index.js';
 
 function home(navigateTo) {

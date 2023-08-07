@@ -1,15 +1,8 @@
-/* eslint-disable import/newline-after-import */
-/* eslint-disable no-undef */
-/* eslint-disable object-shorthand */
-/* eslint-disable no-unused-vars */
-/* eslint-disable arrow-body-style */
-/* eslint-disable jest/valid-expect */
 import {
   createAccount,
   logInWithEmail,
   signOutSession,
   resetPassword,
-  logInWithGoogle,
 } from '../src/lib/index';
 import {
   auth,
@@ -17,12 +10,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
-  signInWithPopup,
-  provider,
 } from '../src/firebase/initializeFirebase';
 
 jest.mock('../src/firebase/initializeFirebase');
-// Hay una carpeta __mocks__ en firebase.
 
 describe('createAccount', () => {
   it('deberia crear un usuario con correo y contraseña', () => createAccount('test@example.com', '123456').then(() => {

@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import { createAccount } from '../lib/index.js';
 
 function join(navigateTo) {
@@ -47,7 +46,6 @@ function join(navigateTo) {
     navigateTo('/');
   });
 
-  // Tarjeta modal
   const modal = document.createElement('div');
   modal.className = 'modal';
 
@@ -64,16 +62,13 @@ function join(navigateTo) {
   const modalMessage = document.createElement('p');
   modalMessage.textContent = 'Ingrese a tu correo para verificar tu cuenta.';
 
-  // Modal append
   modal.append(modalContent);
   modalContent.append(modalTitle, close, modalMessage);
 
-  // Append de los otros elementos
   buttonEnd.append(btnReturn, btnEnter);
   joinForm.append(userName, emailInput, passwordInput, buttonEnd);
   main.append(title, logologin, joinForm, modal);
 
-  // Evento al enviar formulario
   joinForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = emailInput.value;
@@ -88,7 +83,6 @@ function join(navigateTo) {
       });
   });
 
-  // Evento cerrar modal
   close.addEventListener('click', () => {
     modal.style.display = 'none';
     navigateTo('/login');
