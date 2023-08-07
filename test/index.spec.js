@@ -9,16 +9,20 @@ import {
   logInWithEmail,
   signOutSession,
   resetPassword,
+  logInWithGoogle,
 } from '../src/lib/index';
 import {
+  auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
-  auth,
+  signInWithPopup,
+  provider,
 } from '../src/firebase/initializeFirebase';
 
 jest.mock('../src/firebase/initializeFirebase');
+// Hay una carpeta __mocks__ en firebase.
 
 describe('createAccount', () => {
   it('deberia crear un usuario con correo y contraseña', () => createAccount('test@example.com', '123456').then(() => {
