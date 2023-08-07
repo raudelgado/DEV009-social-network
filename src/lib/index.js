@@ -1,9 +1,5 @@
-/* eslint-disable max-len */
-/* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
-/* eslint-disable no-alert */
-/* eslint-disable import/named */
-/* eslint-disable no-unused-vars */
+/* eslint-disable arrow-body-style */
 import {
   auth,
   provider,
@@ -16,8 +12,6 @@ import {
   GoogleAuthProvider,
 } from '../firebase/initializeFirebase.js';
 
-// Crear cuenta con correo y contraseña
-// Agregar nombre del usuario
 export const createAccount = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -28,7 +22,6 @@ export const createAccount = (email, password) => {
     });
 };
 
-// Ingresar con correo y contraseña
 export const logInWithEmail = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -38,13 +31,10 @@ export const logInWithEmail = (email, password) => {
     });
 };
 
-// Cerrar sessión
 export const signOutSession = () => signOut(auth);
 
-// Resetar contraseña
 export const resetPassword = (email) => sendPasswordResetEmail(auth, email);
 
-// Ingresar con Google
 export const logInWithGoogle = () => {
   return signInWithPopup(auth, provider)
     .then((result) => {
