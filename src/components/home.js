@@ -1,3 +1,6 @@
+import { GoogleAuthProvider } from 'firebase/auth';
+import { logInWithGoogle } from '../lib';
+
 function home(navigateTo) {
   const main = document.createElement('main');
 
@@ -29,6 +32,16 @@ function home(navigateTo) {
   const loginGoogle = document.createElement('button');
   loginGoogle.className = 'btn-home';
   loginGoogle.textContent = 'Inicia sesion con Google';
+  loginGoogle.addEventListener('click', async () => {
+    const result = await logInWithGoogle();
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    const user = result.user;
+    localStorage.setItem('token', token);
+    if (user) {
+      navigateTo('/timeline');
+    }
+  });
 
   main.append(title, slogan, logo, login, join, loginGoogle);
 

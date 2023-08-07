@@ -5,9 +5,12 @@
 /* eslint-disable no-unused-vars */
 import {
   auth,
+  provider,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
   signOut,
   sendPasswordResetEmail,
 } from '../firebase/initializeFirebase.js';
@@ -35,6 +38,32 @@ export const logInWithEmail = (email, password) => {
     })
     .catch((error) => {
       const errorMessage = error.message;
+      alert(errorMessage);
+      throw error;
+    });
+};
+
+export const logInWithGoogle = () => {
+  return signInWithPopup(auth, provider)
+    .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      console.log(token, user);
+      return [user, token];
+      // IdP data available using getAdditionalUserInfo(result)
+    // ...
+    }).catch((error) => {
+    // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(errorCode, email, credential);
       alert(errorMessage);
       throw error;
     });
