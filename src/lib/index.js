@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
@@ -5,58 +6,53 @@
 /* eslint-disable no-unused-vars */
 import {
   auth,
+  provider,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from '../firebase/initializeFirebase.js';
 
+// Crear cuenta con correo y contraseña
+// Agregar nombre del usuario
 export const createAccount = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(user);
       sendEmailVerification(userCredential.user);
-    })
-    .catch((error) => {
-      const errorMessage = error.message;
-      console.log(errorMessage);
-      alert('Ya existe una cuenta para ese correo electrónico o el correo es inválido.');
+      return user;
     });
 };
 
+// Ingresar con correo y contraseña
 export const logInWithEmail = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(user);
       return user;
-    })
-    .catch((error) => {
-      const errorMessage = error.message;
-      alert(errorMessage);
-      throw error;
     });
 };
 
-export const signOutSession = () => {
-  return signOut(auth)
-    .then(() => {
-      console.log('Sesión cerrada con éxito.');
-    }).catch(() => {
-      console.log('Error al cerrar sesión.');
-    });
-};
+// Cerrar sessión
+export const signOutSession = () => signOut(auth);
 
-export const resetPassword = (email) => {
-  return sendPasswordResetEmail(auth, email)
-    .then(() => {
-      console.log('Email sent.');
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+// Resetar contraseña
+export const resetPassword = (email) => sendPasswordResetEmail(auth, email);
+
+// Ingresar con Google
+export const logInWithGoogle = () => {
+  return signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+      const photoURL = user.photoURL;
+      console.log(token, user);
+      return { user, token, photoURL };
     });
 };

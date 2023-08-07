@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+import { logInWithGoogle } from '../lib/index.js';
+
 function home(navigateTo) {
   const main = document.createElement('main');
 
@@ -29,6 +32,15 @@ function home(navigateTo) {
   const loginGoogle = document.createElement('button');
   loginGoogle.className = 'btn-home';
   loginGoogle.textContent = 'Inicia sesion con Google';
+  loginGoogle.addEventListener('click', () => {
+    logInWithGoogle()
+      .then(() => {
+        navigateTo('/timeline');
+      })
+      .catch((error) => {
+        throw error;
+      });
+  });
 
   main.append(title, slogan, logo, login, join, loginGoogle);
 
