@@ -1,4 +1,4 @@
-import { logInWithEmail } from '../lib/index.js';
+import { logInWithEmail, resetPassword } from '../lib/index.js';
 
 function login(navigateTo) {
   const main = document.createElement('main');
@@ -41,43 +41,47 @@ function login(navigateTo) {
   });
 
   const forgotPassword = document.createElement('button');
+  forgotPassword.setAttribute('type', 'button');
   forgotPassword.className = 'forgot-password';
-  forgotPassword.setAttribute('type', 'click');
   forgotPassword.textContent = 'Olvidé mi contraseña';
 
-  const resetDiv = document.createElement('div');
-  resetDiv.className = 'modal';
+  // Tarjeta modal
+  const modal = document.createElement('div');
+  modal.className = 'modal';
 
-  const resetDivContent = document.createElement('div');
-  resetDivContent.className = 'modal-content';
+  const modalContent = document.createElement('div');
+  modalContent.className = 'modal-content';
+
+  const modalTitle = document.createElement('h4');
+  modalTitle.textContent = 'SpookyVerse';
+  modalTitle.className = 'modal-title';
 
   const close = document.createElement('span');
-  close.textContent = '&times;';
-  close.className = 'close';
+  close.className = 'gg-close-o';
 
-  const resetMessage = document.createElement('p');
-  resetMessage.textContent = 'Te enviaremos un link para recuperar la contraseña.';
-  resetMessage.classList = 'reset-message';
+  const modalMessage = document.createElement('p');
+  modalMessage.textContent = 'Enviaremos un link para que puedas crear una nueva contraseña.';
 
-  const formReset = document.createElement('form');
-  formReset.setAttribute('id', 'formReset');
+  const modalForm = document.createElement('form');
 
-  const resetInput = document.createElement('input');
-  resetInput.setAttribute('type', 'email');
-  resetInput.setAttribute('placeholder', 'Correo electrónico');
-  resetInput.setAttribute('required', '');
-  resetInput.className = 'reset-input';
+  const modalInput = document.createElement('input');
+  modalInput.setAttribute('type', 'email');
+  modalInput.setAttribute('placeholder', 'Correo electrónico');
+  modalInput.setAttribute('required', '');
+  modalInput.className = 'modal-input';
 
-  const resetBtn = document.createElement('button');
-  resetBtn.textContent = 'OK';
-  resetBtn.className = 'reset-btn';
+  const modalBtn = document.createElement('button');
+  modalBtn.textContent = 'Enviar';
+  modalBtn.className = 'modal-btn';
 
-  resetDiv.append(resetDivContent);
-  formReset.append(resetInput, resetBtn);
-  resetDivContent.append(close, resetMessage, formReset);
+  // Modal
+  modal.append(modalContent);
+  modalContent.append(modalTitle, close, modalMessage, modalForm);
+  modalForm.append(modalInput, modalBtn);
+
   buttonEnd.append(btnReturn, btnEnter);
-  loginForm.append(emailInput, passwordInput, forgotPassword, buttonEnd);
-  main.append(title, logologin, loginForm);
+  loginForm.append(emailInput, passwordInput, buttonEnd);
+  main.append(title, logologin, loginForm, forgotPassword, modal);
 
   // Evento que envia el formulario y llama la función para hacer login
   loginForm.addEventListener('submit', (e) => {
@@ -85,13 +89,49 @@ function login(navigateTo) {
     const email = emailInput.value;
     const password = passwordInput.value;
     logInWithEmail(email, password)
-      .then(() => {
+      .then((user) => {
+        if (!user.emailVerified) {
+          throw new Error('Debes verificar tu correo electrónico');
+        }
         navigateTo('/timeline');
       })
       .catch(() => {
-        navigateTo('/');
+        modal.style.display = 'block';
+        modalMessage.textContent = 'Recuerda verificar tu correo. Si ya lo verificaste, revisa tus credenciales.';
+        modalForm.remove(modalInput);
       });
   });
+
+  // Evento al enviar formulario
+  modalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = modalInput.value;
+    resetPassword(email)
+      .then(() => {
+        modal.style.display = 'block';
+        modalMessage.textContent = '¡Listo! Revisa tu correo.';
+        modalForm.remove(modalInput);
+      })
+      .catch(() => {
+        modal.style.display = 'block';
+        modalMessage.textContent = '¡Que mal! Correo invalido, verifica si lo escribiste bien.';
+      });
+  });
+
+  // Evento modal
+  forgotPassword.addEventListener('click', () => {
+    modal.style.display = 'block';
+  });
+
+  close.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  window.onclick = (event) => {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  };
 
   return main;
 }
