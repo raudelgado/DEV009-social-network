@@ -478,5 +478,8 @@
     "yargs-parser": "^20.2.9",
     "yocto-queue": "^0.1.0"
   },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "author": ""
 }

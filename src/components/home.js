@@ -15,22 +15,22 @@ function home(navigateTo) {
   logo.setAttribute('id', 'logo-home');
 
   const login = document.createElement('button');
-  login.className = 'btn-home';
+  login.className = 'btn-home-login';
   login.textContent = 'Iniciar Sesion';
   login.addEventListener('click', () => {
     navigateTo('/login');
   });
 
   const join = document.createElement('button');
-  join.className = 'btn-home';
+  join.className = 'btn-home-join';
   join.textContent = 'Crear cuenta';
   join.addEventListener('click', () => {
     navigateTo('/join');
   });
 
   const loginGoogle = document.createElement('button');
-  loginGoogle.className = 'btn-home';
-  loginGoogle.textContent = 'Inicia sesion con Google';
+  loginGoogle.className = 'btn-home-google';
+  loginGoogle.textContent = 'Inicia sesión con Google';
   loginGoogle.addEventListener('click', () => {
     logInWithGoogle()
       .then(() => {

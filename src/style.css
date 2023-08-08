@@ -1,5 +1,4 @@
 @import url('https://unpkg.com/css.gg@2.0.0/icons/css/close-o.css');
-@import url('https://unpkg.com/css.gg@2.0.0/icons/css/log-out.css');
 
 body {
     margin: 0;
@@ -45,7 +44,7 @@ h1 {
     padding-bottom: 40px;
 }
 
-.btn-home {
+.btn-home-login, .btn-home-join, .btn-home-google {
     font-family: 'Glegoo', serif;
     color: #301B3F;
     background-color: #B4A5A5;
@@ -118,7 +117,7 @@ form {
     width: 280px;
 }
 
-.button-login, .button-return {
+.button-login, .button-return, .btn-post {
     font-family: 'Glegoo', serif;
     color: #B4A5A5;
     background-color: #301B3F;
@@ -191,7 +190,7 @@ form {
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
-  .modal-btn {
+  .modal-btn, .btn-post {
     margin-top: 20px;
     border-radius: 10px;
     color: #B4A5A5;
@@ -233,6 +232,49 @@ form {
     text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   }
 
+  .main-timeline {
+    background: none;
+  }
+
+  .main-section {
+    background-color: rgba(180, 165, 165, 0.60);
+    height: 26%;
+    width: 90%;
+    border-radius: 20px;
+    position: absolute;
+    top: 10%;
+  }
+
+  .main-section p {
+    color: #301B3F;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .post-title, .post-body {
+    font-family: 'Glegoo', serif;
+    width: 90%;
+    height: 10%;
+    background-color: rgba(242, 230, 230, 0.60);
+    border: 2px solid transparent;
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: black;
+    text-align: start;
+  }
+
+  .post-body {
+    height: 30%;
+    resize: none;
+  }
+
+  .btn-post {
+    position: relative;
+    right: -35%;
+    top: -10%;
+  }
+
   .open {
     position: absolute;
     top: 0.5rem;
@@ -257,7 +299,7 @@ form {
     background-color: #1B1021;
     overflow-x: hidden;
     padding-top: 5rem;
-    transition: 0.10s;
+    transition: 0.5s;
     display: none;
   }
   
@@ -270,30 +312,22 @@ form {
     transition: 0.3s;
   }
   
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
-
   .sidenav .gg-close-o {
     position: absolute;
     top: 1rem;
     left: 7.5rem;
     color: #B4A5A5;
+    cursor: pointer;
   }
 
-  .sidenav a {
-    position: relative;
-    padding: 0;
-    margin-left: 0;
+  .sidenav a:hover {
+    color: #f1f1f1;
   }
 
-  .btn-sign-out {
+  .button-sign-out {
     position: relative;
-    margin-top: 25rem;
-    color: #B4A5A5;
-    background-color:#1B1021;
-    border:none;
-    width: 100%;
-    font-family: 'Glegoo', serif;
-    font-size: 1rem;
+    margin-top: 23rem;
+    margin-left: 6.8rem;
+    width: 40px;
+    cursor: pointer;
   }
