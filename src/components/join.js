@@ -20,7 +20,7 @@ function join(navigateTo) {
 
   const emailInput = document.createElement('input');
   emailInput.className = 'input-login-join';
-  emailInput.setAttribute('type', 'emailInput');
+  emailInput.setAttribute('type', 'email');
   emailInput.setAttribute('placeholder', 'Correo electronico');
   emailInput.setAttribute('required', '');
 
@@ -46,18 +46,54 @@ function join(navigateTo) {
     navigateTo('/');
   });
 
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+
+  const modalContent = document.createElement('div');
+  modalContent.className = 'modal-content';
+
+  const modalTitle = document.createElement('h4');
+  modalTitle.textContent = 'SpookyVerse';
+  modalTitle.className = 'modal-title';
+
+  const close = document.createElement('span');
+  close.className = 'gg-close-o';
+
+  const modalMessage = document.createElement('p');
+  modalMessage.textContent = 'Ingrese a tu correo para verificar tu cuenta.';
+
+  modal.append(modalContent);
+  modalContent.append(modalTitle, close, modalMessage);
+
   buttonEnd.append(btnReturn, btnEnter);
   joinForm.append(userName, emailInput, passwordInput, buttonEnd);
-  main.append(title, logologin, joinForm);
+  main.append(title, logologin, joinForm, modal);
 
   joinForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = emailInput.value;
     const password = passwordInput.value;
-    createAccount(email, password);
-    // agregar modal
-    navigateTo('/verification');
+    createAccount(email, password)
+      .then(() => {
+        modal.style.display = 'block';
+      })
+      .catch(() => {
+        modal.style.display = 'block';
+        modalMessage.textContent = 'Ya existe una cuenta para ese correo electrónico o el correo es inválido.';
+      });
   });
+
+  close.addEventListener('click', () => {
+    modal.style.display = 'none';
+    navigateTo('/login');
+  });
+
+  window.onclick = (event) => {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+      navigateTo('/login');
+    }
+  };
 
   return main;
 }

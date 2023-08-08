@@ -1,3 +1,6 @@
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/close-o.css');
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/log-out.css');
+
 body {
     margin: 0;
     background-image: url('components/images/background.png');
@@ -101,9 +104,10 @@ form {
     font-size: 18px;
     display: flex;
     font-family: 'Glegoo', serif;
-    color: #301B3F;
     font-weight: bolder;
-    text-decoration: none;
+    color: #301B3F;
+    background: none;
+    border: none;
     cursor: pointer;
 }
 
@@ -114,7 +118,7 @@ form {
     width: 280px;
 }
 
-.button-login, .button-return, .button-back {
+.button-login, .button-return {
     font-family: 'Glegoo', serif;
     color: #B4A5A5;
     background-color: #301B3F;
@@ -136,40 +140,162 @@ form {
 .button-return:hover {
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
-/* The Modal (background) */
+/*MODAL*/
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4);
   }
-  
-  /* Modal Content/Box */
+
   .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    background-color: #B4A5A5;
+    color: #301B3F;
+    margin: 50px auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+    width: 80%;
+  }
+
+  .modal-content p {
+    font-size: 0.8rem;
+    font-weight: bolder;
+    margin-top: 15px;
+  }
+
+  .modal-title {
+    font-size: 25px;
+    font-weight: bolder;
+    font-family: 'Satisfy', cursive;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 35px;
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .modal-input {
+    font-family: 'Glegoo', serif;
+    width: 250px;
+    height: 30px;
+    background-color: #DAC7C7;
+    border-radius: 20px;
+    padding: 3px;
+    border: 2px solid transparent;
+    font-size: 0.7rem;
+    text-align: center;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .modal-btn {
+    margin-top: 20px;
+    border-radius: 10px;
+    color: #B4A5A5;
+    background-color:#301B3F;
+    border:none;
+    padding: 1px;
+    width: 85px;
+    height: 30px;
+    font-family: 'Glegoo', serif;
+    font-size: 0.7rem;
+  }
+
+  .gg-close-o {
+    box-sizing: border-box;
+    position: absolute;
+    left: 82%;
+    bottom: 87%;
+    margin-top: 0;
+    width: 22px;
+    height: 22px;
+    border: 2px solid;
+    border-radius: 40px
+  }
+
+  .gg-close-o:hover {
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  /*TIMELINE*/
+
+  .timeline-title {
+    font-size: 1rem;
+    font-weight: lighter;
+    font-family: 'Satisfy', cursive;
+    color: #B4A5A5;
+    align-self: flex-end;
+    position: absolute;
+    top: 0;
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .open {
+    position: absolute;
+    top: 0.5rem;
+    left: 1.2rem;
+ }
+  .open div {
+    width: 35px;
+    height: 5px;
+    background-color: #B4A5A5;
+    margin: 6px 0;
+    border-radius: 3px;
+  }
+
+  /*NAVBAR*/
+  .sidenav {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #1B1021;
+    overflow-x: hidden;
+    padding-top: 5rem;
+    transition: 0.10s;
+    display: none;
   }
   
-  /* The Close Button */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
     text-decoration: none;
-    cursor: pointer;
+    font-size: 25px;
+    color: #B4A5A5;
+    display: block;
+    transition: 0.3s;
   }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav .gg-close-o {
+    position: absolute;
+    top: 1rem;
+    left: 7.5rem;
+    color: #B4A5A5;
+  }
+
+  .sidenav a {
+    position: relative;
+    padding: 0;
+    margin-left: 0;
+  }
+
+  .btn-sign-out {
+    position: relative;
+    margin-top: 25rem;
+    color: #B4A5A5;
+    background-color:#1B1021;
+    border:none;
+    width: 100%;
+    font-family: 'Glegoo', serif;
+    font-size: 1rem;
+  }
+
+.main-section

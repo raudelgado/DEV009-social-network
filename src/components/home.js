@@ -1,5 +1,4 @@
-import { GoogleAuthProvider } from 'firebase/auth';
-import { logInWithGoogle } from '../lib';
+import { logInWithGoogle } from '../lib/index.js';
 
 function home(navigateTo) {
   const main = document.createElement('main');
@@ -16,31 +15,30 @@ function home(navigateTo) {
   logo.setAttribute('id', 'logo-home');
 
   const login = document.createElement('button');
-  login.className = 'btn-home';
+  login.className = 'btn-home-login';
   login.textContent = 'Iniciar Sesion';
   login.addEventListener('click', () => {
     navigateTo('/login');
   });
 
   const join = document.createElement('button');
-  join.className = 'btn-home';
+  join.className = 'btn-home-join';
   join.textContent = 'Crear cuenta';
   join.addEventListener('click', () => {
     navigateTo('/join');
   });
 
   const loginGoogle = document.createElement('button');
-  loginGoogle.className = 'btn-home';
+  loginGoogle.className = 'btn-home-google';
   loginGoogle.textContent = 'Inicia sesion con Google';
-  loginGoogle.addEventListener('click', async () => {
-    const result = await logInWithGoogle();
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    const user = result.user;
-    localStorage.setItem('token', token);
-    if (user) {
-      navigateTo('/timeline');
-    }
+  loginGoogle.addEventListener('click', () => {
+    logInWithGoogle()
+      .then(() => {
+        navigateTo('/timeline');
+      })
+      .catch((error) => {
+        throw error;
+      });
   });
 
   main.append(title, slogan, logo, login, join, loginGoogle);
