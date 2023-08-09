@@ -35,10 +35,10 @@ function home(navigateTo) {
     logInWithGoogle()
       .then(() => {
         navigateTo('/timeline');
-      })
-      .catch((error) => {
-        throw error;
       });
+  /*  .catch((error) => {
+        throw error;
+      }); */
   });
 
   main.append(title, slogan, logo, login, join, loginGoogle);
