@@ -30,7 +30,7 @@ function home(navigateTo) {
 
   const loginGoogle = document.createElement('button');
   loginGoogle.className = 'btn-home-google';
-  loginGoogle.textContent = 'Inicia sesion con Google';
+  loginGoogle.textContent = 'Inicia sesión con Google';
   loginGoogle.addEventListener('click', () => {
     logInWithGoogle()
       .then(() => {

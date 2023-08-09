@@ -2,6 +2,7 @@ import { signOutSession } from '../lib/index.js';
 
 function timeline(navigateTo) {
   const main = document.createElement('main');
+  main.className = 'main-timeline';
 
   const title = document.createElement('h2');
   title.textContent = 'SpookyVerse';
@@ -34,9 +35,9 @@ function timeline(navigateTo) {
   userPosts.setAttribute('href', '');
   userPosts.textContent = 'Mis Posts';
 
-  const signOutBtn = document.createElement('button');
-  signOutBtn.className = 'btn-sign-out';
-  signOutBtn.textContent = 'Cerrar sesión';
+  const signOutBtn = document.createElement('img');
+  signOutBtn.src = 'components/images/button-sign-out.png';
+  signOutBtn.className = 'button-sign-out';
   signOutBtn.addEventListener('click', () => {
     signOutSession()
       .then(() => {
@@ -50,28 +51,28 @@ function timeline(navigateTo) {
   const section = document.createElement('section');
   section.className = 'main-section';
 
+  const sectionTitle = document.createElement('p');
+  sectionTitle.textContent = '¿Que historia quieres escribir hoy?';
+
   const postTitle = document.createElement('input');
+  postTitle.className = 'post-title';
   postTitle.setAttribute('type', 'text');
   postTitle.setAttribute('placeholder', 'Ingrese un titulo');
 
-  const postBody = document.createElement('input');
-  postBody.setAttribute('type', 'textarea');
+  const postBody = document.createElement('textarea');
+  postBody.className = 'post-body';
   postBody.setAttribute('placeholder', 'Escribe tu historia aqui...');
-
-  const btnReturn = document.createElement('button');
-  btnReturn.className = 'btn-return';
-  btnReturn.textContent = 'Volver';
-  btnReturn.addEventListener('click', () => {
-    navigateTo('/');
-  });
+  postBody.setAttribute('rows', '5');
+  postBody.setAttribute('cols', '50');
+  postBody.setAttribute('maxlength', '1500');
 
   const btnPost = document.createElement('button');
   btnPost.className = 'btn-post';
   btnPost.textContent = 'Post';
 
-  section.append(postTitle, postBody, btnReturn, btnPost);
   links.append(profile, userPosts);
   menu.append(close, links, signOutBtn);
+  section.append(sectionTitle, postTitle, postBody, btnPost);
   main.append(open, menu, title, section);
 
   return main;
