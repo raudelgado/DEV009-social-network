@@ -6,26 +6,26 @@ function join(navigateTo) {
   const title = document.createElement('h3');
   title.textContent = 'Únete al SpookyVerse';
 
-  const logologin = document.createElement('img');
-  logologin.src = 'components/images/logo.png';
-  logologin.setAttribute('id', 'logo-login-join');
+  const logoLogin = document.createElement('img');
+  logoLogin.src = 'components/images/logo.png';
+  logoLogin.setAttribute('id', 'logo-login-join');
 
   const joinForm = document.createElement('form');
 
   const userName = document.createElement('input');
-  userName.className = 'input-login-join';
+  userName.className = 'input-login-join-name';
   userName.setAttribute('type', 'text');
   userName.setAttribute('placeholder', 'Nombre de usuario');
   userName.setAttribute('required', '');
 
   const emailInput = document.createElement('input');
-  emailInput.className = 'input-login-join';
+  emailInput.className = 'input-login-join-email';
   emailInput.setAttribute('type', 'email');
   emailInput.setAttribute('placeholder', 'Correo electronico');
   emailInput.setAttribute('required', '');
 
   const passwordInput = document.createElement('input');
-  passwordInput.className = 'input-login-join';
+  passwordInput.className = 'input-login-join-password';
   passwordInput.setAttribute('type', 'password');
   passwordInput.setAttribute('placeholder', 'Crea tu contraseña');
   passwordInput.setAttribute('required', '');
@@ -67,7 +67,7 @@ function join(navigateTo) {
 
   buttonEnd.append(btnReturn, btnEnter);
   joinForm.append(userName, emailInput, passwordInput, buttonEnd);
-  main.append(title, logologin, joinForm, modal);
+  main.append(title, logoLogin, joinForm, modal);
 
   joinForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -87,14 +87,12 @@ function join(navigateTo) {
     modal.style.display = 'none';
     navigateTo('/login');
   });
-
-  window.onclick = (event) => {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-      navigateTo('/login');
-    }
-  };
-
+  // window.onclick = (event) => {
+  //   if (event.target === modal) {
+  //     modal.style.display = 'none';
+  //     navigateTo('/login');
+  //   }
+  // };
   return main;
 }
 

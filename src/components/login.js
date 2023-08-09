@@ -13,13 +13,13 @@ function login(navigateTo) {
   const loginForm = document.createElement('form');
 
   const emailInput = document.createElement('input');
-  emailInput.className = 'input-login-join';
+  emailInput.className = 'input-login-email';
   emailInput.setAttribute('type', 'email');
   emailInput.setAttribute('placeholder', 'Correo electronico');
   emailInput.setAttribute('required', '');
 
   const passwordInput = document.createElement('input');
-  passwordInput.className = 'input-login-join';
+  passwordInput.className = 'input-login-password';
   passwordInput.setAttribute('type', 'password');
   passwordInput.setAttribute('placeholder', 'Contraseña');
   passwordInput.setAttribute('required', '');
@@ -122,11 +122,11 @@ function login(navigateTo) {
     modal.style.display = 'none';
   });
 
-  window.onclick = (event) => {
+  /* window.onclick = (event) => {
     if (event.target === modal) {
       modal.style.display = 'none';
     }
-  };
+  }; */
 
   return main;
 }
