@@ -74,7 +74,11 @@ h3 {
     margin-bottom: 40px;
 }
 
-.input-login-join {
+.input-login-join-name,
+.input-login-join-email,
+.input-login-join-password,
+.input-login-email,
+.input-login-password {
     font-family: 'Glegoo', serif;
     background-color: #B4A5A5;
     display: flex;

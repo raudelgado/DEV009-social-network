@@ -2,8 +2,10 @@ import join from '../src/components/join';
 import { createAccount } from '../src/lib/index';
 
 jest.mock('../src/lib/index');
+
 const navigateToMock = jest.fn();
 const joinElement = join(navigateToMock);
+
 describe('función Join', () => {
   beforeEach(() => {
     createAccount.mockClear();
@@ -17,8 +19,10 @@ describe('función Join', () => {
   const emailInput = joinForm.querySelector('input[type="email"]');
   const passwordInput = joinForm.querySelector('input[type="password"]');
   const modalMessage = joinElement.querySelector('p');
+
   emailInput.value = 'test@example.com';
   passwordInput.value = '123456';
+
   test('Deberia llamar la función createAccount con dos parametros', async () => {
     createAccount.mockResolvedValue();
     joinForm.submit();
@@ -34,9 +38,10 @@ describe('función Join', () => {
     });
     expect(modalMessage.textContent).toBe('Ya existe una cuenta para ese correo electrónico o el correo es inválido.');
   });
-  test('Al hacer click tiene que ir a la pagina inicial', () => {
+
+  test('Al hacer click tiene que ir al login', () => {
     const close = joinElement.querySelector('span');
     close.click();
-    expect(navigateToMock).toHaveBeenCalledWith('/');
+    expect(navigateToMock).toHaveBeenCalledWith('/login');
   });
 });
