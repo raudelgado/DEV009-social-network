@@ -11,6 +11,7 @@ function login(navigateTo) {
   logologin.setAttribute('id', 'logo-login-join');
 
   const loginForm = document.createElement('form');
+  loginForm.className = 'login-form';
 
   const emailInput = document.createElement('input');
   emailInput.className = 'input-login-email';
@@ -62,6 +63,7 @@ function login(navigateTo) {
   modalMessage.textContent = 'Enviaremos un link para que puedas crear una nueva contraseña.';
 
   const modalForm = document.createElement('form');
+  modalForm.className = 'modal-form';
 
   const modalInput = document.createElement('input');
   modalInput.setAttribute('type', 'email');
@@ -121,12 +123,6 @@ function login(navigateTo) {
   close.addEventListener('click', () => {
     modal.style.display = 'none';
   });
-
-  /* window.onclick = (event) => {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  }; */
 
   return main;
 }
