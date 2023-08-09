@@ -27,14 +27,63 @@ function timeline(navigateTo) {
   const links = document.createElement('div');
   links.className = 'nav-links';
 
+  // div-home
+  const divHome = document.createElement('div');
+  divHome.className = 'divHome';
+
+  const home = document.createElement('a');
+  home.setAttribute('href', '');
+  home.textContent = 'Home';
+
+  const imgHome = document.createElement('img');
+  imgHome.src = ('components/images/Home.png');
+  imgHome.className = 'imgInput';
+
+  divHome.append(imgHome, home);
+
+  // div-perfil
+  const divMiPerfil = document.createElement('div');
+  divMiPerfil.className = 'divMiPerfil';
+
   const profile = document.createElement('a');
   profile.setAttribute('href', '');
   profile.textContent = 'Mi Perfil';
+
+  const imgPerfil = document.createElement('img');
+  imgPerfil.src = ('components/images/Usuario.png');
+  imgPerfil.className = 'imgInput';
+
+  divMiPerfil.append(imgPerfil, profile);
+
+  // div-mispost
+  const divMisPost = document.createElement('div');
+  divMisPost.className = 'divMisPost';
 
   const userPosts = document.createElement('a');
   userPosts.setAttribute('href', '');
   userPosts.textContent = 'Mis Posts';
 
+  const imgMisPost = document.createElement('img');
+  imgMisPost.src = ('components/images/Post.png');
+  imgMisPost.className = 'imgInput';
+
+  divMisPost.append(imgMisPost, userPosts);
+
+  // div escribir post
+  const divNewPost = document.createElement('div');
+  divNewPost.className = 'divNewP';
+
+  const newPosts = document.createElement('a');
+  newPosts.setAttribute('href', '');
+  newPosts.textContent = 'Nuevo Post';
+
+  const imgNewPost = document.createElement('img');
+  imgNewPost.src = ('components/images/NuevoPost.png');
+  imgNewPost.className = 'imgInput';
+
+  divNewPost.append(imgNewPost, newPosts);
+
+  //Cerrar Sesion
   const signOutBtn = document.createElement('img');
   signOutBtn.src = 'components/images/button-sign-out.png';
   signOutBtn.className = 'button-sign-out';
@@ -70,7 +119,7 @@ function timeline(navigateTo) {
   btnPost.className = 'btn-post';
   btnPost.textContent = 'Post';
 
-  links.append(profile, userPosts);
+  links.append(divMiPerfil, divHome, divMisPost, divNewPost);
   menu.append(close, links, signOutBtn);
   section.append(sectionTitle, postTitle, postBody, btnPost);
   main.append(open, menu, title, section);
