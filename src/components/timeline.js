@@ -36,7 +36,7 @@ function timeline(navigateTo) {
   home.textContent = 'Home';
 
   const imgHome = document.createElement('img');
-  imgHome.src = ('components/images/Home.png');
+  imgHome.src = 'components/images/Home.png';
   imgHome.className = 'imgInput';
 
   divHome.append(imgHome, home);
@@ -50,7 +50,7 @@ function timeline(navigateTo) {
   profile.textContent = 'Mi Perfil';
 
   const imgPerfil = document.createElement('img');
-  imgPerfil.src = ('components/images/Usuario.png');
+  imgPerfil.src = 'components/images/Usuario.png';
   imgPerfil.className = 'imgInput';
 
   divMiPerfil.append(imgPerfil, profile);
@@ -64,7 +64,7 @@ function timeline(navigateTo) {
   userPosts.textContent = 'Mis Posts';
 
   const imgMisPost = document.createElement('img');
-  imgMisPost.src = ('components/images/Post.png');
+  imgMisPost.src = 'components/images/Post.png';
   imgMisPost.className = 'imgInput';
 
   divMisPost.append(imgMisPost, userPosts);
@@ -78,12 +78,12 @@ function timeline(navigateTo) {
   newPosts.textContent = 'Nuevo Post';
 
   const imgNewPost = document.createElement('img');
-  imgNewPost.src = ('components/images/NuevoPost.png');
+  imgNewPost.src = 'components/images/NuevoPost.png';
   imgNewPost.className = 'imgInput';
 
   divNewPost.append(imgNewPost, newPosts);
 
-  //Cerrar Sesion
+  // Cerrar Sesion
   const signOutBtn = document.createElement('img');
   signOutBtn.src = 'components/images/button-sign-out.png';
   signOutBtn.className = 'button-sign-out';
