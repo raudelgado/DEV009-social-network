@@ -36,9 +36,6 @@ function home(navigateTo) {
       .then(() => {
         navigateTo('/timeline');
       });
-  /*  .catch((error) => {
-        throw error;
-      }); */
   });
 
   main.append(title, slogan, logo, login, join, loginGoogle);

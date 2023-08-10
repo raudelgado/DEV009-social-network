@@ -3,7 +3,7 @@
 body {
   margin: 0;
   background-image: url('components/images/background.png');
-  background-size: cover;
+  background-size: auto;
   font-family: 'Glegoo', serif;
 }
 
@@ -251,7 +251,7 @@ form {
 
 .main-section {
   background-color: rgba(180, 165, 165, 0.60);
-  height: 20%;
+  height: 28%;
   width: 90%;
   border-radius: 20px;
   position: absolute;
@@ -291,7 +291,7 @@ form {
 }
 
 .btn-post {
-  margin-top: 10px;
+  margin-top: 15px;
   position: relative;
   left: calc(40% - 20px);
 }
@@ -323,23 +323,30 @@ form {
   padding-top: 5rem;
   transition: 0.5s;
   display: none;
+  justify-content: space-around;
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 20px;
   color: #B4A5A5;
   display: block;
   transition: 0.3s;
 }
 
 .sidenav .gg-close-o {
-  position: absolute;
-  top: 1rem;
-  left: 10rem;
+  display: flex;
+  align-self: flex-start;
   color: #B4A5A5;
   cursor: pointer;
+}
+
+.nav-links a {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.8rem;
+  margin-left: 10px;
+  padding: 3px;
 }
 
 .sidenav a:hover {
@@ -349,22 +356,7 @@ form {
 .nav-links {
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
-  font-family: 'Glegoo', serif;
-  border-radius: 10px;
-  padding: 3px;
-  border: none;
-  font-size: 0.8rem;
-  text-align: center;
-  margin-top: 10px;
   margin-left: 8px;
-}
-
-.nav-links a {
-  display: flex;
-  flex-direction: row;
-  font-size: medium;
-  padding: 5px;
 }
 
 .imgInput {
@@ -373,9 +365,9 @@ form {
 }
 
 .button-sign-out {
-  position: relative;
-  margin-top: 25rem;
-  margin-left: 10rem;
+  display: flex;
+  align-self: end;
+  margin-bottom: 10px;
   width: 35px;
   cursor: pointer;
 }

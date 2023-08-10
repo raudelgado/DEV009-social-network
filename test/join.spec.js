@@ -18,8 +18,8 @@ describe('función Join', () => {
   });
 
   const joinForm = joinElement.querySelector('form');
-  const emailInput = joinForm.querySelector('input[type="email"]');
-  const passwordInput = joinForm.querySelector('input[type="password"]');
+  const emailInput = joinElement.querySelector('.input-login-join-email');
+  const passwordInput = joinElement.querySelector('.input-login-join-password');
   const modalMessage = joinElement.querySelector('p');
 
   emailInput.value = 'test@example.com';
