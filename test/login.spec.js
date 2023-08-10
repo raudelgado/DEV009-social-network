@@ -2,54 +2,90 @@ import login from '../src/components/login.js';
 import { logInWithEmail, resetPassword } from '../src/lib/index';
 
 jest.mock('../src/lib/index', () => ({
-  logInWithGoogle: jest.fn(() => Promise.resolve()),
+  logInWithEmail: jest.fn((email, password) => {
+    if (email === 'test@example.com' && password === '123456') {
+      return Promise.resolve({ emailVerified: false });
+    } return Promise.resolve({ emailVerified: true });
+  }),
   resetPassword: jest.fn(() => Promise.resolve()),
 }));
 
 const navigateToMock = jest.fn();
 const loginElement = login(navigateToMock);
-const resetPasswordElement = resetPassword(navigateToMock);
 
 describe('función Login', () => {
-  /* beforeEach(() => {
+  beforeEach(() => {
     logInWithEmail.mockClear();
-  }); */
-  test('Al volver tiene que ir a la pagina /home', () => {
+    resetPassword.mockClear();
+  });
+
+  test('Al hacer click tiene que ir a la pagina inicial', () => {
     const btnReturn = loginElement.querySelector('.button-return');
     btnReturn.click();
     expect(navigateToMock).toHaveBeenCalledWith('/');
   });
 
-  const loginForm = loginElement.querySelector('form');
-  const emailInput = loginForm.querySelector('input[type="email"]');
-  const passwordInput = loginForm.querySelector('input[type="password"]');// const forgotPassword = loginForm.querySelector('input[type="button"]');
-  const modalMessage = loginForm.querySelector('p');
+  const loginForm = loginElement.querySelector('.login-form');
+  const emailInput = loginElement.querySelector('.input-login-email');
+  const passwordInput = loginElement.querySelector('.input-login-password');
+  const close = loginElement.querySelector('.gg-close-o');
+  const modal = loginElement.querySelector('.modal');
+  const modalForm = loginElement.querySelector('.modal-form');
+  const modalInput = loginElement.querySelector('.modal-input');
+  const modalMessage = loginElement.querySelector('p');
 
-  emailInput.value = 'test@example.com';
+  emailInput.value = '';
   passwordInput.value = '123456';
+  modalInput.value = 'modal@example.com';
 
-  test('Debe llamar a la funcion logInWithEmail con dos parametros', async () => {
-    logInWithEmail.mockRejectedValue();
+  test('deberia dejar un usuario ingresar con correo y contraseña', async () => {
+    emailInput.value = 'test@verified.com';
+    passwordInput.value = '123456789';
     loginForm.submit();
     await Promise.resolve();
-    expect(logInWithEmail).toHaveBeenCalledWith('test@example.com', '123456');
-    expect(modalMessage.textContent).toBe('Recuerda verificar tu correo. Si ya lo verificaste, revisa tus credenciales.');
+    expect(logInWithEmail).toHaveBeenCalledWith('test@verified.com', '123456789');
+    expect(navigateToMock).toHaveBeenCalledWith('/timeline');
   });
-  it('debe devolver un error si el correo no esta verificado', () => {
-    logInWithEmail.mockResolvedValue();
-    loginForm.submit();
-    expect(logInWithEmail).toHaveBeenCalledWith('test@example.com', '123456');
-    expect(modalMessage.textContent).toThrow('Debes verificar tu correo electrónico.');
-  });
-});
 
-describe('Función resetPassword', () => {
-  beforeEach(() => {
-    resetPassword.mockClear();
+  test('deberia mostrar mensaje de error al no verificar el correo', async () => {
+    emailInput.value = 'test@example.com';
+    passwordInput.value = '123456';
+    logInWithEmail.mockResolvedValueOnce({ emailVerified: false });
+    loginForm.submit();
+    await Promise.resolve();
+    setTimeout(() => {
+      expect(modal.style.display).toBe('block');
+      expect(modalMessage.textContent).toBe('Recuerda verificar tu correo. Si ya lo verificaste, revisa tus credenciales.');
+    }, 100);
   });
-  test('Al seleccionar debe abrir modal con input', () => {
-    const btnForgotPassword = resetPasswordElement.querySelector('.forgot-password');
-    btnForgotPassword.click();
-    expect(navigateToMock).toHaveBeenCalledWith('form');
+
+  test('Deberia desplegarse una modal', () => {
+    const forgotPassword = loginElement.querySelector('.forgot-password');
+    forgotPassword.click();
+    expect(modal.style.display).toBe('block');
+  });
+
+  test('Deberia cerrar la modal', () => {
+    close.click();
+    expect(modal.style.display).toBe('none');
+  });
+
+  test('deberia', async () => {
+    modalForm.submit();
+    await Promise.resolve();
+    setTimeout(() => {
+      expect(resetPassword).toHaveBeenCalledWith('modal@example.com');
+    }, 100);
+  });
+
+  test('deberia mostrar mensaje de error al resetear contraseña', async () => {
+    resetPassword.mockRejectedValueOnce();
+    modalInput.value = 'testt@example.com';
+    modalForm.submit();
+    await Promise.resolve();
+    setTimeout(() => {
+      expect(modal.style.display).toBe('block');
+      expect(modalMessage.textContent).toBe('¡Que mal! Correo invalido, verifica si lo escribiste bien.');
+    }, 100);
   });
 });
