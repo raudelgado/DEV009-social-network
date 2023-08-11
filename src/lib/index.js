@@ -12,6 +12,7 @@ import {
   signOut,
   sendPasswordResetEmail,
 } from '../firebase/initializeFirebase.js';
+// import { collection, addDoc } from "firebase/firestore";
 
 export const createAccount = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password)
