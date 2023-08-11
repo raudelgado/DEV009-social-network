@@ -10,6 +10,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
+  updateProfile,
 } from 'firebase/auth';
 import { firebaseConfig } from './configFirebase.js';
 
@@ -33,4 +34,5 @@ export {
   db,
   collection,
   addDoc,
+  updateProfile,
 };

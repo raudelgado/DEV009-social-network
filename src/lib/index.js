@@ -15,13 +15,14 @@ import {
   collection,
   db,
   addDoc,
+  updateProfile,
 } from '../firebase/initializeFirebase.js';
 
-export const createAccount = (email, password) => {
+export const createAccount = (email, password, username) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user);
+      updateProfile(userCredential.user, { displayName: username });
       sendEmailVerification(userCredential.user);
       return user;
     });
@@ -37,7 +38,7 @@ export const logInWithEmail = (email, password) => {
 };
 
 // Estado del usuario
-export const stateChanged = () => {
+export const userStat = () => {
   return onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
@@ -65,9 +66,10 @@ export const logInWithGoogle = () => {
 };
 
 // crear carpeta con post
-export async function createPost(titulo, body) {
+export async function createPost(author, titulo, body) {
   try {
     const data = {
+      author: author,
       title: titulo,
       content: body,
     };

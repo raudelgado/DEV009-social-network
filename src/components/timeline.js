@@ -1,4 +1,5 @@
-import { signOutSession, createPost } from '../lib/index.js';
+import { auth } from '../firebase/initializeFirebase.js';
+import { signOutSession, createPost, userStat } from '../lib/index.js';
 
 function timeline(navigateTo) {
   const main = document.createElement('main');
@@ -127,12 +128,18 @@ function timeline(navigateTo) {
   section.append(sectionTitle, formPost);
   main.append(open, menu, title, section);
 
-  formPost.addEventListener('submit', (e) => {
+  formPost.addEventListener('submit', async (e) => {
     e.preventDefault()
-    const titulo = postTitle.value;
-    const body = postBody.value;
-    createPost(titulo, body);
-  })
+    const title = postTitle.value;
+    const content = postBody.value;
+
+    const user = auth.currentUser;
+    const author= user.displayName;
+
+    await createPost(author, title, content);
+    postTitle.value = "";
+    postBody.value = "";
+  });
   return main;
 }
 
