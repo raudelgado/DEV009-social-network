@@ -310,6 +310,12 @@ form {
   border-radius: 3px;
 }
 
+/*All Posts*/
+.post{
+  background-color: #B4A5A5;
+  border-radius: 10px;
+}
+
 /*NAVBAR*/
 
 .nav-links {
@@ -381,7 +387,7 @@ form {
   margin-left: 8px;
 }
 
-.imgInput {
+.icon-navbar {
   width: 27px;
   height: 27px;
 }
@@ -394,10 +400,10 @@ form {
   cursor: pointer;
 }
 
-.divHome,
-.divMiPerfil,
-.divMisPost,
-.divNewP{
+.div-profile,
+.div-home,
+.user-posts,
+.div-new-posts {
   display: flex;
   justify-content:start;
   flex-direction: row;
@@ -405,3 +411,4 @@ form {
   margin-top: 30px;
   margin-left: 5px;
 }
+

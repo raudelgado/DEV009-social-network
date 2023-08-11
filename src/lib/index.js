@@ -1,6 +1,7 @@
 /* eslint-disable import/named */
 /* eslint-disable no-console */
 /* eslint-disable arrow-body-style */
+import { collection, addDoc } from 'firebase/firestore';
 import {
   auth,
   provider,
@@ -11,10 +12,13 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   updateProfile,
-  sendPasswordResetEmail,
+  getDocs,
+  where,
+  query,
+  db,
   signOut,
+  sendPasswordResetEmail,
 } from '../firebase/initializeFirebase.js';
-// import { collection, addDoc } from "firebase/firestore";
 
 export const createAccount = (email, password, username) => {
   return createUserWithEmailAndPassword(auth, email, password)
@@ -62,3 +66,74 @@ export const logInWithGoogle = () => {
       return { user, token, photoURL };
     });
 };
+
+// crear carpeta con post
+export async function createPost(username, titulo, body) {
+  try {
+    const data = {
+      author: username,
+      title: titulo,
+      content: body,
+    };
+    const docPost = await addDoc(collection(db, 'Post'), data);
+    console.log('Document written with ID: ', docPost.id);
+  } catch (e) {
+    console.error('Error adding document: ', e);
+  }
+}
+// Mostrar post solo de un usuario
+export async function displayUserPosts(user) {
+  try {
+    const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName)));
+    const postsSection = document.querySelector('.post-timeline');
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const postDiv = document.createElement('div');
+      postDiv.className = 'post';
+
+      const author = document.createElement('p');
+      author.textContent = `Author: ${data.author}`;
+
+      const title = document.createElement('p');
+      title.textContent = data.title;
+
+      const content = document.createElement('p');
+      content.textContent = data.content;
+
+      postDiv.append(author, title, content);
+      postsSection.appendChild(postDiv);
+    });
+  } catch (e) {
+    console.error('Error fetching documents: ', e);
+  }
+}
+
+export async function displayAllPosts() {
+  try {
+    const querySnapshot = await getDocs((collection(db, 'Post')));
+    const postsSection = document.querySelector('.post-timeline');
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const postDiv = document.createElement('div');
+      postDiv.className = 'post';
+
+      const author = document.createElement('p');
+      author.textContent = `Author: ${data.author}`;
+
+      const title = document.createElement('p');
+      title.textContent = data.title;
+
+      const content = document.createElement('p');
+      content.textContent = data.content;
+
+      postDiv.append(author, title, content);
+      postsSection.appendChild(postDiv);
+    });
+  } catch (e) {
+    console.error('Error fetching documents: ', e);
+  }
+}
