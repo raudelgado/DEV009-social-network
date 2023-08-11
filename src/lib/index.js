@@ -11,6 +11,10 @@ import {
   sendPasswordResetEmail,
   signInWithPopup,
   GoogleAuthProvider,
+  onAuthStateChanged,
+  collection,
+  db,
+  addDoc,
 } from '../firebase/initializeFirebase.js';
 
 export const createAccount = (email, password) => {
@@ -32,6 +36,18 @@ export const logInWithEmail = (email, password) => {
     });
 };
 
+// Estado del usuario
+export const stateChanged = () => {
+  return onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      console.log(uid,'logeado');
+    } else {
+      console.log('Usuario no logeado');
+    }
+  });
+};
+
 export const signOutSession = () => signOut(auth);
 
 export const resetPassword = (email) => sendPasswordResetEmail(auth, email);
@@ -47,3 +63,17 @@ export const logInWithGoogle = () => {
       return { user, token, photoURL };
     });
 };
+
+// crear carpeta con post
+export async function createPost(titulo, body) {
+  try {
+    const data = {
+      title: titulo,
+      content: body,
+    };
+    const docPost = await addDoc(collection(db, "Post"), data);
+    console.log("Document written with ID: ", docPost.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
