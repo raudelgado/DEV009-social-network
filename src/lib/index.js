@@ -45,7 +45,7 @@ export const userStat = () => {
   return onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
-      console.log(uid,'logeado');
+      console.log(uid, 'logeado');
     } else {
       console.log('Usuario no logeado');
     }
@@ -76,25 +76,24 @@ export async function createPost(username, titulo, body) {
       title: titulo,
       content: body,
     };
-    const docPost = await addDoc(collection(db, "Post"), data);
-    console.log("Document written with ID: ", docPost.id);
+    const docPost = await addDoc(collection(db, 'Post'), data);
+    console.log('Document written with ID: ', docPost.id);
   } catch (e) {
-    console.error("Error adding document: ", e);
+    console.error('Error adding document: ', e);
   }
-};
-
+}
 // Mostrar post solo de un usuario
-export async function mostrarPost(user){
+export async function displayUserPosts(user) {
   try {
-    const querySnapshot = await getDocs(query(collection(db, "Post"), where("author", "==", user.displayName))); 
-    const postsSection = document.querySelector('.post-timeline');
+    const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName)));
+    const postsSection = document.querySelector('.post-by-user');
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      
+
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
-      
+
       const author = document.createElement('p');
       author.textContent = `Author: ${data.author}`;
 
@@ -105,9 +104,37 @@ export async function mostrarPost(user){
       content.textContent = data.content;
 
       postDiv.append(author, title, content);
-      postsSection.appendChild(postDiv); 
+      postsSection.appendChild(postDiv);
     });
   } catch (e) {
-    console.error("Error fetching documents: ", e);
+    console.error('Error fetching documents: ', e);
+  }
+}
+
+export async function displayAllPosts() {
+  try {
+    const querySnapshot = await getDocs((collection(db, 'Post')));
+    const postsSection = document.querySelector('.post-all-users');
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const postDiv = document.createElement('div');
+      postDiv.className = 'post';
+
+      const author = document.createElement('p');
+      author.textContent = `Author: ${data.author}`;
+
+      const title = document.createElement('p');
+      title.textContent = data.title;
+
+      const content = document.createElement('p');
+      content.textContent = data.content;
+
+      postDiv.append(author, title, content);
+      postsSection.appendChild(postDiv);
+    });
+  } catch (e) {
+    console.error('Error fetching documents: ', e);
   }
 }

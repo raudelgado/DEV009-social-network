@@ -1,7 +1,14 @@
 import { auth } from '../firebase/initializeFirebase.js';
-import { signOutSession, createPost, mostrarPost} from '../lib/index.js';
+import {
+  signOutSession,
+  createPost,
+  displayAllPosts,
+  displayUserPosts,
+} from '../lib/index.js';
 
 function timeline(navigateTo) {
+  displayAllPosts();
+
   const main = document.createElement('main');
   main.className = 'main-timeline';
 
@@ -30,59 +37,58 @@ function timeline(navigateTo) {
 
   // div-home
   const divHome = document.createElement('div');
-  divHome.className = 'divHome';
+  divHome.className = 'div-home';
 
   const home = document.createElement('a');
   home.setAttribute('href', '');
   home.textContent = 'Home';
 
-  const imgHome = document.createElement('img');
-  imgHome.src = 'components/images/Home.png';
-  imgHome.className = 'imgInput';
+  const iconHome = document.createElement('img');
+  iconHome.src = 'components/images/Home.png';
+  iconHome.className = 'icon-navbar';
 
-  divHome.append(imgHome, home);
+  divHome.append(iconHome, home);
 
   // div-perfil
-  const divMiPerfil = document.createElement('div');
-  divMiPerfil.className = 'divMiPerfil';
+  const divProfile = document.createElement('div');
+  divProfile.className = 'div-profile';
 
   const profile = document.createElement('a');
   profile.setAttribute('href', '');
   profile.textContent = 'Mi Perfil';
 
-  const imgPerfil = document.createElement('img');
-  imgPerfil.src = 'components/images/Usuario.png';
-  imgPerfil.className = 'imgInput';
+  const iconProfile = document.createElement('img');
+  iconProfile.src = 'components/images/Usuario.png';
+  iconProfile.className = 'icon-navbar';
 
-  divMiPerfil.append(imgPerfil, profile);
+  divProfile.append(iconProfile, profile);
 
   // div-mispost
-  const divMisPost = document.createElement('div');
-  divMisPost.className = 'divMisPost';
+  const divUserPosts = document.createElement('div');
+  divUserPosts.className = 'user-posts';
 
-  const userPosts = document.createElement('a');
-  userPosts.setAttribute('href', '');
+  const userPosts = document.createElement('button');
   userPosts.textContent = 'Mis Posts';
 
-  const imgMisPost = document.createElement('img');
-  imgMisPost.src = 'components/images/Post.png';
-  imgMisPost.className = 'imgInput';
+  const iconUserPosts = document.createElement('img');
+  iconUserPosts.src = 'components/images/Post.png';
+  iconUserPosts.className = 'icon-navbar';
 
-  divMisPost.append(imgMisPost, userPosts);
+  divUserPosts.append(iconUserPosts, userPosts);
 
   // div escribir post
   const divNewPost = document.createElement('div');
-  divNewPost.className = 'divNewP';
+  divNewPost.className = 'div-new-posts';
 
   const newPosts = document.createElement('a');
   newPosts.setAttribute('href', '');
   newPosts.textContent = 'Nuevo Post';
 
-  const imgNewPost = document.createElement('img');
-  imgNewPost.src = 'components/images/NuevoPost.png';
-  imgNewPost.className = 'imgInput';
+  const iconNewPost = document.createElement('img');
+  iconNewPost.src = 'components/images/NuevoPost.png';
+  iconNewPost.className = 'icon-navbar';
 
-  divNewPost.append(imgNewPost, newPosts);
+  divNewPost.append(iconNewPost, newPosts);
 
   // Cerrar Sesion
   const signOutBtn = document.createElement('img');
@@ -122,32 +128,37 @@ function timeline(navigateTo) {
   btnPost.className = 'btn-post';
   btnPost.textContent = 'Post';
 
-  const divPost = document.createElement('div');
-  divPost.className = 'post-timeline';
+  const allPosts = document.createElement('div');
+  allPosts.className = 'post-all-users';
 
-  links.append(divMiPerfil, divHome, divMisPost, divNewPost);
+  const postsByUser = document.createElement('div');
+  postsByUser.className = 'post-by-user';
+
+  links.append(divProfile, divHome, divUserPosts, divNewPost);
   menu.append(close, links, signOutBtn);
   formPost.append(postTitle, postBody, btnPost);
-  section.append(sectionTitle, formPost);
-  main.append(open, menu, pageTitle, section, divPost);
+  section.append(sectionTitle, formPost, allPosts, postsByUser);
+  main.append(open, menu, pageTitle, section);
 
   formPost.addEventListener('submit', async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const title = postTitle.value;
     const content = postBody.value;
-  
+
     const user = auth.currentUser;
     const username = user.displayName;
-  
+
     await createPost(username, title, content);
     formPost.reset();
-    mostrarPost(user);
   });
-  
-  /*divMisPost.addEventListener('click', () => {
+
+  divUserPosts.addEventListener('click', () => {
     const user = auth.currentUser;
-    
-  }); */
+    displayUserPosts(user);
+    allPosts.style.display = 'none';
+    postsByUser.style.display = 'block';
+    menu.style.display = 'none';
+  });
 
   return main;
 }
