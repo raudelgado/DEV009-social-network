@@ -39,8 +39,7 @@ function timeline(navigateTo) {
   const divHome = document.createElement('div');
   divHome.className = 'div-home';
 
-  const home = document.createElement('a');
-  home.setAttribute('href', '');
+  const home = document.createElement('button');
   home.textContent = 'Home';
 
   const iconHome = document.createElement('img');
@@ -53,8 +52,7 @@ function timeline(navigateTo) {
   const divProfile = document.createElement('div');
   divProfile.className = 'div-profile';
 
-  const profile = document.createElement('a');
-  profile.setAttribute('href', '');
+  const profile = document.createElement('button');
   profile.textContent = 'Mi Perfil';
 
   const iconProfile = document.createElement('img');
@@ -75,20 +73,6 @@ function timeline(navigateTo) {
   iconUserPosts.className = 'icon-navbar';
 
   divUserPosts.append(iconUserPosts, userPosts);
-
-  // div escribir post
-  const divNewPost = document.createElement('div');
-  divNewPost.className = 'div-new-posts';
-
-  const newPosts = document.createElement('a');
-  newPosts.setAttribute('href', '');
-  newPosts.textContent = 'Nuevo Post';
-
-  const iconNewPost = document.createElement('img');
-  iconNewPost.src = 'components/images/NuevoPost.png';
-  iconNewPost.className = 'icon-navbar';
-
-  divNewPost.append(iconNewPost, newPosts);
 
   // Cerrar Sesion
   const signOutBtn = document.createElement('img');
@@ -134,12 +118,13 @@ function timeline(navigateTo) {
   const postsByUser = document.createElement('div');
   postsByUser.className = 'post-by-user';
 
-  links.append(divProfile, divHome, divUserPosts, divNewPost);
+  links.append(divProfile, divHome, divUserPosts);
   menu.append(close, links, signOutBtn);
   formPost.append(postTitle, postBody, btnPost);
   section.append(sectionTitle, formPost, allPosts, postsByUser);
   main.append(open, menu, pageTitle, section);
 
+  // Evento para publicar post
   formPost.addEventListener('submit', async (e) => {
     e.preventDefault();
     const title = postTitle.value;
@@ -150,14 +135,20 @@ function timeline(navigateTo) {
 
     await createPost(username, title, content);
     formPost.reset();
+    navigateTo('/timeline');
   });
 
+  // Evento para el boton mis posts en el menu
   divUserPosts.addEventListener('click', () => {
     const user = auth.currentUser;
     displayUserPosts(user);
     allPosts.style.display = 'none';
     postsByUser.style.display = 'block';
     menu.style.display = 'none';
+  });
+
+  divHome.addEventListener('click', () => {
+    navigateTo('/timeline');
   });
 
   return main;
