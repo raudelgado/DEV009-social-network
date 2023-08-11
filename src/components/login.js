@@ -1,4 +1,4 @@
-import { logInWithEmail, resetPassword, stateChanged } from '../lib/index.js';
+import { logInWithEmail, resetPassword, userStat } from '../lib/index.js';
 
 function login(navigateTo) {
   const main = document.createElement('main');
@@ -87,7 +87,7 @@ function login(navigateTo) {
     e.preventDefault();
     const email = emailInput.value;
     const password = passwordInput.value;
-    stateChanged();
+    userStat();
     logInWithEmail(email, password)
       .then((user) => {
         if (!user.emailVerified) {
