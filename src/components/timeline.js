@@ -1,4 +1,4 @@
-import { signOutSession } from '../lib/index.js';
+import { signOutSession, createPost } from '../lib/index.js';
 
 function timeline(navigateTo) {
   const main = document.createElement('main');
@@ -103,6 +103,8 @@ function timeline(navigateTo) {
   const sectionTitle = document.createElement('p');
   sectionTitle.textContent = '¿Que historia quieres escribir hoy?';
 
+  const formPost = document.createElement('form');
+
   const postTitle = document.createElement('input');
   postTitle.className = 'post-title';
   postTitle.setAttribute('type', 'text');
@@ -121,9 +123,16 @@ function timeline(navigateTo) {
 
   links.append(divMiPerfil, divHome, divMisPost, divNewPost);
   menu.append(close, links, signOutBtn);
-  section.append(sectionTitle, postTitle, postBody, btnPost);
+  formPost.append(postTitle, postBody, btnPost);
+  section.append(sectionTitle, formPost);
   main.append(open, menu, title, section);
 
+  formPost.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const titulo = postTitle.value;
+    const body = postBody.value;
+    createPost(titulo, body);
+  })
   return main;
 }
 
