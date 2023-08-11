@@ -16,6 +16,9 @@ import {
   db,
   addDoc,
   updateProfile,
+  getDocs,
+  where,
+  query,
 } from '../firebase/initializeFirebase.js';
 
 export const createAccount = (email, password, username) => {
@@ -66,10 +69,10 @@ export const logInWithGoogle = () => {
 };
 
 // crear carpeta con post
-export async function createPost(author, titulo, body) {
+export async function createPost(username, titulo, body) {
   try {
     const data = {
-      author: author,
+      author: username,
       title: titulo,
       content: body,
     };
@@ -77,5 +80,34 @@ export async function createPost(author, titulo, body) {
     console.log("Document written with ID: ", docPost.id);
   } catch (e) {
     console.error("Error adding document: ", e);
+  }
+};
+
+// Mostrar post solo de un usuario
+export async function mostrarPost(user){
+  try {
+    const querySnapshot = await getDocs(query(collection(db, "Post"), where("author", "==", user.displayName))); 
+    const postsSection = document.querySelector('.post-timeline');
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      
+      const postDiv = document.createElement('div');
+      postDiv.className = 'post';
+      
+      const author = document.createElement('p');
+      author.textContent = `Author: ${data.author}`;
+
+      const title = document.createElement('p');
+      title.textContent = data.title;
+
+      const content = document.createElement('p');
+      content.textContent = data.content;
+
+      postDiv.append(author, title, content);
+      postsSection.appendChild(postDiv); 
+    });
+  } catch (e) {
+    console.error("Error fetching documents: ", e);
   }
 }
