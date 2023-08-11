@@ -73,7 +73,8 @@ function join(navigateTo) {
     e.preventDefault();
     const email = emailInput.value;
     const password = passwordInput.value;
-    createAccount(email, password)
+    const username = userName.value;
+    createAccount(email, password, username)
       .then(() => {
         modal.style.display = 'block';
       })
