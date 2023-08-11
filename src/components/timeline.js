@@ -1,13 +1,13 @@
 import { auth } from '../firebase/initializeFirebase.js';
-import { signOutSession, createPost, userStat } from '../lib/index.js';
+import { signOutSession, createPost, mostrarPost} from '../lib/index.js';
 
 function timeline(navigateTo) {
   const main = document.createElement('main');
   main.className = 'main-timeline';
 
-  const title = document.createElement('h2');
-  title.textContent = 'SpookyVerse';
-  title.className = 'timeline-title';
+  const pageTitle = document.createElement('h2');
+  pageTitle.textContent = 'SpookyVerse';
+  pageTitle.className = 'timeline-title';
 
   const menu = document.createElement('nav');
   menu.className = 'sidenav';
@@ -122,24 +122,33 @@ function timeline(navigateTo) {
   btnPost.className = 'btn-post';
   btnPost.textContent = 'Post';
 
+  const divPost = document.createElement('div');
+  divPost.className = 'post-timeline';
+
   links.append(divMiPerfil, divHome, divMisPost, divNewPost);
   menu.append(close, links, signOutBtn);
   formPost.append(postTitle, postBody, btnPost);
   section.append(sectionTitle, formPost);
-  main.append(open, menu, title, section);
+  main.append(open, menu, pageTitle, section, divPost);
 
   formPost.addEventListener('submit', async (e) => {
     e.preventDefault()
     const title = postTitle.value;
     const content = postBody.value;
-
+  
     const user = auth.currentUser;
-    const author= user.displayName;
-
-    await createPost(author, title, content);
-    postTitle.value = "";
-    postBody.value = "";
+    const username = user.displayName;
+  
+    await createPost(username, title, content);
+    formPost.reset();
+    mostrarPost(user);
   });
+  
+  /*divMisPost.addEventListener('click', () => {
+    const user = auth.currentUser;
+    
+  }); */
+
   return main;
 }
 
