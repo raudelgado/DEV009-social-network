@@ -365,7 +365,7 @@ form {
   margin-left: 8px;
 }
 
-.imgInput {
+.icon-navbar {
   width: 27px;
   height: 27px;
 }
@@ -378,10 +378,10 @@ form {
   cursor: pointer;
 }
 
-.divHome,
-.divMiPerfil,
-.divMisPost,
-.divNewP{
+.div-profile,
+.div-home,
+.user-posts,
+.div-new-posts {
   display: flex;
   justify-content:start;
   flex-direction: row;
