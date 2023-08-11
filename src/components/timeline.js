@@ -5,9 +5,9 @@ function timeline(navigateTo) {
   const main = document.createElement('main');
   main.className = 'main-timeline';
 
-  const title = document.createElement('h2');
-  title.textContent = 'SpookyVerse';
-  title.className = 'timeline-title';
+  const titleApp = document.createElement('h2');
+  titleApp.textContent = 'SpookyVerse';
+  titleApp.className = 'timeline-title';
 
   const menu = document.createElement('nav');
   menu.className = 'sidenav';
@@ -126,19 +126,16 @@ function timeline(navigateTo) {
   menu.append(close, links, signOutBtn);
   formPost.append(postTitle, postBody, btnPost);
   section.append(sectionTitle, formPost);
-  main.append(open, menu, title, section);
+  main.append(open, menu, titleApp, section);
 
   formPost.addEventListener('submit', async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const title = postTitle.value;
     const content = postBody.value;
-
     const user = auth.currentUser;
-    const author= user.displayName;
-
+    const author = user.displayName;
     await createPost(author, title, content);
-    postTitle.value = "";
-    postBody.value = "";
+    formPost.reset();
   });
   return main;
 }

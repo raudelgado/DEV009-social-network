@@ -14,6 +14,8 @@ import {
   db,
   addDoc,
   updateProfile,
+  sendPasswordResetEmail,
+  signOut,
 } from '../firebase/initializeFirebase.js';
 // import { collection, addDoc } from "firebase/firestore";
 
@@ -48,9 +50,9 @@ export const userStat = () => {
   });
 };
 
-// export const signOutSession = () => signOut(auth);
+export const signOutSession = () => signOut(auth);
 
-// export const resetPassword = (email) => sendPasswordResetEmail(auth, email);
+export const resetPassword = (email) => sendPasswordResetEmail(auth, email);
 
 export const logInWithGoogle = () => {
   return signInWithPopup(auth, provider)
@@ -65,10 +67,10 @@ export const logInWithGoogle = () => {
 };
 
 // crear carpeta con post
-export async function createPost(author, titulo, body) {
+export async function createPost(user, titulo, body) {
   try {
     const data = {
-      author: author,
+      user: user,
       title: titulo,
       content: body,
     };
@@ -78,3 +80,25 @@ export async function createPost(author, titulo, body) {
     console.error('Error adding document: ', e);
   }
 }
+
+export const createUserPost = async (user, containerElement) => {
+  const postsQuery = query(collection(db, 'posts'), where('author', '==', user.displayName));
+  const postsSnapshot = await getDocs(postsQuery);
+
+  containerElement.innerHTML = '';
+
+  postsSnapshot.forEach((doc) => {
+    const post = doc.data();
+    const postElement = document.createElement('div');
+    postElement.classList.add('user-post');
+    postElement.innerHTML = `
+    <div class="post-author">
+    <img src="${user.photoURL || './img/person-circle.svg'}" class="user-avatar" />
+    ${post.author}
+    </div>
+    <div class="post-content">${post.content}</div>
+    <div class="post-date">${post.date.toDate().toLocaleDateString()}</div>
+`;
+    containerElement.appendChild(postElement);
+  });
+};
