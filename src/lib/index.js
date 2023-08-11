@@ -10,9 +10,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
-  collection,
-  db,
-  addDoc,
   updateProfile,
   sendPasswordResetEmail,
   signOut,
@@ -64,41 +61,4 @@ export const logInWithGoogle = () => {
       console.log(token, user);
       return { user, token, photoURL };
     });
-};
-
-// crear carpeta con post
-export async function createPost(user, titulo, body) {
-  try {
-    const data = {
-      user: user,
-      title: titulo,
-      content: body,
-    };
-    const docPost = await addDoc(collection(db, 'Post'), data);
-    console.log('Document written with ID: ', docPost.id);
-  } catch (e) {
-    console.error('Error adding document: ', e);
-  }
-}
-
-export const createUserPost = async (user, containerElement) => {
-  const postsQuery = query(collection(db, 'posts'), where('author', '==', user.displayName));
-  const postsSnapshot = await getDocs(postsQuery);
-
-  containerElement.innerHTML = '';
-
-  postsSnapshot.forEach((doc) => {
-    const post = doc.data();
-    const postElement = document.createElement('div');
-    postElement.classList.add('user-post');
-    postElement.innerHTML = `
-    <div class="post-author">
-    <img src="${user.photoURL || './img/person-circle.svg'}" class="user-avatar" />
-    ${post.author}
-    </div>
-    <div class="post-content">${post.content}</div>
-    <div class="post-date">${post.date.toDate().toLocaleDateString()}</div>
-`;
-    containerElement.appendChild(postElement);
-  });
 };
