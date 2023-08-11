@@ -1,4 +1,4 @@
-import { signOutSession } from '../lib/index.js';
+import { signOutSession, createPost } from '../lib/index.js';
 
 function timeline(navigateTo) {
   const main = document.createElement('main');
@@ -36,7 +36,7 @@ function timeline(navigateTo) {
   home.textContent = 'Home';
 
   const imgHome = document.createElement('img');
-  imgHome.src = ('components/images/Home.png');
+  imgHome.src = 'components/images/Home.png';
   imgHome.className = 'imgInput';
 
   divHome.append(imgHome, home);
@@ -50,7 +50,7 @@ function timeline(navigateTo) {
   profile.textContent = 'Mi Perfil';
 
   const imgPerfil = document.createElement('img');
-  imgPerfil.src = ('components/images/Usuario.png');
+  imgPerfil.src = 'components/images/Usuario.png';
   imgPerfil.className = 'imgInput';
 
   divMiPerfil.append(imgPerfil, profile);
@@ -64,7 +64,7 @@ function timeline(navigateTo) {
   userPosts.textContent = 'Mis Posts';
 
   const imgMisPost = document.createElement('img');
-  imgMisPost.src = ('components/images/Post.png');
+  imgMisPost.src = 'components/images/Post.png';
   imgMisPost.className = 'imgInput';
 
   divMisPost.append(imgMisPost, userPosts);
@@ -78,7 +78,7 @@ function timeline(navigateTo) {
   newPosts.textContent = 'Nuevo Post';
 
   const imgNewPost = document.createElement('img');
-  imgNewPost.src = ('components/images/NuevoPost.png');
+  imgNewPost.src = 'components/images/NuevoPost.png';
   imgNewPost.className = 'imgInput';
 
   divNewPost.append(imgNewPost, newPosts);
@@ -103,6 +103,8 @@ function timeline(navigateTo) {
   const sectionTitle = document.createElement('p');
   sectionTitle.textContent = '¿Que historia quieres escribir hoy?';
 
+  const formPost = document.createElement('form');
+
   const postTitle = document.createElement('input');
   postTitle.className = 'post-title';
   postTitle.setAttribute('type', 'text');
@@ -121,9 +123,16 @@ function timeline(navigateTo) {
 
   links.append(divMiPerfil, divHome, divMisPost, divNewPost);
   menu.append(close, links, signOutBtn);
-  section.append(sectionTitle, postTitle, postBody, btnPost);
+  formPost.append(postTitle, postBody, btnPost);
+  section.append(sectionTitle, formPost);
   main.append(open, menu, title, section);
 
+  formPost.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const titulo = postTitle.value;
+    const body = postBody.value;
+    createPost(titulo, body);
+  })
   return main;
 }
 

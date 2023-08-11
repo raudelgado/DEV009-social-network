@@ -1,4 +1,4 @@
-import { logInWithEmail, resetPassword } from '../lib/index.js';
+import { logInWithEmail, resetPassword, stateChanged } from '../lib/index.js';
 
 function login(navigateTo) {
   const main = document.createElement('main');
@@ -87,6 +87,7 @@ function login(navigateTo) {
     e.preventDefault();
     const email = emailInput.value;
     const password = passwordInput.value;
+    stateChanged();
     logInWithEmail(email, password)
       .then((user) => {
         if (!user.emailVerified) {
@@ -123,12 +124,6 @@ function login(navigateTo) {
   close.addEventListener('click', () => {
     modal.style.display = 'none';
   });
-
-  /* window.onclick = (event) => {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  }; */
 
   return main;
 }

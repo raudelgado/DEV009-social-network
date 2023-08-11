@@ -73,7 +73,8 @@ function join(navigateTo) {
     e.preventDefault();
     const email = emailInput.value;
     const password = passwordInput.value;
-    createAccount(email, password)
+    const username = userName.value;
+    createAccount(email, password, username)
       .then(() => {
         modal.style.display = 'block';
       })
@@ -82,17 +83,11 @@ function join(navigateTo) {
         modalMessage.textContent = 'Ya existe una cuenta para ese correo electrónico o el correo es inválido.';
       });
   });
-
   close.addEventListener('click', () => {
     modal.style.display = 'none';
     navigateTo('/login');
   });
-  // window.onclick = (event) => {
-  //   if (event.target === modal) {
-  //     modal.style.display = 'none';
-  //     navigateTo('/login');
-  //   }
-  // };
+
   return main;
 }
 
