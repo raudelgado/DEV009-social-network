@@ -160,7 +160,6 @@ export async function displayAllPosts() {
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      const postId = doc.id;
 
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
@@ -191,20 +190,8 @@ export async function displayAllPosts() {
       reactionImg.src = 'components/images/fantasma.png';
       reactionImg.className = 'img-endPost';
 
-      const divDeleEdit = document.createElement('div');
-      divDeleEdit.className = 'divDeleEdit';
-
-      const deletePostImg = document.createElement('img');
-      deletePostImg.src = 'components/images/delete.png';
-      deletePostImg.className = 'img-endPost';
-
-      const editPostImg = document.createElement('img');
-      editPostImg.src = 'components/images/edit.png';
-      editPostImg.className = 'img-endPost';
-
       divReaction.append(reaction, reactionImg);
-      divDeleEdit.append(deletePostImg, editPostImg);
-      divEndPost.append(divReaction, divDeleEdit);
+      divEndPost.append(divReaction);
       postDiv.append(author, title, content, divEndPost);
       postsSection.appendChild(postDiv);
     });
