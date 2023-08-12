@@ -19,6 +19,7 @@ import {
   getDocs,
   where,
   query,
+  orderBy,
 } from '../firebase/initializeFirebase.js';
 
 export const createAccount = (email, password, username) => {
@@ -69,12 +70,13 @@ export const logInWithGoogle = () => {
 };
 
 // crear carpeta con post
-export async function createPost(username, titulo, body) {
+export async function createPost(username, titulo, body, timestamp) {
   try {
     const data = {
       author: username,
       title: titulo,
       content: body,
+      date: timestamp,
     };
     const docPost = await addDoc(collection(db, 'Post'), data);
     console.log('Document written with ID: ', docPost.id);
@@ -82,10 +84,11 @@ export async function createPost(username, titulo, body) {
     console.error('Error adding document: ', e);
   }
 }
+
 // Mostrar post solo de un usuario
 export async function displayUserPosts(user) {
   try {
-    const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName)));
+    const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName), orderBy('date', 'desc')));
     const postsSection = document.querySelector('.post-by-user');
 
     querySnapshot.forEach((doc) => {
@@ -95,7 +98,7 @@ export async function displayUserPosts(user) {
       postDiv.className = 'post';
 
       const author = document.createElement('p');
-      author.textContent = `Author: ${data.author}`;
+      author.textContent = `${data.author}`;
 
       const title = document.createElement('p');
       title.textContent = data.title;
@@ -113,7 +116,7 @@ export async function displayUserPosts(user) {
 
 export async function displayAllPosts() {
   try {
-    const querySnapshot = await getDocs((collection(db, 'Post')));
+    const querySnapshot = await getDocs(query(collection(db, 'Post'), orderBy('date', 'desc')));
     const postsSection = document.querySelector('.post-all-users');
 
     querySnapshot.forEach((doc) => {
@@ -122,14 +125,17 @@ export async function displayAllPosts() {
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
 
-      const author = document.createElement('p');
-      author.textContent = `Author: ${data.author}`;
+      const author = document.createElement('h3');
+      author.textContent = `${data.author}`;
+      author.className = 'author';
 
-      const title = document.createElement('p');
+      const title = document.createElement('h3');
       title.textContent = data.title;
+      title.className = 'title-post';
 
       const content = document.createElement('p');
       content.textContent = data.content;
+      content.className = 'content';
 
       postDiv.append(author, title, content);
       postsSection.appendChild(postDiv);

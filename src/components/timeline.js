@@ -1,4 +1,4 @@
-import { auth } from '../firebase/initializeFirebase.js';
+import { auth, serverTimestamp } from '../firebase/initializeFirebase.js';
 import {
   signOutSession,
   createPost,
@@ -100,6 +100,7 @@ function timeline(navigateTo) {
   postTitle.className = 'post-title';
   postTitle.setAttribute('type', 'text');
   postTitle.setAttribute('placeholder', 'Ingrese un titulo');
+  postTitle.setAttribute('required', '');
 
   const postBody = document.createElement('textarea');
   postBody.className = 'post-body';
@@ -107,6 +108,7 @@ function timeline(navigateTo) {
   postBody.setAttribute('rows', '5');
   postBody.setAttribute('cols', '50');
   postBody.setAttribute('maxlength', '1500');
+  postBody.setAttribute('required', '');
 
   const btnPost = document.createElement('button');
   btnPost.className = 'btn-post';
@@ -132,8 +134,9 @@ function timeline(navigateTo) {
 
     const user = auth.currentUser;
     const username = user.displayName;
+    const date = serverTimestamp();
 
-    await createPost(username, title, content);
+    await createPost(username, title, content, date);
     formPost.reset();
     navigateTo('/timeline');
   });
