@@ -20,6 +20,8 @@ import {
   where,
   query,
   orderBy,
+  deleteDoc,
+  doc,
 } from '../firebase/initializeFirebase.js';
 
 export const createAccount = (email, password, username) => {
@@ -93,9 +95,11 @@ export async function displayUserPosts(user) {
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
+      const postId = doc.id;
 
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
+      postDiv.setAttribute('data-post-id', postId);
 
       const author = document.createElement('h3');
       author.textContent = `${data.author}`;
@@ -110,7 +114,7 @@ export async function displayUserPosts(user) {
       content.className = 'content';
 
       const divEndPost = document.createElement('div');
-      divEndPost.className ='divEndPost';
+      divEndPost.className = 'divEndPost';
 
       const divReaction = document.createElement('div');
       divReaction.className = 'divReaction';
@@ -118,18 +122,22 @@ export async function displayUserPosts(user) {
       const reaction = document.createElement('button');
       reaction.textContent = '#';
       reaction.className = 'num-reaction';
-      
+
       const reactionImg = document.createElement('img');
       reactionImg.src = 'components/images/fantasma.png';
       reactionImg.className = 'img-endPost';
-     
+
       const divDeleEdit = document.createElement('div');
       divDeleEdit.className = 'divDeleEdit';
 
       const deletePostImg = document.createElement('img');
       deletePostImg.src = 'components/images/delete.png';
       deletePostImg.className = 'img-endPost';
-      
+      deletePostImg.addEventListener('click', () => {
+        docDelete(postId);
+        postDiv.remove();
+      })
+
       const editPostImg = document.createElement('img');
       editPostImg.src = 'components/images/edit.png';
       editPostImg.className = 'img-endPost';
@@ -152,6 +160,7 @@ export async function displayAllPosts() {
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
+      const postId = doc.id;
 
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
@@ -169,7 +178,7 @@ export async function displayAllPosts() {
       content.className = 'content';
 
       const divEndPost = document.createElement('div');
-      divEndPost.className ='divEndPost';
+      divEndPost.className = 'divEndPost';
 
       const divReaction = document.createElement('div');
       divReaction.className = 'divReaction';
@@ -177,18 +186,23 @@ export async function displayAllPosts() {
       const reaction = document.createElement('button');
       reaction.textContent = '#';
       reaction.className = 'num-reaction';
-      
+
       const reactionImg = document.createElement('img');
       reactionImg.src = 'components/images/fantasma.png';
       reactionImg.className = 'img-endPost';
-     
+
       const divDeleEdit = document.createElement('div');
       divDeleEdit.className = 'divDeleEdit';
 
       const deletePostImg = document.createElement('img');
       deletePostImg.src = 'components/images/delete.png';
       deletePostImg.className = 'img-endPost';
-      
+
+      deletePostImg.addEventListener('click', () => {
+        docDelete(postId);
+        postDiv.remove();
+      })
+
       const editPostImg = document.createElement('img');
       editPostImg.src = 'components/images/edit.png';
       editPostImg.className = 'img-endPost';
@@ -201,5 +215,14 @@ export async function displayAllPosts() {
     });
   } catch (e) {
     console.error('Error fetching documents: ', e);
+  }
+}
+
+// Eliminar Post
+async function docDelete(iDPost) {
+  try {
+    await deleteDoc(doc(db, 'Post', iDPost));
+  } catch (error) {
+    alert(error);
   }
 }
