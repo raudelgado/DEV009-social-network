@@ -198,11 +198,6 @@ export async function displayAllPosts() {
       deletePostImg.src = 'components/images/delete.png';
       deletePostImg.className = 'img-endPost';
 
-      deletePostImg.addEventListener('click', () => {
-        docDelete(postId);
-        postDiv.remove();
-      })
-
       const editPostImg = document.createElement('img');
       editPostImg.src = 'components/images/edit.png';
       editPostImg.className = 'img-endPost';
