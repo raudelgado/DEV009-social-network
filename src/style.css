@@ -220,7 +220,6 @@ form {
   position: absolute;
   left: 82%;
   bottom: 87%;
-  margin-top: 0;
   width: 22px;
   height: 22px;
   border: 2px solid;
@@ -251,7 +250,7 @@ form {
 
 .main-section {
   background-color: rgba(180, 165, 165, 0.60);
-  height: 38%;
+  height: 30%;
   border-radius: 20px;
   position: absolute;
   top: 10%;
@@ -332,10 +331,20 @@ form {
 .author {
   font-family: 'Satisfy', cursive;
   font-size: 1.3rem;
+  background-color: #B4A5A5;
+  display: flex;
+  justify-content: center;
+  border-radius: 5rem;
 }
 
 .title-post {
   font-size: 1rem;
+  color: #DAC7C7;
+  border-radius: 5rem;
+  background-color: #301b3fb6;
+  display: flex;
+  justify-content: center;
+  text-shadow: none;  
 }
 
 .content {
@@ -345,13 +354,46 @@ form {
   text-align: center;
 }
 
+.divEndPost{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 1.7rem;
+  margin-top: 1rem;
+}
+
+.divReaction{
+  background-color: #301B3F;
+  border-radius: 10px;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.divDeleEdit{
+  display: flex;
+  justify-content: space-around;
+  width: 80px;
+}
+
+.num-reaction{
+  text-decoration: none;
+  color: #B4A5A5;
+  border: none;
+  background: none;
+}
+
+.img-endPost{
+  width: 25px;
+  height: auto;
+}
+
 /*NAVBAR*/
 .sidenav {
   height: 100%;
   width: 50%;
   position: fixed;
   z-index: 1;
-  top: 0;
   left: 0;
   background-color: #1B1021;
   overflow-x: hidden;
@@ -376,22 +418,23 @@ form {
   cursor: pointer;
 }
 
-.nav-links a {
-  display: flex;
-  flex-direction: row;
-  font-size: 0.8rem;
-  margin-left: 10px;
-  padding: 3px;
-}
-
 .sidenav a:hover {
   color: #f1f1f1;
+}
+
+.buttons-nav{
+  font-family: 'Glegoo', serif;
+  background: none;
+  border: none;
+  color: #B4A5A5;
+  font-size: large;
 }
 
 .nav-links {
   display: flex;
   flex-direction: column;
   margin-left: 8px;
+  margin-top: 5rem;
 }
 
 .icon-navbar {
@@ -399,12 +442,17 @@ form {
   height: 27px;
 }
 
+.icon-misPosts{
+  width: 30px;
+  height: auto;
+}
+
 .button-sign-out {
-  display: flex;
-  align-self: end;
   margin-bottom: 10px;
   width: 35px;
   cursor: pointer;
+  margin-top: 30rem;
+  margin-left: 8rem;
 }
 
 .div-profile,

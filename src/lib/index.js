@@ -97,16 +97,47 @@ export async function displayUserPosts(user) {
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
 
-      const author = document.createElement('p');
+      const author = document.createElement('h3');
       author.textContent = `${data.author}`;
+      author.className = 'author';
 
-      const title = document.createElement('p');
+      const title = document.createElement('h3');
       title.textContent = data.title;
+      title.className = 'title-post';
 
       const content = document.createElement('p');
       content.textContent = data.content;
+      content.className = 'content';
 
-      postDiv.append(author, title, content);
+      const divEndPost = document.createElement('div');
+      divEndPost.className ='divEndPost';
+
+      const divReaction = document.createElement('div');
+      divReaction.className = 'divReaction';
+
+      const reaction = document.createElement('button');
+      reaction.textContent = '#';
+      reaction.className = 'num-reaction';
+      
+      const reactionImg = document.createElement('img');
+      reactionImg.src = 'components/images/fantasma.png';
+      reactionImg.className = 'img-endPost';
+     
+      const divDeleEdit = document.createElement('div');
+      divDeleEdit.className = 'divDeleEdit';
+
+      const deletePostImg = document.createElement('img');
+      deletePostImg.src = 'components/images/delete.png';
+      deletePostImg.className = 'img-endPost';
+      
+      const editPostImg = document.createElement('img');
+      editPostImg.src = 'components/images/edit.png';
+      editPostImg.className = 'img-endPost';
+
+      divReaction.append(reaction, reactionImg);
+      divDeleEdit.append(deletePostImg, editPostImg);
+      divEndPost.append(divReaction, divDeleEdit);
+      postDiv.append(author, title, content, divEndPost);
       postsSection.appendChild(postDiv);
     });
   } catch (e) {
@@ -137,7 +168,35 @@ export async function displayAllPosts() {
       content.textContent = data.content;
       content.className = 'content';
 
-      postDiv.append(author, title, content);
+      const divEndPost = document.createElement('div');
+      divEndPost.className ='divEndPost';
+
+      const divReaction = document.createElement('div');
+      divReaction.className = 'divReaction';
+
+      const reaction = document.createElement('button');
+      reaction.textContent = '#';
+      reaction.className = 'num-reaction';
+      
+      const reactionImg = document.createElement('img');
+      reactionImg.src = 'components/images/fantasma.png';
+      reactionImg.className = 'img-endPost';
+     
+      const divDeleEdit = document.createElement('div');
+      divDeleEdit.className = 'divDeleEdit';
+
+      const deletePostImg = document.createElement('img');
+      deletePostImg.src = 'components/images/delete.png';
+      deletePostImg.className = 'img-endPost';
+      
+      const editPostImg = document.createElement('img');
+      editPostImg.src = 'components/images/edit.png';
+      editPostImg.className = 'img-endPost';
+
+      divReaction.append(reaction, reactionImg);
+      divDeleEdit.append(deletePostImg, editPostImg);
+      divEndPost.append(divReaction, divDeleEdit);
+      postDiv.append(author, title, content, divEndPost);
       postsSection.appendChild(postDiv);
     });
   } catch (e) {
