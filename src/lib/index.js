@@ -135,7 +135,7 @@ export async function displayUserPosts(user) {
       deletePostImg.src = 'components/images/delete.png';
       deletePostImg.className = 'img-endPost';
       deletePostImg.addEventListener('click', () => {
-        docDelete(postId);
+        deletePost(postId);
         postDiv.remove();
       })
 
@@ -202,10 +202,4 @@ export async function displayAllPosts() {
 }
 
 // Eliminar Post
-async function docDelete(iDPost) {
-  try {
-    await deleteDoc(doc(db, 'Post', iDPost));
-  } catch (error) {
-    alert(error);
-  }
-}
+export const deletePost = (postId) => deleteDoc(doc(db, 'Post', postId));

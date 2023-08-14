@@ -90,23 +90,29 @@ function perfil(navigateTo) {
     const divInfoUser = document.createElement('div');
     divInfoUser.className = 'divInfoUser';
 
+    const allPosts = document.createElement('div');
+    allPosts.className = 'post-all-users';
+  
+    const postsByUser = document.createElement('div');
+    postsByUser.className = 'post-by-user';
+
     // Usuario presente 
     const user = auth.currentUser;
 
     // Foto de usuario
     const userphoto = document.createElement('div');
     userphoto.className = 'photo-user';
-
-    if (user && user.photoURL) { // Verifica si existe el objeto user y la propiedad de la foto
-        console.log('Showing user photo:', user.photoURL);
+    
+    if (user && user.photoURL) {
+        console.log('Mostrando foto de usuario:', user.photoURL);
         const userPhotoImg = document.createElement('img');
         userPhotoImg.src = user.photoURL;
-        userPhotoImg.alt = 'User Photo';
+        userPhotoImg.alt = 'Foto de Usuario';
         userPhotoImg.className = 'user-photo-img';
-
+    
         userphoto.appendChild(userPhotoImg);
     } else {
-        console.log('No user photo available.');
+        console.log('No hay foto de usuario disponible.');
         const sinUserPhoto = document.createElement('img');
         sinUserPhoto.src = 'components/images/logo.png';
         sinUserPhoto.className = 'user-noPhoto';
