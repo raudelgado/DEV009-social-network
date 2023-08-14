@@ -90,19 +90,27 @@ function perfil(navigateTo) {
     const divInfoUser = document.createElement('div');
     divInfoUser.className = 'divInfoUser';
 
+    // Usuario presente 
+    const user = auth.currentUser;
+
     // Foto de usuario
     const userphoto = document.createElement('div');
     userphoto.className = 'photo-user';
 
-    const user = auth.currentUser;
+    if (user && user.photoURL) { // Verifica si existe el objeto user y la propiedad de la foto
+        console.log('Showing user photo:', user.photoURL);
+        const userPhotoImg = document.createElement('img');
+        userPhotoImg.src = user.photoURL;
+        userPhotoImg.alt = 'User Photo';
+        userPhotoImg.className = 'user-photo-img';
 
-    if (user && user.photoURL) {
-    const userPhotoImg = document.createElement('img');
-    userPhotoImg.src = user.photoURL;
-    userPhotoImg.alt = 'User Photo';
-    userPhotoImg.className = 'user-photo-img';
-    
-    userphoto.appendChild(userPhotoImg);
+        userphoto.appendChild(userPhotoImg);
+    } else {
+        console.log('No user photo available.');
+        const sinUserPhoto = document.createElement('img');
+        sinUserPhoto.src = 'components/images/logo.png';
+        sinUserPhoto.className = 'user-noPhoto';
+        userphoto.appendChild(sinUserPhoto);
     }
 
     // DIV nombre usuario
@@ -118,6 +126,10 @@ function perfil(navigateTo) {
     username.setAttribute('type', 'text');
     username.setAttribute('required', '');
 
+    if (user && user.displayName) {
+      username.value = user.displayName;
+    }
+
     // DIV email usuario
     const divemailtext = document.createElement('div');
     divemailtext.className = 'divemailtext';
@@ -131,24 +143,14 @@ function perfil(navigateTo) {
     useremail.setAttribute('type', 'text');
     useremail.setAttribute('required', '');
 
-    // DIV contrasena usuario
-    const divepasstext = document.createElement('div');
-    divepasstext.className = 'divepasstext';
-
-    const userpasttext = document.createElement('p');
-    userpasttext.className = 'textinput';
-    userpasttext.textContent = 'Contraseña';
-
-    const userpass = document.createElement('input');
-    userpass.className = 'pass-user';
-    userpass.setAttribute('type', 'text');
-    userpass.setAttribute('required', '');
+    if(user && user.email){
+        useremail.value = user.email;
+    }
 
     links.append(divProfile, divHome, divUserPosts);
     divnametext.append(usernametext, username);
     divemailtext.append(usermailtext, useremail);
-    divepasstext.append(userpasttext, userpass);
-    divInfoUser.append(userphoto, divnametext, divemailtext, divepasstext);
+    divInfoUser.append(userphoto, divnametext, divemailtext);
     menu.append(close, links, signOutBtn);
     main.append(open, menu, pageTitle, divInfoUser);
 
