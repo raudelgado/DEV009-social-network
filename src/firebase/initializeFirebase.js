@@ -9,6 +9,8 @@ import {
   query,
   serverTimestamp,
   orderBy,
+  deleteDoc,
+  updateDoc,
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -51,4 +53,6 @@ export {
   query,
   serverTimestamp,
   orderBy,
+  deleteDoc,
+  updateDoc,
 };

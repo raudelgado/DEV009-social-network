@@ -20,13 +20,17 @@ import {
   where,
   query,
   orderBy,
+  deleteDoc,
+  doc,
 } from '../firebase/initializeFirebase.js';
 
 export const createAccount = (email, password, username) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      updateProfile(userCredential.user, { displayName: username });
+      updateProfile(userCredential.user, {
+        displayName: username,
+      });
       sendEmailVerification(userCredential.user);
       return user;
     });
@@ -63,9 +67,8 @@ export const logInWithGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
-      const photoURL = user.photoURL;
       console.log(token, user);
-      return { user, token, photoURL };
+      return { user, token };
     });
 };
 
@@ -93,20 +96,57 @@ export async function displayUserPosts(user) {
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
+      const postId = doc.id;
 
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
+      postDiv.setAttribute('data-post-id', postId);
 
-      const author = document.createElement('p');
+      const author = document.createElement('h3');
       author.textContent = `${data.author}`;
+      author.className = 'author';
 
-      const title = document.createElement('p');
+      const title = document.createElement('h3');
       title.textContent = data.title;
+      title.className = 'title-post';
 
       const content = document.createElement('p');
       content.textContent = data.content;
+      content.className = 'content';
 
-      postDiv.append(author, title, content);
+      const divEndPost = document.createElement('div');
+      divEndPost.className = 'divEndPost';
+
+      const divReaction = document.createElement('div');
+      divReaction.className = 'divReaction';
+
+      const reaction = document.createElement('button');
+      reaction.textContent = '#';
+      reaction.className = 'num-reaction';
+
+      const reactionImg = document.createElement('img');
+      reactionImg.src = 'components/images/fantasma.png';
+      reactionImg.className = 'img-endPost';
+
+      const divDeleEdit = document.createElement('div');
+      divDeleEdit.className = 'divDeleEdit';
+
+      const deletePostImg = document.createElement('img');
+      deletePostImg.src = 'components/images/delete.png';
+      deletePostImg.className = 'img-endPost';
+      deletePostImg.addEventListener('click', () => {
+        deletePost(postId);
+        postDiv.remove();
+      })
+
+      const editPostImg = document.createElement('img');
+      editPostImg.src = 'components/images/edit.png';
+      editPostImg.className = 'img-endPost';
+
+      divReaction.append(reaction, reactionImg);
+      divDeleEdit.append(deletePostImg, editPostImg);
+      divEndPost.append(divReaction, divDeleEdit);
+      postDiv.append(author, title, content, divEndPost);
       postsSection.appendChild(postDiv);
     });
   } catch (e) {
@@ -137,10 +177,29 @@ export async function displayAllPosts() {
       content.textContent = data.content;
       content.className = 'content';
 
-      postDiv.append(author, title, content);
+      const divEndPost = document.createElement('div');
+      divEndPost.className = 'divEndPost';
+
+      const divReaction = document.createElement('div');
+      divReaction.className = 'divReaction';
+
+      const reaction = document.createElement('button');
+      reaction.textContent = '#';
+      reaction.className = 'num-reaction';
+
+      const reactionImg = document.createElement('img');
+      reactionImg.src = 'components/images/fantasma.png';
+      reactionImg.className = 'img-endPost';
+
+      divReaction.append(reaction, reactionImg);
+      divEndPost.append(divReaction);
+      postDiv.append(author, title, content, divEndPost);
       postsSection.appendChild(postDiv);
     });
   } catch (e) {
     console.error('Error fetching documents: ', e);
   }
 }
+
+// Eliminar Post
+export const deletePost = (postId) => deleteDoc(doc(db, 'Post', postId));

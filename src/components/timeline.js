@@ -41,6 +41,7 @@ function timeline(navigateTo) {
 
   const home = document.createElement('button');
   home.textContent = 'Home';
+  home.className = 'buttons-nav';
 
   const iconHome = document.createElement('img');
   iconHome.src = 'components/images/Home.png';
@@ -54,6 +55,7 @@ function timeline(navigateTo) {
 
   const profile = document.createElement('button');
   profile.textContent = 'Mi Perfil';
+  profile.className = 'buttons-nav';
 
   const iconProfile = document.createElement('img');
   iconProfile.src = 'components/images/Usuario.png';
@@ -67,10 +69,11 @@ function timeline(navigateTo) {
 
   const userPosts = document.createElement('button');
   userPosts.textContent = 'Mis Posts';
+  userPosts.className = 'buttons-nav';
 
   const iconUserPosts = document.createElement('img');
   iconUserPosts.src = 'components/images/Post.png';
-  iconUserPosts.className = 'icon-navbar';
+  iconUserPosts.className = 'icon-misPosts';  
 
   divUserPosts.append(iconUserPosts, userPosts);
 
@@ -152,6 +155,10 @@ function timeline(navigateTo) {
 
   divHome.addEventListener('click', () => {
     navigateTo('/timeline');
+  });
+
+  divProfile.addEventListener('click', () => {
+    navigateTo('/perfil');
   });
 
   return main;
