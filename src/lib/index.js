@@ -85,7 +85,7 @@ export async function createPost(username, titulo, body) {
 export async function displayUserPosts(user) {
   try {
     const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName)));
-    const postsSection = document.querySelector('.post-timeline');
+    const postsSection = document.querySelector('.post-by-user');
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
@@ -113,7 +113,7 @@ export async function displayUserPosts(user) {
 export async function displayAllPosts() {
   try {
     const querySnapshot = await getDocs((collection(db, 'Post')));
-    const postsSection = document.querySelector('.post-timeline');
+    const postsSection = document.querySelector('.post-all-users');
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();

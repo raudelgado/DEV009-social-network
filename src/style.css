@@ -311,9 +311,17 @@ form {
 }
 
 /*All Posts*/
-.post{
+.post {
   background-color: #B4A5A5;
   border-radius: 10px;
+}
+
+.post-all-users {
+  display: block;
+}
+
+.post-by-user {
+  display: none;
 }
 
 /*NAVBAR*/

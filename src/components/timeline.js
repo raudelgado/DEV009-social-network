@@ -1,13 +1,16 @@
 import { auth } from '../firebase/initializeFirebase.js';
 import {
-  signOutSession, createPost, displayUserPosts, displayAllPosts,
+  signOutSession,
+  createPost,
+  displayAllPosts,
+  displayUserPosts,
 } from '../lib/index.js';
 
 function timeline(navigateTo) {
+  displayAllPosts();
+
   const main = document.createElement('main');
   main.className = 'main-timeline';
-
-  displayAllPosts();
 
   const pageTitle = document.createElement('h2');
   pageTitle.textContent = 'SpookyVerse';
@@ -64,8 +67,7 @@ function timeline(navigateTo) {
   const divUserPosts = document.createElement('div');
   divUserPosts.className = 'user-posts';
 
-  const userPosts = document.createElement('a');
-  userPosts.setAttribute('href', '');
+  const userPosts = document.createElement('button');
   userPosts.textContent = 'Mis Posts';
 
   const iconUserPosts = document.createElement('img');
@@ -126,13 +128,16 @@ function timeline(navigateTo) {
   btnPost.className = 'btn-post';
   btnPost.textContent = 'Post';
 
-  const divPost = document.createElement('div');
-  divPost.className = 'post-timeline';
+  const allPosts = document.createElement('div');
+  allPosts.className = 'post-all-users';
+
+  const postsByUser = document.createElement('div');
+  postsByUser.className = 'post-by-user';
 
   links.append(divProfile, divHome, divUserPosts, divNewPost);
   menu.append(close, links, signOutBtn);
   formPost.append(postTitle, postBody, btnPost);
-  section.append(sectionTitle, formPost, divPost);
+  section.append(sectionTitle, formPost, allPosts, postsByUser);
   main.append(open, menu, pageTitle, section);
 
   formPost.addEventListener('submit', async (e) => {
@@ -145,12 +150,17 @@ function timeline(navigateTo) {
 
     await createPost(username, title, content);
     formPost.reset();
-    displayUserPosts(user);
+    // allPosts.style.display = 'block';
+    navigateTo('/timeline');
   });
 
-  /* divMisPost.addEventListener('click', () => {
+  divUserPosts.addEventListener('click', () => {
     const user = auth.currentUser;
-  }); */
+    displayUserPosts(user);
+    allPosts.style.display = 'none';
+    postsByUser.style.display = 'block';
+    menu.style.display = 'none';
+  });
 
   return main;
 }
