@@ -28,7 +28,9 @@ export const createAccount = (email, password, username) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      updateProfile(userCredential.user, { displayName: username });
+      updateProfile(userCredential.user, {
+        displayName: username,
+      });
       sendEmailVerification(userCredential.user);
       return user;
     });
@@ -65,9 +67,8 @@ export const logInWithGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
-      const photoURL = user.photoURL;
       console.log(token, user);
-      return { user, token, photoURL };
+      return { user, token };
     });
 };
 
