@@ -3,7 +3,7 @@ import login from './components/login.js';
 import join from './components/join.js';
 import error from './components/error.js';
 import timeline from './components/timeline.js';
-import perfil from './components/perfil.js';
+import profile from './components/profile.js';
 
 const root = document.getElementById('root');
 
@@ -13,7 +13,7 @@ const routes = [
   { path: '/join', component: join },
   { path: '/error', component: error },
   { path: '/timeline', component: timeline },
-  { path: '/perfil', component:perfil},
+  { path: '/perfil', component: profile },
 ];
 
 const defaultRoute = '/';

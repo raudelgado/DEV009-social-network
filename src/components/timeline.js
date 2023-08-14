@@ -73,7 +73,7 @@ function timeline(navigateTo) {
 
   const iconUserPosts = document.createElement('img');
   iconUserPosts.src = 'components/images/Post.png';
-  iconUserPosts.className = 'icon-misPosts';  
+  iconUserPosts.className = 'icon-misPosts';
 
   divUserPosts.append(iconUserPosts, userPosts);
 
@@ -123,11 +123,40 @@ function timeline(navigateTo) {
   const postsByUser = document.createElement('div');
   postsByUser.className = 'post-by-user';
 
+  // Modal confirmación borrar
+  const modal = document.createElement('div');
+  modal.className = 'modal-delete';
+
+  const modalContent = document.createElement('div');
+  modalContent.className = 'modal-delete-content';
+
+  const modalTitle = document.createElement('h4');
+  modalTitle.textContent = 'SpookyVerse';
+  modalTitle.className = 'modal-delete-title';
+
+  const modalClose = document.createElement('span');
+  modalClose.className = 'gg-close-o';
+
+  const modalMessage = document.createElement('p');
+  modalMessage.textContent = '¿Quieres borrar ese post?';
+
+  const confirmButton = document.createElement('button');
+  confirmButton.textContent = 'Borrar';
+  confirmButton.className = 'modal-delete-confirm';
+  confirmButton.setAttribute('type', 'button');
+
+  const cancelButton = document.createElement('button');
+  cancelButton.textContent = 'No';
+  cancelButton.className = 'modal-delete-cancel';
+
+  modal.append(modalContent);
+  modalContent.append(modalTitle, modalClose, modalMessage, cancelButton, confirmButton);
+
   links.append(divProfile, divHome, divUserPosts);
   menu.append(close, links, signOutBtn);
   formPost.append(postTitle, postBody, btnPost);
   section.append(sectionTitle, formPost, allPosts, postsByUser);
-  main.append(open, menu, pageTitle, section);
+  main.append(open, menu, pageTitle, section, modal);
 
   // Evento para publicar post
   formPost.addEventListener('submit', async (e) => {

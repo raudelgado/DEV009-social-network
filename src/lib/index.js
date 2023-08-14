@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable import/named */
 /* eslint-disable no-console */
 /* eslint-disable arrow-body-style */
@@ -88,15 +89,18 @@ export async function createPost(username, titulo, body, timestamp) {
   }
 }
 
+// Eliminar Post
+export const deletePost = (postId) => deleteDoc(doc(db, 'Post', postId));
+
 // Mostrar post solo de un usuario
 export async function displayUserPosts(user) {
   try {
     const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName), orderBy('date', 'desc')));
     const postsSection = document.querySelector('.post-by-user');
 
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      const postId = doc.id;
+    querySnapshot.forEach((file) => {
+      const data = file.data();
+      const postId = file.id;
 
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
@@ -131,13 +135,21 @@ export async function displayUserPosts(user) {
       const divDeleEdit = document.createElement('div');
       divDeleEdit.className = 'divDeleEdit';
 
+      const modal = document.querySelector('.modal-delete');
+
       const deletePostImg = document.createElement('img');
       deletePostImg.src = 'components/images/delete.png';
       deletePostImg.className = 'img-endPost';
       deletePostImg.addEventListener('click', () => {
-        deletePost(postId);
-        postDiv.remove();
-      })
+        modal.style.display = 'block';
+
+        const buttonDelete = document.querySelector('.modal-delete-confirm');
+        buttonDelete.addEventListener('click', () => {
+          deletePost(postId);
+          postDiv.remove();
+          modal.style.display = 'none';
+        });
+      });
 
       const editPostImg = document.createElement('img');
       editPostImg.src = 'components/images/edit.png';
@@ -159,8 +171,8 @@ export async function displayAllPosts() {
     const querySnapshot = await getDocs(query(collection(db, 'Post'), orderBy('date', 'desc')));
     const postsSection = document.querySelector('.post-all-users');
 
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
+    querySnapshot.forEach((file) => {
+      const data = file.data();
 
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
@@ -200,6 +212,3 @@ export async function displayAllPosts() {
     console.error('Error fetching documents: ', e);
   }
 }
-
-// Eliminar Post
-export const deletePost = (postId) => deleteDoc(doc(db, 'Post', postId));
