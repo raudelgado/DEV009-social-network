@@ -48,18 +48,6 @@ export const logInWithEmail = (email, password) => {
     });
 };
 
-// Estado del usuario
-export const userStat = () => {
-  return onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      console.log(uid, 'logeado');
-    } else {
-      console.log('Usuario no logeado');
-    }
-  });
-};
-
 export const signOutSession = () => signOut(auth);
 
 export const resetPassword = (email) => sendPasswordResetEmail(auth, email);
@@ -109,6 +97,7 @@ export async function updatePost(postId, newData) {
 // Mostrar post solo de un usuario
 export async function displayUserPosts(user) {
   try {
+    if (user) {
     const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName), orderBy('date', 'desc')));
     const postsSection = document.querySelector('.post-by-user');
 
@@ -120,9 +109,19 @@ export async function displayUserPosts(user) {
       postDiv.className = 'post';
       postDiv.setAttribute('data-post-id', postId);
 
+      // Nombre del autor mas foto
+      const divAutImg = document.createElement('div')
+      divAutImg.className = 'divAutImg';
+
       const author = document.createElement('h3');
       author.textContent = `${data.author}`;
       author.className = 'author';
+
+      const user = auth.currentUser;
+
+      const foto = document.createElement('img');
+      foto.className = 'fotoname';
+      foto.src = user.photoURL;
 
       const title = document.createElement('h3');
       title.textContent = data.title;
@@ -231,12 +230,14 @@ export async function displayUserPosts(user) {
         });
       });
 
+      divAutImg.append(author, foto);
       divReaction.append(reaction);
       divDeleEdit.append(deletePostImg, editPostImg);
       divEndPost.append(divReaction, divDeleEdit);
-      postDiv.append(author, title, content, divEndPost);
+      postDiv.append(divAutImg, title, content, divEndPost);
       postsSection.appendChild(postDiv);
     });
+  }
   } catch (e) {
     console.error('Error fetching documents: ', e);
   }

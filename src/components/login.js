@@ -1,4 +1,4 @@
-import { logInWithEmail, resetPassword, userStat } from '../lib/index.js';
+import { logInWithEmail, resetPassword } from '../lib/index.js';
 
 function login(navigateTo) {
   const main = document.createElement('main');
