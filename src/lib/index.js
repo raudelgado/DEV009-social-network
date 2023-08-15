@@ -96,7 +96,7 @@ export const deletePost = (postId) => deleteDoc(doc(db, 'Post', postId));
 // Editar Post
 export async function updatePost(postId, newData) {
   try {
-    const postRef = doc(db, 'posts', postId);
+    const postRef = doc(db, 'Post', postId);
     await updateDoc(postRef, newData);
     console.log('Post updated successfully');
   } catch (e) {
@@ -146,6 +146,7 @@ export async function displayUserPosts(user) {
       const divDeleEdit = document.createElement('div');
       divDeleEdit.className = 'divDeleEdit';
 
+      // Nueva Modal
       const modal = document.querySelector('.modal');
 
       const deletePostImg = document.createElement('img');
@@ -181,7 +182,8 @@ export async function displayUserPosts(user) {
         editText.value = data.content;
 
         const editForm = document.querySelector('.edit-form');
-        editForm.addEventListener('submit', async () => {
+        editForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
           const newTitle = editTitle.value;
           const newText = editText.value;
 
@@ -191,6 +193,10 @@ export async function displayUserPosts(user) {
           };
 
           await updatePost(postId, newData);
+
+          editBox.style.display = 'none';
+          postsSection.innerHTML = '';
+          await displayUserPosts(user);
         });
       });
 
