@@ -7,6 +7,10 @@ import {
   getDocs,
   where,
   query,
+  serverTimestamp,
+  orderBy,
+  deleteDoc,
+  updateDoc,
 } from 'firebase/firestore';
 import {
   getAuth,
@@ -47,4 +51,8 @@ export {
   getDocs,
   where,
   query,
+  serverTimestamp,
+  orderBy,
+  deleteDoc,
+  updateDoc,
 };

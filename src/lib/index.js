@@ -15,16 +15,21 @@ import {
   getDocs,
   where,
   query,
+  orderBy,
+  deleteDoc,
+  doc,
   db,
-  signOut,
   sendPasswordResetEmail,
+  signOut,
 } from '../firebase/initializeFirebase.js';
 
 export const createAccount = (email, password, username) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      updateProfile(userCredential.user, { displayName: username });
+      updateProfile(userCredential.user, {
+        displayName: username,
+      });
       sendEmailVerification(userCredential.user);
       return user;
     });
@@ -61,19 +66,19 @@ export const logInWithGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
-      const photoURL = user.photoURL;
       console.log(token, user);
-      return { user, token, photoURL };
+      return { user, token };
     });
 };
 
 // crear carpeta con post
-export async function createPost(username, titulo, body) {
+export async function createPost(username, titulo, body, timestamp) {
   try {
     const data = {
       author: username,
       title: titulo,
       content: body,
+      date: timestamp,
     };
     const docPost = await addDoc(collection(db, 'Post'), data);
     console.log('Document written with ID: ', docPost.id);
@@ -81,56 +86,94 @@ export async function createPost(username, titulo, body) {
     console.error('Error adding document: ', e);
   }
 }
+
+// Eliminar Post
+export const deletePost = (postId) => deleteDoc(doc(db, 'Post', postId));
+
 // Mostrar post solo de un usuario
 export async function displayUserPosts(user) {
   try {
-    const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName)));
+    const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName), orderBy('date', 'desc')));
     const postsSection = document.querySelector('.post-by-user');
-
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-
+    querySnapshot.forEach((file) => {
+      const data = file.data();
+      const postId = file.id;
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
-
-      const author = document.createElement('p');
-      author.textContent = `Author: ${data.author}`;
-
-      const title = document.createElement('p');
+      postDiv.setAttribute('data-post-id', postId);
+      const author = document.createElement('h3');
+      author.textContent = `${data.author}`;
+      author.className = 'author';
+      const title = document.createElement('h3');
       title.textContent = data.title;
-
+      title.className = 'title-post';
       const content = document.createElement('p');
       content.textContent = data.content;
-
-      postDiv.append(author, title, content);
+      content.className = 'content';
+      const divEndPost = document.createElement('div');
+      divEndPost.className = 'divEndPost';
+      const divReaction = document.createElement('div');
+      divReaction.className = 'divReaction';
+      const reaction = document.createElement('button');
+      reaction.textContent = '#';
+      reaction.className = 'num-reaction';
+      const reactionImg = document.createElement('img');
+      reactionImg.src = 'components/images/fantasma.png';
+      reactionImg.className = 'img-endPost';
+      const divDeleEdit = document.createElement('div');
+      divDeleEdit.className = 'divDeleEdit';
+      const deletePostImg = document.createElement('img');
+      deletePostImg.src = 'components/images/delete.png';
+      deletePostImg.className = 'img-endPost';
+      deletePostImg.addEventListener('click', () => {
+        deletePost(postId);
+        postDiv.remove();
+      });
+      const editPostImg = document.createElement('img');
+      editPostImg.src = 'components/images/edit.png';
+      editPostImg.className = 'img-endPost';
+      divReaction.append(reaction, reactionImg);
+      divDeleEdit.append(deletePostImg, editPostImg);
+      divEndPost.append(divReaction, divDeleEdit);
+      postDiv.append(author, title, content, divEndPost);
       postsSection.appendChild(postDiv);
     });
   } catch (e) {
     console.error('Error fetching documents: ', e);
   }
 }
-
 export async function displayAllPosts() {
   try {
-    const querySnapshot = await getDocs((collection(db, 'Post')));
+    const querySnapshot = await getDocs(query(collection(db, 'Post'), orderBy('date', 'desc')));
     const postsSection = document.querySelector('.post-all-users');
-
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-
+    querySnapshot.forEach((file) => {
+      const data = file.data();
+      const postId = file.id;
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
-
-      const author = document.createElement('p');
-      author.textContent = `Author: ${data.author}`;
-
-      const title = document.createElement('p');
+      postDiv.setAttribute('data-post-id', postId);
+      const author = document.createElement('h3');
+      author.textContent = `${data.author}`;
+      author.className = 'author';
+      const title = document.createElement('h3');
       title.textContent = data.title;
-
+      title.className = 'title-post';
       const content = document.createElement('p');
       content.textContent = data.content;
-
-      postDiv.append(author, title, content);
+      content.className = 'content';
+      const divEndPost = document.createElement('div');
+      divEndPost.className = 'divEndPost';
+      const divReaction = document.createElement('div');
+      divReaction.className = 'divReaction';
+      const reaction = document.createElement('button');
+      reaction.textContent = '#';
+      reaction.className = 'num-reaction';
+      const reactionImg = document.createElement('img');
+      reactionImg.src = 'components/images/fantasma.png';
+      reactionImg.className = 'img-endPost';
+      divReaction.append(reaction, reactionImg);
+      divEndPost.append(divReaction);
+      postDiv.append(author, title, content, divEndPost);
       postsSection.appendChild(postDiv);
     });
   } catch (e) {

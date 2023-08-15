@@ -1,16 +1,12 @@
-import { auth, serverTimestamp } from '../firebase/initializeFirebase.js';
+import { auth } from '../firebase/initializeFirebase.js';
 import {
   signOutSession,
-  createPost,
-  displayAllPosts,
   displayUserPosts,
 } from '../lib/index.js';
 
-function timeline(navigateTo) {
-  displayAllPosts();
-
+function perfil(navigateTo) {
   const main = document.createElement('main');
-  main.className = 'main-timeline';
+  main.className = 'main-perfil';
 
   const pageTitle = document.createElement('h2');
   pageTitle.textContent = 'SpookyVerse';
@@ -91,31 +87,8 @@ function timeline(navigateTo) {
       });
   });
 
-  const section = document.createElement('section');
-  section.className = 'main-section';
-
-  const sectionTitle = document.createElement('p');
-  sectionTitle.textContent = '¿Que historia quieres escribir hoy?';
-
-  const formPost = document.createElement('form');
-
-  const postTitle = document.createElement('input');
-  postTitle.className = 'post-title';
-  postTitle.setAttribute('type', 'text');
-  postTitle.setAttribute('placeholder', 'Ingrese un titulo');
-  postTitle.setAttribute('required', '');
-
-  const postBody = document.createElement('textarea');
-  postBody.className = 'post-body';
-  postBody.setAttribute('placeholder', 'Escribe tu historia aqui...');
-  postBody.setAttribute('rows', '5');
-  postBody.setAttribute('cols', '50');
-  postBody.setAttribute('maxlength', '1500');
-  postBody.setAttribute('required', '');
-
-  const btnPost = document.createElement('button');
-  btnPost.className = 'btn-post';
-  btnPost.textContent = 'Post';
+  const divInfoUser = document.createElement('div');
+  divInfoUser.className = 'divInfoUser';
 
   const allPosts = document.createElement('div');
   allPosts.className = 'post-all-users';
@@ -123,30 +96,70 @@ function timeline(navigateTo) {
   const postsByUser = document.createElement('div');
   postsByUser.className = 'post-by-user';
 
+  // Usuario presente
+  const user = auth.currentUser;
+
+  // Foto de usuario
+  const userphoto = document.createElement('div');
+  userphoto.className = 'photo-user';
+
+  if (user && user.photoURL) {
+    const userPhotoImg = document.createElement('img');
+    userPhotoImg.src = user.photoURL;
+    userPhotoImg.alt = 'Foto de Usuario';
+    userPhotoImg.className = 'user-photo-img';
+
+    userphoto.appendChild(userPhotoImg);
+  } else {
+    const sinUserPhoto = document.createElement('img');
+    sinUserPhoto.src = 'components/images/logo.png';
+    sinUserPhoto.className = 'user-noPhoto';
+    userphoto.appendChild(sinUserPhoto);
+  }
+
+  // DIV nombre usuario
+  const divnametext = document.createElement('div');
+  divnametext.className = 'divnametext';
+
+  const usernametext = document.createElement('p');
+  usernametext.className = 'textinput';
+  usernametext.textContent = 'Nombre';
+
+  const username = document.createElement('input');
+  username.className = 'name-user';
+  username.setAttribute('type', 'text');
+  username.setAttribute('required', '');
+
+  if (user && user.displayName) {
+    username.value = user.displayName;
+  }
+
+  // DIV email usuario
+  const divemailtext = document.createElement('div');
+  divemailtext.className = 'divemailtext';
+
+  const usermailtext = document.createElement('p');
+  usermailtext.className = 'textinput';
+  usermailtext.textContent = 'Correo';
+
+  const useremail = document.createElement('input');
+  useremail.className = 'mail-user';
+  useremail.setAttribute('type', 'text');
+  useremail.setAttribute('required', '');
+
+  if (user && user.email) {
+    useremail.value = user.email;
+  }
+
   links.append(divProfile, divHome, divUserPosts);
+  divnametext.append(usernametext, username);
+  divemailtext.append(usermailtext, useremail);
+  divInfoUser.append(userphoto, divnametext, divemailtext);
   menu.append(close, links, signOutBtn);
-  formPost.append(postTitle, postBody, btnPost);
-  section.append(sectionTitle, formPost, allPosts, postsByUser);
-  main.append(open, menu, pageTitle, section);
-
-  // Evento para publicar post
-  formPost.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const title = postTitle.value;
-    const content = postBody.value;
-
-    const user = auth.currentUser;
-    const username = user.displayName;
-    const date = serverTimestamp();
-
-    await createPost(username, title, content, date);
-    formPost.reset();
-    navigateTo('/timeline');
-  });
+  main.append(open, menu, pageTitle, divInfoUser);
 
   // Evento para el boton mis posts en el menu
   divUserPosts.addEventListener('click', () => {
-    const user = auth.currentUser;
     displayUserPosts(user);
     allPosts.style.display = 'none';
     postsByUser.style.display = 'block';
@@ -158,10 +171,10 @@ function timeline(navigateTo) {
   });
 
   divProfile.addEventListener('click', () => {
-    navigateTo('/profile');
+    navigateTo('/perfil');
   });
 
   return main;
 }
 
-export default timeline;
+export default perfil;
