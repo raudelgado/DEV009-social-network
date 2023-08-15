@@ -125,39 +125,66 @@ function timeline(navigateTo) {
 
   // Modal confirmación borrar
   const modal = document.createElement('div');
-  modal.className = 'modal-delete';
+  modal.className = 'modal';
 
   const modalContent = document.createElement('div');
-  modalContent.className = 'modal-delete-content';
+  modalContent.className = 'modal-content';
 
   const modalTitle = document.createElement('h4');
   modalTitle.textContent = 'SpookyVerse';
-  modalTitle.className = 'modal-delete-title';
-
-  const modalClose = document.createElement('span');
-  modalClose.className = 'gg-close-o';
+  modalTitle.className = 'modal-title';
 
   const modalMessage = document.createElement('p');
   modalMessage.textContent = '¿Quieres borrar ese post?';
 
+  const modalForm = document.createElement('form');
+  modalForm.className = 'modal-form';
+
   const confirmButton = document.createElement('button');
   confirmButton.textContent = 'Borrar';
-  confirmButton.className = 'modal-delete-confirm';
+  confirmButton.className = 'modal-btn-ok';
   confirmButton.setAttribute('type', 'button');
 
   const cancelButton = document.createElement('button');
   cancelButton.textContent = 'No';
-  cancelButton.className = 'modal-delete-cancel';
+  cancelButton.className = 'modal-btn-cancel';
 
+  modalContent.append(modalTitle, modalMessage, cancelButton, confirmButton);
   modal.append(modalContent);
-  modalContent.append(modalTitle, modalClose, modalMessage, cancelButton, confirmButton);
+
+  // Modal para editar post
+  const editBox = document.createElement('div');
+  editBox.className = 'edit-box';
+
+  const editBoxContent = document.createElement('div');
+  editBoxContent.className = 'edit-box-content';
+
+  const editForm = document.createElement('form');
+  editForm.className = 'edit-form';
+
+  const editTitle = document.createElement('input');
+  editTitle.className = 'edit-title';
+
+  const editText = document.createElement('textarea');
+  editText.className = 'edit-text';
+
+  const confirmEdit = document.createElement('button');
+  confirmEdit.textContent = 'Editar';
+  confirmEdit.className = 'confirm-edit';
+
+  const cancelEdit = document.createElement('button');
+  cancelEdit.textContent = 'Cancelar';
+  cancelEdit.className = 'cancel-edit';
+
+  editForm.append(editTitle, editText, cancelEdit, confirmEdit);
+  editBoxContent.append(editForm);
+  editBox.append(editBoxContent);
 
   links.append(divProfile, divHome, divUserPosts);
   menu.append(close, links, signOutBtn);
   formPost.append(postTitle, postBody, btnPost);
   section.append(sectionTitle, formPost, allPosts, postsByUser);
-  main.append(open, menu, pageTitle, section, modal);
-
+  main.append(open, menu, pageTitle, section, modal, editBox);
   // Evento para publicar post
   formPost.addEventListener('submit', async (e) => {
     e.preventDefault();
