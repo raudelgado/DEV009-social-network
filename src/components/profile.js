@@ -1,4 +1,4 @@
-import { auth } from '../firebase/initializeFirebase.js';
+import { auth, onAuthStateChanged } from '../firebase/initializeFirebase.js';
 import {
   signOutSession,
   displayUserPosts,
@@ -102,25 +102,9 @@ function profile(navigateTo) {
   const postsByUser = document.createElement('div');
   postsByUser.className = 'post-by-user';
 
-  // Usuario presente
-  const user = auth.currentUser;
-
   // Foto de usuario
   const userphoto = document.createElement('div');
   userphoto.className = 'photo-user';
-
-  if (user && user.photoURL) {
-    const userPhotoImg = document.createElement('img');
-    userPhotoImg.src = user.photoURL;
-    userPhotoImg.alt = 'Foto de Usuario';
-    userPhotoImg.className = 'user-photo-img';
-    userphoto.appendChild(userPhotoImg);
-  } else {
-    const sinUserPhoto = document.createElement('img');
-    sinUserPhoto.src = 'components/images/logo.png';
-    sinUserPhoto.className = 'user-noPhoto';
-    userphoto.appendChild(sinUserPhoto);
-  }
 
   // DIV nombre usuario
   const divnametext = document.createElement('div');
@@ -133,10 +117,6 @@ function profile(navigateTo) {
   const username = document.createElement('p');
   username.className = 'name-user';
 
-  if (user && user.displayName) {
-    username.textContent = user.displayName;
-  }
-
   // DIV email usuario
   const divemailtext = document.createElement('div');
   divemailtext.className = 'div-email-text';
@@ -148,9 +128,24 @@ function profile(navigateTo) {
   const useremail = document.createElement('p');
   useremail.className = 'mail-user';
 
-  if (user && user.email) {
-    useremail.textContent = user.email;
-  }
+  onAuthStateChanged(auth, (user) => {
+    if (user && user.photoURL) {
+      const userPhotoImg = document.createElement('img');
+      userPhotoImg.src = user.photoURL;
+      userPhotoImg.alt = 'Foto de Usuario';
+      userPhotoImg.className = 'user-photo-img';
+      userphoto.appendChild(userPhotoImg);
+    } if (user && !user.photoURL) {
+      const sinUserPhoto = document.createElement('img');
+      sinUserPhoto.src = 'components/images/logo.png';
+      sinUserPhoto.className = 'user-noPhoto';
+      userphoto.appendChild(sinUserPhoto);
+    } if (user && user.email) {
+      useremail.textContent = user.email;
+    } if (user && user.displayName) {
+      username.textContent = user.displayName;
+    }
+  });
 
   links.append(divProfile, divHome, divUserPosts);
   divnametext.append(usernametext, username);
@@ -162,6 +157,7 @@ function profile(navigateTo) {
   // Evento para el boton mis posts en el menu
   divUserPosts.addEventListener('click', () => {
     navigateTo('/timeline');
+    const user = auth.currentUser;
     displayUserPosts(user);
     postsByUser.style.display = 'block';
     menu.style.display = 'none';
