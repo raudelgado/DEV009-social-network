@@ -260,7 +260,7 @@ form {
 
 .main-section {
   background-color: rgba(180, 165, 165, 0.60);
-  height: 14.2rem;
+  height: 14.5rem;
   border-radius: 20px;
   position: absolute;
   top: 10%;
@@ -341,9 +341,9 @@ form {
 .author {
   font-family: 'Satisfy', cursive;
   font-size: 1.3rem;
-  background-color: #B4A5A5;
+  background-color: none;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   border-radius: 5rem;
 }
 
@@ -438,7 +438,8 @@ form {
 .sidenav .gg-close-o {
   display: flex;
   align-self: flex-start;
-  margin-bottom: 20%;
+  margin-bottom: 10%;
+  margin-left: -4%;
   color: #B4A5A5;
   cursor: pointer;
 }
@@ -461,7 +462,7 @@ form {
   display: flex;
   flex-direction: column;
   margin-left: 8px;
-  margin-top: 5rem;
+  margin-top: 10rem;
 }
 
 .icon-navbar {
@@ -471,15 +472,15 @@ form {
 }
 
 .sign-out-div {
-  margin-top: 30rem;
-  margin-left: 1%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 28rem;
+  cursor: pointer;
 }
 
 .sign-out-icon {
   width: 35px;
-  cursor: pointer;
 }
 
 .sign-out-button {
@@ -559,8 +560,9 @@ form {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 1.3rem;
-  width: 75%;
+  text-align: center;
+  cursor: pointer;
+  width: auto;
 }
 
 .text-input{
