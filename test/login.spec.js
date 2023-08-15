@@ -7,7 +7,7 @@ jest.mock('../src/lib/index', () => ({
       return Promise.resolve({ emailVerified: false });
     } return Promise.resolve({ emailVerified: true });
   }),
-  resetPassword: jest.fn(() => Promise.resolve()),  
+  resetPassword: jest.fn(() => Promise.resolve()),
 }));
 
 const navigateToMock = jest.fn();
