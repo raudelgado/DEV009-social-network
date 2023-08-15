@@ -4,6 +4,7 @@ import join from './components/join.js';
 import error from './components/error.js';
 import timeline from './components/timeline.js';
 import profile from './components/profile.js';
+import postsByCurrentUser from './components/userPosts.js';
 
 const root = document.getElementById('root');
 
@@ -14,6 +15,7 @@ const routes = [
   { path: '/error', component: error },
   { path: '/timeline', component: timeline },
   { path: '/perfil', component: profile },
+  { path: '/mis-posts', component: postsByCurrentUser },
 ];
 
 const defaultRoute = '/';

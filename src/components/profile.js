@@ -1,8 +1,5 @@
 import { auth, onAuthStateChanged } from '../firebase/initializeFirebase.js';
-import {
-  signOutSession,
-  displayUserPosts,
-} from '../lib/index.js';
+import { signOutSession } from '../lib/index.js';
 
 function profile(navigateTo) {
   const main = document.createElement('main');
@@ -156,11 +153,7 @@ function profile(navigateTo) {
 
   // Evento para el boton mis posts en el menu
   divUserPosts.addEventListener('click', () => {
-    navigateTo('/timeline');
-    const user = auth.currentUser;
-    displayUserPosts(user);
-    postsByUser.style.display = 'block';
-    menu.style.display = 'none';
+    navigateTo('/mis-posts');
   });
 
   divHome.addEventListener('click', () => {

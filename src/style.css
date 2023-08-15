@@ -258,13 +258,18 @@ form {
   background: none;
 }
 
-.main-section {
+.main-section, .main-section-user-posts {
   background-color: rgba(180, 165, 165, 0.60);
   height: 14.5rem;
   border-radius: 20px;
   position: absolute;
   top: 10%;
   margin: 0px 20px;
+}
+
+.main-section-user-posts {
+  background: none;
+  margin: 0 20px;
 }
 
 .main-section p {
@@ -301,6 +306,10 @@ form {
   resize: none;
 }
 
+.user-post-photo {
+  width: 22%;
+}
+
 .btn-post {
   margin-top: 15px;
   position: relative;
@@ -325,17 +334,8 @@ form {
 .post {
   background-color: rgba(180, 165, 165, 0.60);
   border-radius: 20px;
-  text-align: justify;
   padding: 5%;
   margin-top: 50px;
-}
-
-.post-all-users {
-  display: block;
-}
-
-.post-by-user {
-  display: none;
 }
 
 .author {

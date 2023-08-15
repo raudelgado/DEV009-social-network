@@ -87,7 +87,6 @@ function login(navigateTo) {
     e.preventDefault();
     const email = emailInput.value;
     const password = passwordInput.value;
-    userStat();
     logInWithEmail(email, password)
       .then((user) => {
         if (!user.emailVerified) {
