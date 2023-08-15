@@ -78,7 +78,7 @@ function profile(navigateTo) {
   signOutButton.className = 'sign-out-button';
   signOutButton.textContent = 'Cerrar Sesión';
   signOutIcon.src = 'components/images/button-sign-out.png';
-  signOutIcon.className = 'sign-out-icon';
+  signOutIcon.className = 'icon-navbar-sign-out';
   signOutDiv.addEventListener('click', () => {
     signOutSession()
       .then(() => {
@@ -88,10 +88,10 @@ function profile(navigateTo) {
         throw error;
       });
   });
-  signOutDiv.append(signOutButton, signOutIcon);
+  signOutDiv.append(signOutIcon, signOutButton);
 
   const divInfoUser = document.createElement('div');
-  divInfoUser.className = 'divInfoUser';
+  divInfoUser.className = 'div-info-user';
 
   const allPosts = document.createElement('div');
   allPosts.className = 'post-all-users';
@@ -144,11 +144,11 @@ function profile(navigateTo) {
     }
   });
 
-  links.append(divProfile, divHome, divUserPosts);
+  links.append(divProfile, divHome, divUserPosts, signOutDiv);
   divnametext.append(usernametext, username);
   divemailtext.append(usermailtext, useremail);
   divInfoUser.append(userphoto, divnametext, divemailtext);
-  menu.append(close, links, signOutDiv);
+  menu.append(close, links);
   main.append(open, menu, pageTitle, divInfoUser);
 
   // Evento para el boton mis posts en el menu

@@ -84,7 +84,7 @@ function timeline(navigateTo) {
   signOutButton.className = 'sign-out-button';
   signOutButton.textContent = 'Cerrar Sesión';
   signOutIcon.src = 'components/images/button-sign-out.png';
-  signOutIcon.className = 'sign-out-icon';
+  signOutIcon.className = 'icon-navbar-sign-out';
   signOutDiv.addEventListener('click', () => {
     signOutSession()
       .then(() => {
@@ -94,7 +94,7 @@ function timeline(navigateTo) {
         throw error;
       });
   });
-  signOutDiv.append(signOutButton, signOutIcon);
+  signOutDiv.append(signOutIcon, signOutButton);
 
   const section = document.createElement('section');
   section.className = 'main-section';
@@ -128,8 +128,8 @@ function timeline(navigateTo) {
   const postsByUser = document.createElement('div');
   postsByUser.className = 'post-by-user';
 
-  links.append(divProfile, divHome, divUserPosts);
-  menu.append(close, links, signOutDiv);
+  links.append(divProfile, divHome, divUserPosts, signOutDiv);
+  menu.append(close, links);
   formPost.append(postTitle, postBody, btnPost);
   section.append(sectionTitle, formPost, allPosts, postsByUser);
   main.append(open, menu, pageTitle, section);

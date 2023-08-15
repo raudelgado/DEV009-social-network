@@ -84,7 +84,7 @@ function postsByCurrentUser(navigateTo) {
   signOutButton.className = 'sign-out-button';
   signOutButton.textContent = 'Cerrar Sesión';
   signOutIcon.src = 'components/images/button-sign-out.png';
-  signOutIcon.className = 'sign-out-icon';
+  signOutIcon.className = 'icon-navbar-sign-out';
   signOutDiv.addEventListener('click', () => {
     signOutSession()
       .then(() => {
@@ -94,7 +94,7 @@ function postsByCurrentUser(navigateTo) {
         throw error;
       });
   });
-  signOutDiv.append(signOutButton, signOutIcon);
+  signOutDiv.append(signOutIcon, signOutButton);
 
   const section = document.createElement('section');
   section.className = 'main-section-user-posts';
@@ -159,8 +159,8 @@ function postsByCurrentUser(navigateTo) {
   editBoxContent.append(editForm);
   editBox.append(editBoxContent);
 
-  links.append(divProfile, divHome, divUserPosts);
-  menu.append(close, links, signOutDiv);
+  links.append(divProfile, divHome, divUserPosts, signOutDiv);
+  menu.append(close, links);
   section.append(postsByUser);
   main.append(open, menu, pageTitle, section, modal, editBox);
 
