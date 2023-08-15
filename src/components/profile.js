@@ -69,15 +69,20 @@ function profile(navigateTo) {
 
   const iconUserPosts = document.createElement('img');
   iconUserPosts.src = 'components/images/Post.png';
-  iconUserPosts.className = 'icon-misPosts';
+  iconUserPosts.className = 'icon-navbar';
 
   divUserPosts.append(iconUserPosts, userPosts);
 
   // Cerrar Sesion
-  const signOutBtn = document.createElement('img');
-  signOutBtn.src = 'components/images/button-sign-out.png';
-  signOutBtn.className = 'button-sign-out';
-  signOutBtn.addEventListener('click', () => {
+  const signOutDiv = document.createElement('div');
+  const signOutIcon = document.createElement('img');
+  const signOutButton = document.createElement('button');
+  signOutDiv.className = 'sign-out-div';
+  signOutButton.className = 'sign-out-button';
+  signOutButton.textContent = 'Cerrar Sesión';
+  signOutIcon.src = 'components/images/button-sign-out.png';
+  signOutIcon.className = 'sign-out-icon';
+  signOutDiv.addEventListener('click', () => {
     signOutSession()
       .then(() => {
         navigateTo('/');
@@ -86,6 +91,7 @@ function profile(navigateTo) {
         throw error;
       });
   });
+  signOutDiv.append(signOutButton, signOutIcon);
 
   const divInfoUser = document.createElement('div');
   divInfoUser.className = 'divInfoUser';
@@ -118,49 +124,45 @@ function profile(navigateTo) {
 
   // DIV nombre usuario
   const divnametext = document.createElement('div');
-  divnametext.className = 'divnametext';
+  divnametext.className = 'div-name-text';
 
   const usernametext = document.createElement('p');
-  usernametext.className = 'textinput';
+  usernametext.className = 'text-input';
   usernametext.textContent = 'Nombre';
 
-  const username = document.createElement('input');
+  const username = document.createElement('p');
   username.className = 'name-user';
-  username.setAttribute('type', 'text');
-  username.setAttribute('required', '');
 
   if (user && user.displayName) {
-    username.value = user.displayName;
+    username.textContent = user.displayName;
   }
 
   // DIV email usuario
   const divemailtext = document.createElement('div');
-  divemailtext.className = 'divemailtext';
+  divemailtext.className = 'div-email-text';
 
   const usermailtext = document.createElement('p');
-  usermailtext.className = 'textinput';
+  usermailtext.className = 'text-input';
   usermailtext.textContent = 'Correo';
 
-  const useremail = document.createElement('input');
+  const useremail = document.createElement('p');
   useremail.className = 'mail-user';
-  useremail.setAttribute('type', 'text');
-  useremail.setAttribute('required', '');
 
   if (user && user.email) {
-    useremail.value = user.email;
+    useremail.textContent = user.email;
   }
 
   links.append(divProfile, divHome, divUserPosts);
   divnametext.append(usernametext, username);
   divemailtext.append(usermailtext, useremail);
   divInfoUser.append(userphoto, divnametext, divemailtext);
-  menu.append(close, links, signOutBtn);
+  menu.append(close, links, signOutDiv);
   main.append(open, menu, pageTitle, divInfoUser);
 
   // Evento para el boton mis posts en el menu
   divUserPosts.addEventListener('click', () => {
+    navigateTo('/timeline');
     displayUserPosts(user);
-    allPosts.style.display = 'none';
     postsByUser.style.display = 'block';
     menu.style.display = 'none';
   });

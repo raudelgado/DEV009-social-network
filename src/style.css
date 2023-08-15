@@ -386,11 +386,11 @@ form {
   width: 80px;
 }
 
-.num-reaction{
+.reaction-button {
   text-decoration: none;
   color: #B4A5A5;
   border: none;
-  background: none;
+  background: #301B3F;
 }
 
 .img-endPost{
@@ -413,31 +413,26 @@ form {
   justify-content: space-around;
 }
 
-.sidenav a {
-  text-decoration: none;
-  font-size: 20px;
-  color: #B4A5A5;
-  display: block;
-  transition: 0.3s;
-}
-
 .sidenav .gg-close-o {
   display: flex;
   align-self: flex-start;
+  margin-bottom: 20%;
   color: #B4A5A5;
   cursor: pointer;
 }
 
-.sidenav a:hover {
+.buttons-nav:hover,
+.sidenav .gg-close-o:hover,
+.sign-out-button:hover {
   color: #f1f1f1;
 }
 
-.buttons-nav{
+.buttons-nav, .sign-out-button {
   font-family: 'Glegoo', serif;
   background: none;
   border: none;
   color: #B4A5A5;
-  font-size: large;
+  font-size: 1rem;
 }
 
 .nav-links {
@@ -450,19 +445,25 @@ form {
 .icon-navbar {
   width: 27px;
   height: 27px;
+  padding: 5px;
 }
 
-.icon-misPosts{
-  width: 30px;
-  height: auto;
+.sign-out-div {
+  margin-top: 190%;
+  margin-left: 1%;
+  display: flex;
+  justify-content: center;
 }
 
-.button-sign-out {
+.sign-out-icon {
   margin-bottom: 10px;
   width: 35px;
   cursor: pointer;
-  margin-top: 30rem;
-  margin-left: 8rem;
+}
+
+.sign-out-button {
+  width: auto;
+  font-size: 0.8rem;
 }
 
 .div-profile,
@@ -472,9 +473,7 @@ form {
   display: flex;
   justify-content:start;
   flex-direction: row;
-  width: 170px;
-  margin-top: 30px;
-  margin-left: 5px;
+  padding: 5px;
 }
 
 /* PERFIL */
@@ -528,29 +527,28 @@ form {
   border-radius: 10rem;
   border: none;
   height: 2rem;
-  width: 18rem;
+  width: 100%;
   font-size: 0.9rem;
-  font-family: 'Glegoo', serif;
-  color: #1B1021;
-  font-weight:bold;
+  color:#301B3F;
+  font-weight: bold;
   padding-left: 0.5rem;
 }
 
-.divemailtext, .divnametext{
+.div-email-text, .div-name-text{
   display: flex;
   align-items: center;
   flex-direction: column;
   margin-top: 1.3rem;
+  width: 75%;
 }
 
-.textinput{
+.text-input{
   display: flex;
   align-items: start;
   margin-bottom: 0;
   margin-top: 0.5rem;
-  font-size: 28px;
+  font-size: 1rem;
   font-weight: lighter;
-  font-family: 'Satisfy', cursive;
   color: #301B3F;
-  width: 18rem;
+  width: 15rem;
 }
