@@ -12,7 +12,6 @@ import {
   sendPasswordResetEmail,
   signInWithPopup,
   GoogleAuthProvider,
-  onAuthStateChanged,
   collection,
   db,
   addDoc,
@@ -98,150 +97,144 @@ export async function updatePost(postId, newData) {
 export async function displayUserPosts(user) {
   try {
     if (user) {
-    const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName), orderBy('date', 'desc')));
-    const postsSection = document.querySelector('.post-by-user');
+      const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName), orderBy('date', 'desc')));
+      const postsSection = document.querySelector('.post-by-user');
 
-    querySnapshot.forEach((file) => {
-      const data = file.data();
-      const postId = file.id;
+      querySnapshot.forEach((file) => {
+        const data = file.data();
+        const postId = file.id;
 
-      const postDiv = document.createElement('div');
-      postDiv.className = 'post';
-      postDiv.setAttribute('data-post-id', postId);
+        const postDiv = document.createElement('div');
+        postDiv.className = 'post';
+        postDiv.setAttribute('data-post-id', postId);
 
-      // Nombre del autor mas foto
-      const divAutImg = document.createElement('div')
-      divAutImg.className = 'divAutImg';
+        // Nombre del autor mas foto
+        const divUserInfo = document.createElement('div');
+        divUserInfo.className = 'div-user-info';
 
-      const author = document.createElement('h3');
-      author.textContent = `${data.author}`;
-      author.className = 'author';
+        const photo = document.createElement('img');
+        photo.className = 'user-post-photo';
+        photo.src = 'components/images/logo.png';
 
-      const user = auth.currentUser;
+        const author = document.createElement('h3');
+        author.textContent = `${data.author}`;
+        author.className = 'author';
 
-      const foto = document.createElement('img');
-      foto.className = 'fotoname';
-      foto.src = user.photoURL;
+        const title = document.createElement('h3');
+        title.textContent = data.title;
+        title.className = 'title-post';
 
-      const title = document.createElement('h3');
-      title.textContent = data.title;
-      title.className = 'title-post';
+        const content = document.createElement('p');
+        content.textContent = data.content;
+        content.className = 'content';
 
-      const content = document.createElement('p');
-      content.textContent = data.content;
-      content.className = 'content';
+        const divEndPost = document.createElement('div');
+        divEndPost.className = 'divEndPost';
 
-      const divEndPost = document.createElement('div');
-      divEndPost.className = 'divEndPost';
+        const divReaction = document.createElement('div');
+        divReaction.className = 'divReaction';
 
-      const divReaction = document.createElement('div');
-      divReaction.className = 'divReaction';
+        const reaction = document.createElement('button');
+        reaction.className = 'reaction-button';
+        reaction.textContent = `${data.likes} 💀`;
+        reaction.addEventListener('click', async () => {
+          const postRef = doc(db, 'Post', postId);
+          const postSnapshot = await getDoc(postRef);
+          const postData = postSnapshot.data();
 
-      const reaction = document.createElement('button');
-      reaction.className = 'reaction-button';
-      reaction.textContent = `${data.likes} 💀`;
-      reaction.addEventListener('click', async () => {
-        const postRef = doc(db, 'Post', postId);
-        const postSnapshot = await getDoc(postRef);
-        const postData = postSnapshot.data();
+          const userId = user.uid;
+          const likesArr = postData.likesArray || [];
+          const userLikesPost = likesArr.includes(userId);
 
-        const userId = user.uid;
-        const likesArr = postData.likesArray || [];
-        const userLikesPost = likesArr.includes(userId);
+          try {
+            if (userLikesPost) {
+              const getIndexOfUser = likesArr.indexOf(userId);
+              likesArr.splice(getIndexOfUser, 1);
+            } else {
+              likesArr.push(userId);
+            }
 
-        try {
-          if (userLikesPost) {
-            const getIndexOfUser = likesArr.indexOf(userId);
-            likesArr.splice(getIndexOfUser, 1);
-          } else {
-            likesArr.push(userId);
+            const newLikesCount = likesArr.length;
+
+            await updateDoc(postRef, {
+              likes: newLikesCount,
+              likesArray: likesArr,
+            });
+            reaction.textContent = `${newLikesCount} 💀`;
+          } catch (error) {
+            console.error('Error updating likes:', error);
           }
+        });
+        // Borrar post
+        const divDeleEdit = document.createElement('div');
+        divDeleEdit.className = 'divDeleEdit';
 
-          const newLikesCount = likesArr.length;
+        const modal = document.querySelector('.modal');
 
-          await updateDoc(postRef, {
-            likes: newLikesCount,
-            likesArray: likesArr,
+        const deletePostImg = document.createElement('img');
+        deletePostImg.src = 'components/images/delete.png';
+        deletePostImg.className = 'img-endPost';
+        deletePostImg.addEventListener('click', () => {
+          modal.style.display = 'block';
+
+          const buttonDelete = document.querySelector('.modal-btn-ok');
+          buttonDelete.addEventListener('click', () => {
+            deletePost(postId);
+            postDiv.remove();
+            modal.style.display = 'none';
           });
-          reaction.textContent = `${newLikesCount} 💀`;
-        } catch (error) {
-          console.error('Error updating likes:', error);
-        }
-      });
-      // Borrar post
-      const divDeleEdit = document.createElement('div');
-      divDeleEdit.className = 'divDeleEdit';
 
-      const modal = document.querySelector('.modal');
-
-      const deletePostImg = document.createElement('img');
-      deletePostImg.src = 'components/images/delete.png';
-      deletePostImg.className = 'img-endPost';
-      deletePostImg.addEventListener('click', () => {
-        modal.style.display = 'block';
-
-        const buttonDelete = document.querySelector('.modal-btn-ok');
-        buttonDelete.addEventListener('click', () => {
-          deletePost(postId);
-          postDiv.remove();
-          modal.style.display = 'none';
+          const buttonCancel = document.querySelector('.modal-btn-cancel');
+          buttonCancel.addEventListener('click', () => {
+            modal.style.display = 'none';
+          });
         });
 
-        const buttonCancel = document.querySelector('.modal-btn-cancel');
-        buttonCancel.addEventListener('click', () => {
-          modal.style.display = 'none';
-        });
-      });
+        const editPostImg = document.createElement('img');
+        editPostImg.src = 'components/images/edit.png';
+        editPostImg.className = 'img-endPost';
+        editPostImg.addEventListener('click', () => {
+          const editBox = document.querySelector('.edit-box');
+          editBox.style.display = 'block';
 
-      const editPostImg = document.createElement('img');
-      editPostImg.src = 'components/images/edit.png';
-      editPostImg.className = 'img-endPost';
-      editPostImg.addEventListener('click', () => {
-        const editBox = document.querySelector('.edit-box');
-        editBox.style.display = 'block';
+          const editTitle = document.querySelector('.edit-title');
+          const editText = document.querySelector('.edit-text');
 
-        const editTitle = document.querySelector('.edit-title');
-        const editText = document.querySelector('.edit-text');
+          editTitle.value = data.title;
+          editText.value = data.content;
 
-        editTitle.value = data.title;
-        editText.value = data.content;
+          const editForm = document.querySelector('.edit-form');
+          editForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newTitle = editTitle.value;
+            const newText = editText.value;
 
-        const editForm = document.querySelector('.edit-form');
-        editForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const newTitle = editTitle.value;
-          const newText = editText.value;
+            const newData = {
+              title: newTitle,
+              content: newText,
+            };
 
-          const newData = {
-            title: newTitle,
-            content: newText,
-          };
+            await updatePost(postId, newData);
 
-          await updatePost(postId, newData);
-
-          editBox.style.display = 'none';
-          postsSection.innerHTML = '';
-          await displayUserPosts(user);
-
-          const cancelEdit = document.querySelector('.cancel-edit');
-          cancelEdit.addEventListener('click', () => {
             editBox.style.display = 'none';
+            postsSection.innerHTML = '';
+            await displayUserPosts(user);
+
+            const cancelEdit = document.querySelector('.cancel-edit');
+            cancelEdit.addEventListener('click', () => {
+              editBox.style.display = 'none';
+            });
           });
         });
-        const cancelEdit = document.querySelector('cancel-edit');
-        cancelEdit.addEventListener('click', () => {
-          editBox.style.display = 'none';
-        });
-      });
 
-      divAutImg.append(author, foto);
-      divReaction.append(reaction);
-      divDeleEdit.append(deletePostImg, editPostImg);
-      divEndPost.append(divReaction, divDeleEdit);
-      postDiv.append(divAutImg, title, content, divEndPost);
-      postsSection.appendChild(postDiv);
-    });
-  }
+        divUserInfo.append(author, photo);
+        divReaction.append(reaction);
+        divDeleEdit.append(deletePostImg, editPostImg);
+        divEndPost.append(divReaction, divDeleEdit);
+        postDiv.append(divUserInfo, title, content, divEndPost);
+        postsSection.appendChild(postDiv);
+      });
+    }
   } catch (e) {
     console.error('Error fetching documents: ', e);
   }
@@ -260,6 +253,13 @@ export async function displayAllPosts() {
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
 
+      const divUserInfo = document.createElement('div');
+      divUserInfo.className = 'div-user-info';
+
+      const photo = document.createElement('img');
+      photo.className = 'user-post-photo';
+      photo.src = 'components/images/logo.png';
+
       const author = document.createElement('h3');
       author.textContent = `${data.author}`;
       author.className = 'author';
@@ -311,9 +311,10 @@ export async function displayAllPosts() {
         }
       });
 
+      divUserInfo.append(author, photo);
       divReaction.append(reaction);
       divEndPost.append(divReaction);
-      postDiv.append(author, title, content, divEndPost);
+      postDiv.append(divUserInfo, title, content, divEndPost);
       postsSection.appendChild(postDiv);
     });
   } catch (e) {
