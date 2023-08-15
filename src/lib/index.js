@@ -1,16 +1,21 @@
+/* eslint-disable no-alert */
 /* eslint-disable import/named */
 /* eslint-disable no-console */
 /* eslint-disable arrow-body-style */
-import { collection, addDoc } from 'firebase/firestore';
 import {
   auth,
   provider,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signOut,
+  sendPasswordResetEmail,
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
+  collection,
+  db,
+  addDoc,
   updateProfile,
   getDocs,
   where,
@@ -18,9 +23,7 @@ import {
   orderBy,
   deleteDoc,
   doc,
-  db,
-  sendPasswordResetEmail,
-  signOut,
+  updateDoc,
 } from '../firebase/initializeFirebase.js';
 
 export const createAccount = (email, password, username) => {
@@ -90,48 +93,113 @@ export async function createPost(username, titulo, body, timestamp) {
 // Eliminar Post
 export const deletePost = (postId) => deleteDoc(doc(db, 'Post', postId));
 
+// Editar Post
+export async function updatePost(postId, newData) {
+  try {
+    const postRef = doc(db, 'Post', postId);
+    await updateDoc(postRef, newData);
+    console.log('Post updated successfully');
+  } catch (e) {
+    console.error('Error updating post: ', e);
+  }
+}
 // Mostrar post solo de un usuario
 export async function displayUserPosts(user) {
   try {
     const querySnapshot = await getDocs(query(collection(db, 'Post'), where('author', '==', user.displayName), orderBy('date', 'desc')));
     const postsSection = document.querySelector('.post-by-user');
+
     querySnapshot.forEach((file) => {
       const data = file.data();
       const postId = file.id;
+
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
       postDiv.setAttribute('data-post-id', postId);
+
       const author = document.createElement('h3');
       author.textContent = `${data.author}`;
       author.className = 'author';
+
       const title = document.createElement('h3');
       title.textContent = data.title;
       title.className = 'title-post';
+
       const content = document.createElement('p');
       content.textContent = data.content;
       content.className = 'content';
+
       const divEndPost = document.createElement('div');
       divEndPost.className = 'divEndPost';
+
       const divReaction = document.createElement('div');
       divReaction.className = 'divReaction';
+
       const reaction = document.createElement('button');
       reaction.textContent = '#';
       reaction.className = 'num-reaction';
+
       const reactionImg = document.createElement('img');
       reactionImg.src = 'components/images/fantasma.png';
       reactionImg.className = 'img-endPost';
+
       const divDeleEdit = document.createElement('div');
       divDeleEdit.className = 'divDeleEdit';
+
+      // Nueva Modal
+      const modal = document.querySelector('.modal');
+
       const deletePostImg = document.createElement('img');
       deletePostImg.src = 'components/images/delete.png';
       deletePostImg.className = 'img-endPost';
       deletePostImg.addEventListener('click', () => {
-        deletePost(postId);
-        postDiv.remove();
+        modal.style.display = 'block';
+
+        const buttonDelete = document.querySelector('.modal-btn-ok');
+        buttonDelete.addEventListener('click', () => {
+          deletePost(postId);
+          postDiv.remove();
+          modal.style.display = 'none';
+        });
+
+        const buttonCancel = document.querySelector('.modal-btn-cancel');
+        buttonCancel.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
       });
+
       const editPostImg = document.createElement('img');
       editPostImg.src = 'components/images/edit.png';
       editPostImg.className = 'img-endPost';
+      editPostImg.addEventListener('click', () => {
+        const editBox = document.querySelector('.edit-box');
+        editBox.style.display = 'block';
+
+        const editTitle = document.querySelector('.edit-title');
+        const editText = document.querySelector('.edit-text');
+
+        editTitle.value = data.title;
+        editText.value = data.content;
+
+        const editForm = document.querySelector('.edit-form');
+        editForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const newTitle = editTitle.value;
+          const newText = editText.value;
+
+          const newData = {
+            title: newTitle,
+            content: newText,
+          };
+
+          await updatePost(postId, newData);
+
+          editBox.style.display = 'none';
+          postsSection.innerHTML = '';
+          await displayUserPosts(user);
+        });
+      });
+
       divReaction.append(reaction, reactionImg);
       divDeleEdit.append(deletePostImg, editPostImg);
       divEndPost.append(divReaction, divDeleEdit);
@@ -142,35 +210,44 @@ export async function displayUserPosts(user) {
     console.error('Error fetching documents: ', e);
   }
 }
+
 export async function displayAllPosts() {
   try {
     const querySnapshot = await getDocs(query(collection(db, 'Post'), orderBy('date', 'desc')));
     const postsSection = document.querySelector('.post-all-users');
+
     querySnapshot.forEach((file) => {
       const data = file.data();
-      const postId = file.id;
+
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
-      postDiv.setAttribute('data-post-id', postId);
+
       const author = document.createElement('h3');
       author.textContent = `${data.author}`;
       author.className = 'author';
+
       const title = document.createElement('h3');
       title.textContent = data.title;
       title.className = 'title-post';
+
       const content = document.createElement('p');
       content.textContent = data.content;
       content.className = 'content';
+
       const divEndPost = document.createElement('div');
       divEndPost.className = 'divEndPost';
+
       const divReaction = document.createElement('div');
       divReaction.className = 'divReaction';
+
       const reaction = document.createElement('button');
       reaction.textContent = '#';
       reaction.className = 'num-reaction';
+
       const reactionImg = document.createElement('img');
       reactionImg.src = 'components/images/fantasma.png';
       reactionImg.className = 'img-endPost';
+
       divReaction.append(reaction, reactionImg);
       divEndPost.append(divReaction);
       postDiv.append(author, title, content, divEndPost);

@@ -4,7 +4,7 @@ import {
   displayUserPosts,
 } from '../lib/index.js';
 
-function perfil(navigateTo) {
+function profile(navigateTo) {
   const main = document.createElement('main');
   main.className = 'main-perfil';
 
@@ -49,15 +49,15 @@ function perfil(navigateTo) {
   const divProfile = document.createElement('div');
   divProfile.className = 'div-profile';
 
-  const profile = document.createElement('button');
-  profile.textContent = 'Mi Perfil';
-  profile.className = 'buttons-nav';
+  const profileSection = document.createElement('button');
+  profileSection.textContent = 'Mi Perfil';
+  profileSection.className = 'buttons-nav';
 
   const iconProfile = document.createElement('img');
   iconProfile.src = 'components/images/Usuario.png';
   iconProfile.className = 'icon-navbar';
 
-  divProfile.append(iconProfile, profile);
+  divProfile.append(iconProfile, profileSection);
 
   // div-mispost
   const divUserPosts = document.createElement('div');
@@ -108,7 +108,6 @@ function perfil(navigateTo) {
     userPhotoImg.src = user.photoURL;
     userPhotoImg.alt = 'Foto de Usuario';
     userPhotoImg.className = 'user-photo-img';
-
     userphoto.appendChild(userPhotoImg);
   } else {
     const sinUserPhoto = document.createElement('img');
@@ -177,4 +176,4 @@ function perfil(navigateTo) {
   return main;
 }
 
-export default perfil;
+export default profile;

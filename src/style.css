@@ -151,7 +151,7 @@ form {
 }
 
 /*MODAL*/
-.modal {
+.modal, .edit-box {
   display: none;
   position: fixed;
   z-index: 1;
@@ -163,7 +163,7 @@ form {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.modal-content, .edit-box-content {
   background-color: #B4A5A5;
   color: #301B3F;
   margin: 50px auto;
@@ -188,7 +188,7 @@ form {
   text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.modal-input {
+.modal-input, .edit-title, .edit-text {
   font-family: 'Glegoo', serif;
   width: 250px;
   height: 30px;
@@ -201,8 +201,18 @@ form {
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.edit-text, .edit-title {
+  resize: none;
+  border-radius: 10px;
+  margin: 10px;
+}
+
 .modal-btn,
-.btn-post {
+.btn-post,
+.modal-btn-ok,
+.modal-btn-cancel,
+.confirm-edit,
+.cancel-edit {
   margin-top: 20px;
   border-radius: 10px;
   color: #B4A5A5;

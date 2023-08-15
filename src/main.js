@@ -13,7 +13,7 @@ const routes = [
   { path: '/join', component: join },
   { path: '/error', component: error },
   { path: '/timeline', component: timeline },
-  { path: '/profile', component: profile },
+  { path: '/perfil', component: profile },
 ];
 
 const defaultRoute = '/';
