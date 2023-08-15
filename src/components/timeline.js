@@ -3,7 +3,6 @@ import {
   signOutSession,
   createPost,
   displayAllPosts,
-  displayUserPosts,
 } from '../lib/index.js';
 
 function timeline(navigateTo) {
@@ -73,15 +72,20 @@ function timeline(navigateTo) {
 
   const iconUserPosts = document.createElement('img');
   iconUserPosts.src = 'components/images/Post.png';
-  iconUserPosts.className = 'icon-misPosts';
+  iconUserPosts.className = 'icon-navbar';
 
   divUserPosts.append(iconUserPosts, userPosts);
 
   // Cerrar Sesion
-  const signOutBtn = document.createElement('img');
-  signOutBtn.src = 'components/images/button-sign-out.png';
-  signOutBtn.className = 'button-sign-out';
-  signOutBtn.addEventListener('click', () => {
+  const signOutDiv = document.createElement('div');
+  const signOutIcon = document.createElement('img');
+  const signOutButton = document.createElement('button');
+  signOutDiv.className = 'sign-out-div';
+  signOutButton.className = 'sign-out-button';
+  signOutButton.textContent = 'Cerrar Sesión';
+  signOutIcon.src = 'components/images/button-sign-out.png';
+  signOutIcon.className = 'sign-out-icon';
+  signOutDiv.addEventListener('click', () => {
     signOutSession()
       .then(() => {
         navigateTo('/');
@@ -90,6 +94,7 @@ function timeline(navigateTo) {
         throw error;
       });
   });
+  signOutDiv.append(signOutButton, signOutIcon);
 
   const section = document.createElement('section');
   section.className = 'main-section';
@@ -181,7 +186,7 @@ function timeline(navigateTo) {
   editBox.append(editBoxContent);
 
   links.append(divProfile, divHome, divUserPosts);
-  menu.append(close, links, signOutBtn);
+  menu.append(close, links, signOutDiv);
   formPost.append(postTitle, postBody, btnPost);
   section.append(sectionTitle, formPost, allPosts, postsByUser);
   main.append(open, menu, pageTitle, section, modal, editBox);
@@ -198,15 +203,6 @@ function timeline(navigateTo) {
     await createPost(username, title, content, date);
     formPost.reset();
     navigateTo('/timeline');
-  });
-
-  // Evento para el boton mis posts en el menu
-  divUserPosts.addEventListener('click', () => {
-    const user = auth.currentUser;
-    displayUserPosts(user);
-    allPosts.style.display = 'none';
-    postsByUser.style.display = 'block';
-    menu.style.display = 'none';
   });
 
   divHome.addEventListener('click', () => {

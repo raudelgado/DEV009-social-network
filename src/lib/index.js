@@ -18,6 +18,7 @@ import {
   addDoc,
   updateProfile,
   getDocs,
+  getDoc,
   where,
   query,
   orderBy,
@@ -82,6 +83,8 @@ export async function createPost(username, titulo, body, timestamp) {
       title: titulo,
       content: body,
       date: timestamp,
+      likes: 0,
+      likesArray: [],
     };
     const docPost = await addDoc(collection(db, 'Post'), data);
     console.log('Document written with ID: ', docPost.id);
@@ -136,17 +139,40 @@ export async function displayUserPosts(user) {
       divReaction.className = 'divReaction';
 
       const reaction = document.createElement('button');
-      reaction.textContent = '#';
-      reaction.className = 'num-reaction';
+      reaction.className = 'reaction-button';
+      reaction.textContent = `${data.likes} 💀`;
+      reaction.addEventListener('click', async () => {
+        const postRef = doc(db, 'Post', postId);
+        const postSnapshot = await getDoc(postRef);
+        const postData = postSnapshot.data();
 
-      const reactionImg = document.createElement('img');
-      reactionImg.src = 'components/images/calavera.png';
-      reactionImg.className = 'img-endPost';
+        const userId = user.uid;
+        const likesArr = postData.likesArray || [];
+        const userLikesPost = likesArr.includes(userId);
 
+        try {
+          if (userLikesPost) {
+            const getIndexOfUser = likesArr.indexOf(userId);
+            likesArr.splice(getIndexOfUser, 1);
+          } else {
+            likesArr.push(userId);
+          }
+
+          const newLikesCount = likesArr.length;
+
+          await updateDoc(postRef, {
+            likes: newLikesCount,
+            likesArray: likesArr,
+          });
+          reaction.textContent = `${newLikesCount} 💀`;
+        } catch (error) {
+          console.error('Error updating likes:', error);
+        }
+      });
+      // Borrar post
       const divDeleEdit = document.createElement('div');
       divDeleEdit.className = 'divDeleEdit';
 
-      // Nueva Modal
       const modal = document.querySelector('.modal');
 
       const deletePostImg = document.createElement('img');
@@ -197,6 +223,11 @@ export async function displayUserPosts(user) {
           editBox.style.display = 'none';
           postsSection.innerHTML = '';
           await displayUserPosts(user);
+
+          const cancelEdit = document.querySelector('.cancel-edit');
+          cancelEdit.addEventListener('click', () => {
+            editBox.style.display = 'none';
+          });
         });
         const cancelEdit = document.querySelector('cancel-edit');
         cancelEdit.addEventListener('click', () => {
@@ -204,7 +235,7 @@ export async function displayUserPosts(user) {
         });
       });
 
-      divReaction.append(reaction, reactionImg);
+      divReaction.append(reaction);
       divDeleEdit.append(deletePostImg, editPostImg);
       divEndPost.append(divReaction, divDeleEdit);
       postDiv.append(author, title, content, divEndPost);
@@ -222,6 +253,8 @@ export async function displayAllPosts() {
 
     querySnapshot.forEach((file) => {
       const data = file.data();
+      const postId = file.id;
+      const user = auth.currentUser;
 
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
@@ -245,14 +278,39 @@ export async function displayAllPosts() {
       divReaction.className = 'divReaction';
 
       const reaction = document.createElement('button');
-      reaction.textContent = '#';
-      reaction.className = 'num-reaction';
+      reaction.className = 'reaction-button';
+      reaction.textContent = `${data.likes} 💀`;
 
-      const reactionImg = document.createElement('img');
-      reactionImg.src = 'components/images/calavera.png';
-      reactionImg.className = 'img-endPost';
+      reaction.addEventListener('click', async () => {
+        const postRef = doc(db, 'Post', postId);
+        const postSnapshot = await getDoc(postRef);
+        const postData = postSnapshot.data();
 
-      divReaction.append(reaction, reactionImg);
+        const userId = user.uid;
+        const likesArr = postData.likesArray || [];
+        const userLikesPost = likesArr.includes(userId);
+
+        try {
+          if (userLikesPost) {
+            const getIndexOfUser = likesArr.indexOf(userId);
+            likesArr.splice(getIndexOfUser, 1);
+          } else {
+            likesArr.push(userId);
+          }
+
+          const newLikesCount = likesArr.length;
+
+          await updateDoc(postRef, {
+            likes: newLikesCount,
+            likesArray: likesArr,
+          });
+          reaction.textContent = `${newLikesCount} 💀`;
+        } catch (error) {
+          console.error('Error updating likes:', error);
+        }
+      });
+
+      divReaction.append(reaction);
       divEndPost.append(divReaction);
       postDiv.append(author, title, content, divEndPost);
       postsSection.appendChild(postDiv);
