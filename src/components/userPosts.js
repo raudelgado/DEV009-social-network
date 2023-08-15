@@ -1,12 +1,12 @@
-import { auth, serverTimestamp } from '../firebase/initializeFirebase.js';
+import { auth } from '../firebase/initializeFirebase.js';
 import {
   signOutSession,
-  createPost,
-  displayAllPosts,
+  displayUserPosts,
 } from '../lib/index.js';
 
-function timeline(navigateTo) {
-  displayAllPosts();
+function postsByCurrentUser(navigateTo) {
+  const user = auth.currentUser;
+  displayUserPosts(user);
 
   const main = document.createElement('main');
   main.className = 'main-timeline';
@@ -97,56 +97,72 @@ function timeline(navigateTo) {
   signOutDiv.append(signOutButton, signOutIcon);
 
   const section = document.createElement('section');
-  section.className = 'main-section';
-
-  const sectionTitle = document.createElement('p');
-  sectionTitle.textContent = '¿Que historia quieres escribir hoy?';
-
-  const formPost = document.createElement('form');
-
-  const postTitle = document.createElement('input');
-  postTitle.className = 'post-title';
-  postTitle.setAttribute('type', 'text');
-  postTitle.setAttribute('placeholder', 'Ingrese un titulo');
-  postTitle.setAttribute('required', '');
-
-  const postBody = document.createElement('textarea');
-  postBody.className = 'post-body';
-  postBody.setAttribute('placeholder', 'Escribe tu historia aqui...');
-  postBody.setAttribute('rows', '5');
-  postBody.setAttribute('cols', '50');
-  postBody.setAttribute('maxlength', '1500');
-  postBody.setAttribute('required', '');
-
-  const btnPost = document.createElement('button');
-  btnPost.className = 'btn-post';
-  btnPost.textContent = 'Post';
-
-  const allPosts = document.createElement('div');
-  allPosts.className = 'post-all-users';
+  section.className = 'main-section-user-posts';
 
   const postsByUser = document.createElement('div');
   postsByUser.className = 'post-by-user';
 
+  // Modal confirmación borrar
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+
+  const modalContent = document.createElement('div');
+  modalContent.className = 'modal-content';
+
+  const modalTitle = document.createElement('h4');
+  modalTitle.textContent = 'SpookyVerse';
+  modalTitle.className = 'modal-title';
+
+  const modalMessage = document.createElement('p');
+  modalMessage.textContent = '¿Quieres borrar ese post?';
+
+  const modalForm = document.createElement('form');
+  modalForm.className = 'modal-form';
+
+  const confirmButton = document.createElement('button');
+  confirmButton.textContent = 'Borrar';
+  confirmButton.className = 'modal-btn-ok';
+  confirmButton.setAttribute('type', 'button');
+
+  const cancelButton = document.createElement('button');
+  cancelButton.textContent = 'No';
+  cancelButton.className = 'modal-btn-cancel';
+
+  modalContent.append(modalTitle, modalMessage, cancelButton, confirmButton);
+  modal.append(modalContent);
+
+  // Modal para editar post
+  const editBox = document.createElement('div');
+  editBox.className = 'edit-box';
+
+  const editBoxContent = document.createElement('div');
+  editBoxContent.className = 'edit-box-content';
+
+  const editForm = document.createElement('form');
+  editForm.className = 'edit-form';
+
+  const editTitle = document.createElement('input');
+  editTitle.className = 'edit-title';
+
+  const editText = document.createElement('textarea');
+  editText.className = 'edit-text';
+
+  const confirmEdit = document.createElement('button');
+  confirmEdit.textContent = 'Editar';
+  confirmEdit.className = 'confirm-edit';
+
+  const cancelEdit = document.createElement('button');
+  cancelEdit.textContent = 'Cancelar';
+  cancelEdit.className = 'cancel-edit';
+
+  editForm.append(editTitle, editText, cancelEdit, confirmEdit);
+  editBoxContent.append(editForm);
+  editBox.append(editBoxContent);
+
   links.append(divProfile, divHome, divUserPosts);
   menu.append(close, links, signOutDiv);
-  formPost.append(postTitle, postBody, btnPost);
-  section.append(sectionTitle, formPost, allPosts, postsByUser);
-  main.append(open, menu, pageTitle, section);
-  // Evento para publicar post
-  formPost.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const title = postTitle.value;
-    const content = postBody.value;
-
-    const user = auth.currentUser;
-    const username = user.displayName;
-    const date = serverTimestamp();
-
-    await createPost(username, title, content, date);
-    formPost.reset();
-    navigateTo('/timeline');
-  });
+  section.append(postsByUser);
+  main.append(open, menu, pageTitle, section, modal, editBox);
 
   // Evento para el boton mis posts en el menu
   divUserPosts.addEventListener('click', () => {
@@ -164,4 +180,4 @@ function timeline(navigateTo) {
   return main;
 }
 
-export default timeline;
+export default postsByCurrentUser;
