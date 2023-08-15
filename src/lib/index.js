@@ -129,10 +129,10 @@ export async function displayUserPosts(user) {
         content.className = 'content';
 
         const divEndPost = document.createElement('div');
-        divEndPost.className = 'divEndPost';
+        divEndPost.className = 'div-bottom-post';
 
         const divReaction = document.createElement('div');
-        divReaction.className = 'divReaction';
+        divReaction.className = 'div-reaction';
 
         const reaction = document.createElement('button');
         reaction.className = 'reaction-button';
@@ -167,7 +167,7 @@ export async function displayUserPosts(user) {
         });
         // Borrar post
         const divDeleEdit = document.createElement('div');
-        divDeleEdit.className = 'divDeleEdit';
+        divDeleEdit.className = 'div-delete-edit';
 
         const modal = document.querySelector('.modal');
 

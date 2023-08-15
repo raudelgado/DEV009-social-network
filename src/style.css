@@ -306,10 +306,6 @@ form {
   resize: none;
 }
 
-.user-post-photo {
-  width: 22%;
-}
-
 .btn-post {
   margin-top: 15px;
   position: relative;
@@ -338,13 +334,23 @@ form {
   margin-top: 50px;
 }
 
+.div-user-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.user-post-photo {
+  width: 25%;
+  height: 25%;
+  align-self: center;
+}
+
 .author {
   font-family: 'Satisfy', cursive;
   font-size: 1.3rem;
   background-color: none;
-  display: flex;
-  justify-content: left;
-  border-radius: 5rem;
+  width: 60%;
 }
 
 .title-post {
@@ -364,7 +370,7 @@ form {
   text-align: center;
 }
 
-.divEndPost{
+.div-bottom-post {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -372,7 +378,7 @@ form {
   margin-top: 1rem;
 }
 
-.divReaction{
+.div-reaction {
   background-color: #301B3F;
   border-radius: 10px;
   width: 4rem;
@@ -380,7 +386,7 @@ form {
   justify-content: center;
 }
 
-.divDeleEdit{
+.div-delete-edit {
   display: flex;
   justify-content: space-around;
   width: 80px;
@@ -394,8 +400,8 @@ form {
 }
 
 .img-endPost{
-  width: 25px;
-  height: auto;
+  width: 20px;
+  height: 20px;
 }
 
 /*NAVBAR*/
@@ -422,8 +428,8 @@ form {
 }
 
 .sidenav {
-  height: 100%;
-  width: 40%;
+  height: 115vh;
+  width: 50vw;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -432,14 +438,13 @@ form {
   padding-top: 5rem;
   transition: 0.5s;
   display: none;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .sidenav .gg-close-o {
-  display: flex;
-  align-self: flex-start;
-  margin-bottom: 10%;
-  margin-left: -4%;
+  position: absolute;
+  top: 15vh;
+  margin-top: 50px;
   color: #B4A5A5;
   cursor: pointer;
 }
@@ -462,7 +467,7 @@ form {
   display: flex;
   flex-direction: column;
   margin-left: 8px;
-  margin-top: 10rem;
+  margin-top: 14rem;
 }
 
 .icon-navbar {
@@ -471,31 +476,26 @@ form {
   padding: 5px;
 }
 
-.sign-out-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 28rem;
-  cursor: pointer;
-}
-
-.sign-out-icon {
-  width: 35px;
-}
-
-.sign-out-button {
-  width: auto;
-  font-size: 0.8rem;
+.icon-navbar-sign-out {
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  margin-left: 3px;
 }
 
 .div-profile,
 .div-home,
 .user-posts,
-.div-new-posts {
+.div-new-posts,
+.sign-out-div {
   display: flex;
   justify-content:start;
   flex-direction: row;
-  padding: 5px;
+  padding: 8px;
+}
+
+.sign-out-div {
+  margin-top: 30px;
 }
 
 /* PERFIL */
@@ -512,7 +512,7 @@ form {
   height: 700px;
 }
 
-.divInfoUser{
+.div-info-user{
   display: flex;
   align-items: center;
   flex-direction: column;
