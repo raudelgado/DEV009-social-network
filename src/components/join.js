@@ -83,7 +83,6 @@ function join(navigateTo) {
         modalMessage.textContent = 'Ya existe una cuenta para ese correo electrónico o el correo es inválido.';
       });
   });
-
   close.addEventListener('click', () => {
     modal.style.display = 'none';
     navigateTo('/login');

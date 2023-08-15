@@ -10,13 +10,11 @@ describe('función Join', () => {
   beforeEach(() => {
     createAccount.mockClear();
   });
-
   test('Al hacer click tiene que ir a la pagina /login', () => {
     const btnReturn = joinElement.querySelector('.button-return');
     btnReturn.click();
     expect(navigateToMock).toHaveBeenCalledWith('/');
   });
-
   const joinForm = joinElement.querySelector('form');
   const emailInput = joinElement.querySelector('.input-login-join-email');
   const passwordInput = joinElement.querySelector('.input-login-join-password');
@@ -31,7 +29,6 @@ describe('función Join', () => {
     expect(createAccount).toHaveBeenCalledWith('test@example.com', '123456');
     expect(modalMessage.textContent).toBe('Ingrese a tu correo para verificar tu cuenta.');
   });
-
   test('Debe mostrar mensaje de error en caso de fallo de creación de cuenta', async () => {
     createAccount.mockRejectedValue();
     joinForm.submit();

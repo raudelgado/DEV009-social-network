@@ -158,7 +158,7 @@ function timeline(navigateTo) {
   });
 
   divProfile.addEventListener('click', () => {
-    navigateTo('/perfil');
+    navigateTo('/profile');
   });
 
   return main;
