@@ -140,7 +140,7 @@ export async function displayUserPosts(user) {
       reaction.className = 'num-reaction';
 
       const reactionImg = document.createElement('img');
-      reactionImg.src = 'components/images/fantasma.png';
+      reactionImg.src = 'components/images/calavera.png';
       reactionImg.className = 'img-endPost';
 
       const divDeleEdit = document.createElement('div');
@@ -198,6 +198,10 @@ export async function displayUserPosts(user) {
           postsSection.innerHTML = '';
           await displayUserPosts(user);
         });
+        const cancelEdit = document.querySelector('cancel-edit');
+        cancelEdit.addEventListener('click', () => {
+          editBox.style.display = 'none';
+        });
       });
 
       divReaction.append(reaction, reactionImg);
@@ -245,7 +249,7 @@ export async function displayAllPosts() {
       reaction.className = 'num-reaction';
 
       const reactionImg = document.createElement('img');
-      reactionImg.src = 'components/images/fantasma.png';
+      reactionImg.src = 'components/images/calavera.png';
       reactionImg.className = 'img-endPost';
 
       divReaction.append(reaction, reactionImg);
