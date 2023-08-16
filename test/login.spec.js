@@ -89,3 +89,5 @@ describe('función Login', () => {
     }, 100);
   });
 });
+
+// Agregar más tests
