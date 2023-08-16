@@ -31,7 +31,7 @@ function join(navigateTo) {
   passwordInput.setAttribute('required', '');
 
   const buttonEnd = document.createElement('div');
-  buttonEnd.className = 'buttonEnd';
+  buttonEnd.className = 'button-end';
 
   const btnEnter = document.createElement('button');
   btnEnter.className = 'button-login';

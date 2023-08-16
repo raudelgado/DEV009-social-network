@@ -118,7 +118,7 @@ form {
   cursor: pointer;
 }
 
-.buttonEnd {
+.button-end {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -264,12 +264,12 @@ form {
   border-radius: 20px;
   position: absolute;
   top: 10%;
-  margin: 0px 20px;
+  right: 5%;
+  left: 5%;
 }
 
 .main-section-user-posts {
   background: none;
-  margin: 0 20px;
 }
 
 .main-section p {
@@ -412,7 +412,6 @@ form {
   z-index: 1;
   left: 0;
   background-color: #1B1021;
-  overflow-x: hidden;
   padding-top: 5rem;
   transition: 0.5s;
   display: none;
