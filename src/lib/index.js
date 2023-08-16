@@ -273,10 +273,10 @@ export async function displayAllPosts() {
       content.className = 'content';
 
       const divEndPost = document.createElement('div');
-      divEndPost.className = 'divEndPost';
+      divEndPost.className = 'div-bottom-post';
 
       const divReaction = document.createElement('div');
-      divReaction.className = 'divReaction';
+      divReaction.className = 'div-reaction';
 
       const reaction = document.createElement('button');
       reaction.className = 'reaction-button';

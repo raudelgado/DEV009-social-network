@@ -490,7 +490,7 @@ form {
   height: 700px;
 }
 
-.div-info-user{
+.div-info-user {
   display: flex;
   align-items: center;
   flex-direction: column;
