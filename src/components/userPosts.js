@@ -114,10 +114,10 @@ function postsByCurrentUser(navigateTo) {
   modalTitle.className = 'modal-title';
 
   const modalMessage = document.createElement('p');
-  modalMessage.textContent = '¿Quieres borrar ese post?';
+  modalMessage.textContent = '¿Quieres borrar este post?';
 
-  const modalForm = document.createElement('form');
-  modalForm.className = 'modal-form';
+  const cancelOkButton = document.createElement('div');
+  cancelOkButton.className = 'cancel-ok-button';
 
   const confirmButton = document.createElement('button');
   confirmButton.textContent = 'Borrar';
@@ -128,7 +128,8 @@ function postsByCurrentUser(navigateTo) {
   cancelButton.textContent = 'No';
   cancelButton.className = 'modal-btn-cancel';
 
-  modalContent.append(modalTitle, modalMessage, cancelButton, confirmButton);
+  cancelOkButton.append(confirmButton, cancelButton);
+  modalContent.append(modalTitle, modalMessage, cancelOkButton);
   modal.append(modalContent);
 
   // Modal para editar post
@@ -147,15 +148,19 @@ function postsByCurrentUser(navigateTo) {
   const editText = document.createElement('textarea');
   editText.className = 'edit-text';
 
+  const divButtomsModal = document.createElement('div');
+  divButtomsModal.className = "buttoms-modal-edit"
+
   const confirmEdit = document.createElement('button');
-  confirmEdit.textContent = 'Editar';
+  confirmEdit.textContent = 'Guardar';
   confirmEdit.className = 'confirm-edit';
 
   const cancelEdit = document.createElement('button');
   cancelEdit.textContent = 'Cancelar';
   cancelEdit.className = 'cancel-edit';
 
-  editForm.append(editTitle, editText, cancelEdit, confirmEdit);
+  divButtomsModal.append(confirmEdit, cancelEdit);
+  editForm.append(editTitle, editText, divButtomsModal);
   editBoxContent.append(editForm);
   editBox.append(editBoxContent);
 

@@ -26,7 +26,7 @@ function login(navigateTo) {
   passwordInput.setAttribute('required', '');
 
   const buttonEnd = document.createElement('div');
-  buttonEnd.className = 'buttonEnd';
+  buttonEnd.className = 'button-end';
 
   const btnEnter = document.createElement('button');
   btnEnter.className = 'button-login';
@@ -52,6 +52,9 @@ function login(navigateTo) {
   const modalContent = document.createElement('div');
   modalContent.className = 'modal-content';
 
+  const modalTitleX = document.createElement('div');
+  modalTitleX.className = 'modal-Title-X'
+
   const modalTitle = document.createElement('h4');
   modalTitle.textContent = 'SpookyVerse';
   modalTitle.className = 'modal-title';
@@ -76,7 +79,8 @@ function login(navigateTo) {
   modalBtn.className = 'modal-btn';
 
   modal.append(modalContent);
-  modalContent.append(modalTitle, close, modalMessage, modalForm);
+  modalTitleX.append(modalTitle, close)
+  modalContent.append(modalTitleX, modalMessage, modalForm);
   modalForm.append(modalInput, modalBtn);
 
   buttonEnd.append(btnReturn, btnEnter);
