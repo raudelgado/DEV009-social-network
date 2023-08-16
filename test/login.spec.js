@@ -70,7 +70,7 @@ describe('función Login', () => {
     expect(modal.style.display).toBe('none');
   });
 
-  test('deberia', async () => {
+  test('deberia enviar un email para verificar el email', async () => {
     modalForm.submit();
     await Promise.resolve();
     setTimeout(() => {
