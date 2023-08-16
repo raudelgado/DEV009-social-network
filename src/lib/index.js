@@ -236,7 +236,7 @@ export async function displayUserPosts(user) {
       });
     }
   } catch (e) {
-    console.error('Error fetching documents: ', e);
+    console.error('Error al actualizar: ', e);
   }
 }
 
@@ -307,7 +307,7 @@ export async function displayAllPosts() {
           });
           reaction.textContent = `${newLikesCount} 💀`;
         } catch (error) {
-          console.error('Error updating likes:', error);
+          console.error('Error al actualizar:', error);
         }
       });
 
@@ -318,6 +318,6 @@ export async function displayAllPosts() {
       postsSection.appendChild(postDiv);
     });
   } catch (e) {
-    console.error('Error fetching documents: ', e);
+    console.error('Error al actualizar: ', e);
   }
 }
