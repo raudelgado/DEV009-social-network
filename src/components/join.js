@@ -28,7 +28,32 @@ function join(navigateTo) {
   passwordInput.className = 'input-login-join-password';
   passwordInput.setAttribute('type', 'password');
   passwordInput.setAttribute('placeholder', 'Crea tu contraseña');
+  passwordInput.setAttribute('minlength', '8');
   passwordInput.setAttribute('required', '');
+
+  const showPassword = document.createElement('div');
+  showPassword.className = 'show-password';
+
+  const showPasswordText = document.createElement('label');
+  showPasswordText.className = 'show-password-text';
+  showPasswordText.setAttribute('for', 'password-checkbox');
+  showPasswordText.textContent = 'Mostrar contraseña';
+
+  const showPasswordCheckbox = document.createElement('input');
+  showPasswordCheckbox.className = 'show-password-checkbox';
+  showPasswordCheckbox.setAttribute('type', 'checkbox');
+  showPasswordCheckbox.setAttribute('name', 'password-checkbox');
+
+  showPasswordCheckbox.addEventListener('click', () => {
+    const x = document.querySelector('.input-login-join-password');
+    if (x.type === 'password') {
+      x.type = 'text';
+    } else {
+      x.type = 'password';
+    }
+  });
+
+  showPassword.append(showPasswordCheckbox, showPasswordText);
 
   const buttonEnd = document.createElement('div');
   buttonEnd.className = 'button-end';
@@ -66,7 +91,7 @@ function join(navigateTo) {
   modalContent.append(modalTitle, close, modalMessage);
 
   buttonEnd.append(btnReturn, btnEnter);
-  joinForm.append(userName, emailInput, passwordInput, buttonEnd);
+  joinForm.append(userName, emailInput, passwordInput, showPassword, buttonEnd);
   main.append(title, logoLogin, joinForm, modal);
 
   joinForm.addEventListener('submit', (e) => {
