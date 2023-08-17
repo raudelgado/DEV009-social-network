@@ -18,7 +18,7 @@ main {
   text-align: center;
   border-radius: 20px;
   font-family: 'Glegoo', serif;
-  height: 700px;
+  height: 750px;
 }
 
 h1 {
@@ -178,17 +178,23 @@ form {
   margin-top: 15px;
 }
 
+.modalTitleX{
+  display: flex;
+  justify-content: space-around;
+  width: 20rem;
+}
+
 .modal-title {
   font-size: 25px;
   font-weight: bolder;
   font-family: 'Satisfy', cursive;
   margin-bottom: 0;
   margin-top: 0;
-  margin-left: 35px;
+  margin-left: 0;
   text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.modal-input, .edit-title, .edit-text {
+.modal-input, .edit-text {
   font-family: 'Glegoo', serif;
   width: 250px;
   height: 30px;
@@ -201,12 +207,43 @@ form {
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.edit-text, .edit-title {
-  resize: none;
-  border-radius: 10px;
+.edit-title{
+  font-family: 'Glegoo', serif;
+  width: 18rem;
+  height: 25px;
+  background-color: #301B3F;
+  color: #B4A5A5;
+  border-radius: 20px;
+  padding: 3px;
+  border: 2px solid transparent;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   margin: 10px;
 }
 
+.edit-text{
+  font-family: 'Glegoo', serif;
+  width: 17rem;
+  height: 30rem;
+  padding: 0.8rem;
+  background-color:#DAC7C7;
+  color: #301B3F;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 10px;
+}
+
+.buttoms-modal-edit{
+  display: flex;
+  width: 20rem;
+  justify-content: space-around;
+}
 .modal-btn,
 .btn-post,
 .modal-btn-ok,
@@ -228,18 +265,20 @@ form {
 .gg-close-o {
   box-sizing: border-box;
   position: absolute;
-  left: 70%;
-  bottom: 87%;
-  width: 22px;
-  height: 22px;
-  border: 2px solid;
-  border-radius: 40px
+  left: 85%;
+  bottom: 51rem;
 }
 
 .gg-close-o:hover {
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.cancel-ok-button{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 20rem;
+}
 /*TIMELINE*/
 
 .timeline-title {
@@ -368,6 +407,9 @@ form {
   border-radius: 10px;
   padding: 3%;
   text-align: center;
+  font-size: small;
+  font-weight: bold;
+  color:#301B3F;
 }
 
 .div-bottom-post {
@@ -442,8 +484,7 @@ form {
 
 .sidenav .gg-close-o {
   position: absolute;
-  top: 15vh;
-  margin-top: 50px;
+  margin-bottom: 150px;
   color: #B4A5A5;
   cursor: pointer;
 }
