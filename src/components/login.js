@@ -23,7 +23,31 @@ function login(navigateTo) {
   passwordInput.className = 'input-login-password';
   passwordInput.setAttribute('type', 'password');
   passwordInput.setAttribute('placeholder', 'Contraseña');
+  passwordInput.setAttribute('minlength', '8');
   passwordInput.setAttribute('required', '');
+
+  const showPassword = document.createElement('div');
+  showPassword.className = 'show-password';
+
+  const showPasswordText = document.createElement('label');
+  showPasswordText.className = 'show-password-text';
+  showPasswordText.setAttribute('for', 'password-checkbox');
+  showPasswordText.textContent = 'Mostrar contraseña';
+
+  const showPasswordCheckbox = document.createElement('input');
+  showPasswordCheckbox.setAttribute('type', 'checkbox');
+  showPasswordCheckbox.setAttribute('name', 'password-checkbox');
+
+  showPasswordCheckbox.addEventListener('click', () => {
+    const x = document.querySelector('.input-login-password');
+    if (x.type === 'password') {
+      x.type = 'text';
+    } else {
+      x.type = 'password';
+    }
+  });
+
+  showPassword.append(showPasswordCheckbox, showPasswordText);
 
   const buttonEnd = document.createElement('div');
   buttonEnd.className = 'button-end';
@@ -53,7 +77,7 @@ function login(navigateTo) {
   modalContent.className = 'modal-content';
 
   const modalTitleX = document.createElement('div');
-  modalTitleX.className = 'modal-Title-X'
+  modalTitleX.className = 'modal-title-x';
 
   const modalTitle = document.createElement('h4');
   modalTitle.textContent = 'SpookyVerse';
@@ -79,12 +103,12 @@ function login(navigateTo) {
   modalBtn.className = 'modal-btn';
 
   modal.append(modalContent);
-  modalTitleX.append(modalTitle, close)
+  modalTitleX.append(modalTitle, close);
   modalContent.append(modalTitleX, modalMessage, modalForm);
   modalForm.append(modalInput, modalBtn);
 
   buttonEnd.append(btnReturn, btnEnter);
-  loginForm.append(emailInput, passwordInput, buttonEnd);
+  loginForm.append(emailInput, passwordInput, showPassword, buttonEnd);
   main.append(title, logologin, loginForm, forgotPassword, modal);
 
   loginForm.addEventListener('submit', (e) => {

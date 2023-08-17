@@ -128,7 +128,7 @@ function postsByCurrentUser(navigateTo) {
   cancelButton.textContent = 'No';
   cancelButton.className = 'modal-btn-cancel';
 
-  cancelOkButton.append(confirmButton, cancelButton);
+  cancelOkButton.append(cancelButton, confirmButton);
   modalContent.append(modalTitle, modalMessage, cancelOkButton);
   modal.append(modalContent);
 
@@ -149,7 +149,7 @@ function postsByCurrentUser(navigateTo) {
   editText.className = 'edit-text';
 
   const divButtomsModal = document.createElement('div');
-  divButtomsModal.className = "buttoms-modal-edit"
+  divButtomsModal.className = 'buttons-modal-edit';
 
   const confirmEdit = document.createElement('button');
   confirmEdit.textContent = 'Guardar';
@@ -159,7 +159,7 @@ function postsByCurrentUser(navigateTo) {
   cancelEdit.textContent = 'Cancelar';
   cancelEdit.className = 'cancel-edit';
 
-  divButtomsModal.append(confirmEdit, cancelEdit);
+  divButtomsModal.append(cancelEdit, confirmEdit);
   editForm.append(editTitle, editText, divButtomsModal);
   editBoxContent.append(editForm);
   editBox.append(editBoxContent);
