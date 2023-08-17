@@ -109,6 +109,7 @@ form {
 .show-password {
   color: #301B3F;
   margin-top: 5px;
+  font-weight: bolder;
 }
 
 .show-password input {
@@ -621,4 +622,248 @@ form {
   font-weight: lighter;
   color: #301B3F;
   width: 15rem;
+}
+
+@media (min-width: 1025px){
+  /*HOME*/
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 780px;
+  width: 50%;
+  margin-left: 25%;
+}
+
+h1 {
+  font-size: 85px;
+}
+
+#slogan-home {
+  font-size: 1.5rem;
+}
+
+.btn-home-login,
+.btn-home-join,
+.btn-home-google {
+  width: 22rem;
+  font-size: 1.2rem;
+}
+
+/*LOGIN - JOIN*/
+h3 {
+  display: grid;
+  font-size: 45px;
+  font-weight: bold;
+  line-height: 1.5;
+  width: 30rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+
+.input-login-join-name,
+.input-login-join-email,
+.input-login-join-password,
+.input-login-email,
+.input-login-password {
+  width: 350px;
+}
+
+.button-login,
+.button-return,
+.btn-post {
+  margin-top: 35px;
+}
+
+/*MODAL*/
+.modal-content, .edit-box-content {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 35rem;
+}
+
+.modal-content p {
+  font-size: 0.95rem;
+}
+
+.modal-input, .edit-text {
+  width: 30rem;
+  font-size: 0.9rem;
+}
+
+.modal-title {
+  font-size: 32 px;
+}
+
+.gg-close-o {
+  bottom: 53rem;
+  left: 68rem;
+}
+
+/*TIMELINE*/
+.timeline-title {
+  font-size: 2rem;
+  width:70%;
+  display: flex;
+  justify-content: start;
+  position: fixed;
+}
+
+.open {
+  display: none;
+}
+
+.main-section, .main-section-user-posts {
+  width: 50%;
+  height: 29%;
+  margin-left: 22%;
+}
+
+.main-section p {
+  font-size: 1rem;
+}
+
+.post-title,
+.post-body {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.post-body {
+  height: 30%;
+  resize: none;
+}
+
+.btn-post {
+  margin-top: 15px;
+  position: relative;
+  left: calc(40% - 20px);
+  width: 5rem;
+  height: 2rem;
+  font-weight: bolder;
+  font-size: small;
+  margin-left: 2rem;
+}
+
+/*All Posts*/
+.div-user-info {
+  justify-content: space-between;
+}
+
+.user-post-photo {
+  width: 15%;
+  height: 15%;
+  margin-bottom: 1rem;
+}
+
+.author {
+  font-size: 1.9rem;
+  margin-bottom: 0;
+}
+
+.title-post {
+  font-size: 1.1rem;
+  width: 100%; 
+  height: 2rem;
+  padding-top: 0.2rem;
+}
+
+.div-reaction {
+  width: 5rem;
+  height: 2rem;
+}
+
+.reaction-button {
+  font-size: large;
+}
+
+.img-endPost{
+  width: 25px;
+  height: 25px;
+}
+
+/*NAVBAR*/
+.sidenav {
+  height: 30rem;
+  width: 20%;
+  top: 6rem;
+  left: 3rem;
+  border-radius: 15px;
+  background-color:#1B1021;
+  display: block;
+  padding-top: 1rem;
+}
+
+.sidenav .gg-close-o {
+ display: none;
+}
+
+.buttons-nav, .sign-out-button {
+  font-family: 'Glegoo', serif;
+  background: none;
+  border: none;
+  color: #B4A5A5;
+  font-size: 1.2rem;
+  font-weight:lighter;
+}
+
+.nav-links {
+  display: flex;
+  background-color: none;
+  flex-direction: column;
+  height: 90%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  border-radius: 20px;
+  padding-top: -10rem;
+}
+
+.icon-navbar {
+  width: 35px;
+  padding: 5px;
+  height: 35px;
+}
+
+.icon-navbar-sign-out {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  margin-left: 3px;
+}
+
+.sign-out-div {
+  margin-top: 200px;
+}
+
+/* PERFIL */
+.main-perfil{
+  width: 50%;
+  height: 29%;
+  margin-left: 25%
+}
+
+.div-info-user {
+  width: 25rem;
+  margin-top: 3rem;
+}
+
+.name-user, .mail-user{
+  width: 25rem;
+  font-size: 1rem;
+}
+
+.photo-user{
+  margin-bottom: 2rem;
+}
+
+.text-input{
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 25rem;
+}
+
 }
