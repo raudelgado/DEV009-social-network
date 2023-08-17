@@ -111,6 +111,22 @@ form {
   margin-top: 5px;
 }
 
+.show-password input {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #301B3F;
+  transition: 0.2s all linear;
+  position: relative;
+  top: 5px;
+  left: -5px;
+}
+
+.show-password input:checked {
+  border: 8px solid #301B3F;
+
+}
+
 .forgot-password {
   margin-top: 15px;
   font-size: 18px;
@@ -453,28 +469,6 @@ form {
 }
 
 /*NAVBAR*/
-
-.nav-links {
-  display: flex;
-  flex-direction: column;
-  margin-top: 40px;
-  font-family: 'Glegoo', serif;
-  border-radius: 10px;
-  padding: 3px;
-  border: none;
-  font-size: 0.8rem;
-  text-align: center;
-  /*margin-top: 10px;*/
-  margin-left: 8px;
-}
-
-.nav-links a {
-  display: flex;
-  flex-direction: row;
-  font-size: medium;
-  padding: 5px;
-}
-
 .sidenav {
   height: 115vh;
   width: 50vw;
@@ -488,17 +482,18 @@ form {
   justify-content: space-evenly;
 }
 
+.nav-links a {
+  display: flex;
+  flex-direction: row;
+  font-size: medium;
+  padding: 5px;
+}
+
 .sidenav .gg-close-o {
   position: absolute;
   margin-bottom: 150px;
   color: #B4A5A5;
   cursor: pointer;
-}
-
-.buttons-nav:hover,
-.sidenav .gg-close-o:hover,
-.sign-out-button:hover {
-  color: #f1f1f1;
 }
 
 .buttons-nav, .sign-out-button {
@@ -507,6 +502,12 @@ form {
   border: none;
   color: #B4A5A5;
   font-size: 1rem;
+}
+
+.buttons-nav:hover,
+.sidenav .gg-close-o:hover,
+.sign-out-button:hover {
+  color: #f1f1f1;
 }
 
 .nav-links {

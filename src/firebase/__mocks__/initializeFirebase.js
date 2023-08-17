@@ -5,6 +5,7 @@ export const sendEmailVerification = jest.fn(() => Promise.resolve({}));
 export const signInWithEmailAndPassword = jest.fn(() => Promise.resolve({}));
 export const signOut = jest.fn(() => Promise.resolve({}));
 export const sendPasswordResetEmail = jest.fn(() => Promise.resolve({}));
+export const updateProfile = jest.fn(() => Promise.resolve({}));
 export const signInWithPopup = jest.fn((_auth_, provider) => {
   const user = {
     uid: 'Example123',

@@ -40,6 +40,7 @@ function join(navigateTo) {
   showPasswordText.textContent = 'Mostrar contraseña';
 
   const showPasswordCheckbox = document.createElement('input');
+  showPasswordCheckbox.className = 'show-password-checkbox';
   showPasswordCheckbox.setAttribute('type', 'checkbox');
   showPasswordCheckbox.setAttribute('name', 'password-checkbox');
 

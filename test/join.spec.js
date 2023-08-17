@@ -18,21 +18,24 @@ describe('función Join', () => {
   const joinForm = joinElement.querySelector('form');
   const emailInput = joinElement.querySelector('.input-login-join-email');
   const passwordInput = joinElement.querySelector('.input-login-join-password');
+  const username = joinElement.querySelector('.input-login-join-name');
   const modalMessage = joinElement.querySelector('p');
 
   emailInput.value = 'test@example.com';
   passwordInput.value = '123456';
+  username.value = 'Username';
 
   test('Deberia llamar la función createAccount con dos parametros', async () => {
     createAccount.mockResolvedValue();
     joinForm.submit();
-    expect(createAccount).toHaveBeenCalledWith('test@example.com', '123456');
+    expect(createAccount).toHaveBeenCalledWith('test@example.com', '123456', 'Username');
     expect(modalMessage.textContent).toBe('Ingrese a tu correo para verificar tu cuenta.');
   });
+
   test('Debe mostrar mensaje de error en caso de fallo de creación de cuenta', async () => {
     createAccount.mockRejectedValue();
     joinForm.submit();
-    expect(createAccount).toHaveBeenCalledWith('test@example.com', '123456');
+    expect(createAccount).toHaveBeenCalledWith('test@example.com', '123456', 'Username');
     await new Promise((reject) => {
       setTimeout(() => reject(), 0);
     });

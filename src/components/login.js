@@ -30,7 +30,6 @@ function login(navigateTo) {
   showPassword.className = 'show-password';
 
   const showPasswordText = document.createElement('label');
-  showPasswordText.className = 'show-password-text';
   showPasswordText.setAttribute('for', 'password-checkbox');
   showPasswordText.textContent = 'Mostrar contraseña';
 
