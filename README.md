@@ -37,6 +37,9 @@ Utilizamos la fuente 'Satisfy' para nuestra marca, y utilizamos 'Gleego' como fu
 
 ![prototipo-baja](/src/components/images/readme/prototipo-baja.png)
 
+**Testeo de usabilidad**
+Hicimos una encuesta con algunos usuarios y ellos llevaron a cabo pruebas en los prototipos de alta fidelidad. Las opiniones sobre el diseño fueron mayoritariamente favorables, aunque hubo algunos comentarios acerca del tamaño excesivo de los botones. En respuesta a esta retroalimentación, realizamos ajustes para optimizar la experiencia. Los prototipos que se muestran a continuación reflejan las mejoras incorporadas a raíz de los aportes proporcionados por nuestros usuarios.
+
 ### Alta Fidelidad Mobile
 
 ![alta-mobile](/src/components/images/readme/alta-mobile.png)
