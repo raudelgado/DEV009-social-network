@@ -1,5 +1,7 @@
 # SpookyVerse
 
+![spookyverse](/src/components/images/readme/spooky-logo.png)
+
 ## Índice
 
 * [1. Definición de producto](#1-definición-de-producto)
@@ -17,35 +19,35 @@ SpookyVerse es una plataforma creativa diseñada para entusiastas de las histori
 
 * **Paleta de colores**
 
-![paleta-de-colores](/src/components/images/paleta-de-colores.png)
+![paleta-de-colores](/src/components/images/readme/paleta-de-colores.png)
 
 * **Logo y Tipografia**
 
-![spooky-verse](/src/components/images/SpookyVerse-logo.PNG)
+![tipografia](/src/components/images/readme/tipografia.png)
 
 Utilizamos la fuente 'Satisfy' para nuestra marca, y utilizamos 'Gleego' como fuente principal de nuestro sitio web.
 
 ## 2. Historias de usuario
 
-![historias-de-usuario](src/components/images/historias-de-usuario.PNG)
+![historias-de-usuario](/src/components/images/readme/historias-de-usuario.PNG)
 
 ## 3. Prototipos
 
 ### Baja Fidelidad Mobile
 
-![prototipo-baja](src/components/images/prototipo-baja.png)
+![prototipo-baja](/src/components/images/readme/prototipo-baja.png)
 
 ### Alta Fidelidad Mobile
 
-![alta-mobile](/src/components/images/alta-mobile.png)
-![alta-mobile-2](/src/components/images/alta-mobile-2.png)
+![alta-mobile](/src/components/images/readme/alta-mobile.png)
+![alta-mobile-2](/src/components/images/readme/alta-mobile-2.png)
 
 El prototipo de alta fidelidad mobile fue realizado en Figma y puede ser visualizado [aqui](https://www.figma.com/proto/6OQ7sGueUinMK5Hltycvg2/SpookyVerse?type=design&node-id=12-97&t=C3YBwwzevOZznih3-0&scaling=scale-down&page-id=0%3A1&starting-point-node-id=12%3A97&show-proto-sidebar=1).
 
 ### Alta Fidelidad Desktop
 
-![alta-desktop](/src/components/images/alta-desktop.png)
-![alta-desktop-2](/src/components/images/alta-desktop-2.png)
+![alta-desktop](/src/components/images/readme/alta-desktop.png)
+![alta-desktop-2](/src/components/images/readme/alta-desktop-2.png)
 
 El prototipo de alta fidelidad desktop fue realizado en Figma y puede ser visualizado [aqui](https://www.figma.com/proto/6OQ7sGueUinMK5Hltycvg2/SpookyVerse?type=design&node-id=12-97&t=C3YBwwzevOZznih3-0&scaling=scale-down&page-id=0%3A1&starting-point-node-id=12%3A97&show-proto-sidebar=1).
 
@@ -53,7 +55,7 @@ El prototipo de alta fidelidad desktop fue realizado en Figma y puede ser visual
 
 La planificación integral de SpookyVerse se ha llevado a cabo de manera organizada y colaborativa utilizando GitHub Projects. Hemos estructurado nuestro flujo de trabajo mediante la creación de issues detallados para cada una de las historias de usuario identificadas. Cada issue representa una tarea específica que contribuye al desarrollo y mejora de la plataforma. Estos issues han sido agrupados en milestones, que representan hitos importantes en el progreso del proyecto.
 
-![github-projects](/src/components/images/github-projects.PNG)
+![github-projects](/src/components/images/readme/github-projects.PNG)
 
 [SpookyVerse - GitHub Projects](https://github.com/users/AndressaSRodrigues/projects/2/views/1)
 
