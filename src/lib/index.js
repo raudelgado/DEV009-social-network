@@ -25,9 +25,6 @@ import {
   doc,
   updateDoc,
 } from '../firebase/initializeFirebase.js';
-import logo from '../components/images/logo.png';
-import deleteIcon from '../components/images/delete.png';
-import editIcon from '../components/images/edit.png';
 
 export const createAccount = (email, password, username) => {
   return createUserWithEmailAndPassword(auth, email, password)
@@ -117,7 +114,7 @@ export async function displayUserPosts(user) {
 
         const photo = document.createElement('img');
         photo.className = 'user-post-photo';
-        photo.src = logo;
+        photo.src = 'components/images/logo.png';
 
         const author = document.createElement('h3');
         author.textContent = `${data.author}`;
@@ -175,7 +172,7 @@ export async function displayUserPosts(user) {
         const modal = document.querySelector('.modal');
 
         const deletePostImg = document.createElement('img');
-        deletePostImg.src = deleteIcon;
+        deletePostImg.src = 'components/images/delete.png';
         deletePostImg.className = 'img-endPost';
         deletePostImg.addEventListener('click', () => {
           modal.style.display = 'block';
@@ -194,7 +191,7 @@ export async function displayUserPosts(user) {
         });
 
         const editPostImg = document.createElement('img');
-        editPostImg.src = editIcon;
+        editPostImg.src = 'components/images/edit.png';
         editPostImg.className = 'img-endPost';
         editPostImg.addEventListener('click', () => {
           const editBox = document.querySelector('.edit-box');
@@ -261,7 +258,7 @@ export async function displayAllPosts() {
 
       const photo = document.createElement('img');
       photo.className = 'user-post-photo';
-      photo.src = logo;
+      photo.src = 'components/images/logo.png';
 
       const author = document.createElement('h3');
       author.textContent = `${data.author}`;
